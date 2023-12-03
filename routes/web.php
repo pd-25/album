@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\dashboard\DashboardController;
 use App\Http\Controllers\admin\label\LabelController;
 use App\Http\Controllers\admin\user\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/run', function () {
+    // Run an Artisan command
+    Artisan::call('optimize:clear', [
+        // Command options and arguments go here
+    ]);
 
+    // Get the output of the command
+    $output = Artisan::output();
+
+    return "Command executed. Output: $output";
+});
 
 Route::get('admin/login', [AuthController::class, 'showLogin'])->name('admin.showlogin');
 Route::post('admin/login', [AuthController::class, 'login'])->name('admin.login');
