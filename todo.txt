@@ -1,0 +1,15 @@
+reff - https://next.kamirecords.co/#/content/music/albums/edit/album
+Email:- rslabel80@gmail.com
+Password:- Rohit@12345
+
+
+TO DO-
+1. create db for asset as reff
+2. when click on asset, listing will open with asset listing(show Image and name only), and add button
+3. Click on add new - 4 steps form will open as refference
+4. save the data
+
+
+
+DEMO user - teso@mail.com, pass- 12345678
+admin- admin@mail.com, pass- 12345

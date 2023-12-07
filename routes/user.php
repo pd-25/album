@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\user\artist\ArtistController;
+use App\Http\Controllers\user\asset\AssetController;
 use App\Http\Controllers\user\dashboard\DashboardController;
 use App\Http\Controllers\user\label\LabelController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware'=>'auth'],function(){
-    Route::get('/asset', [DashboardController::class, 'asset'])->name('asset');
+    Route::resource('/asset', AssetController::class);
 
     Route::get('/artist-dashboard', [DashboardController::class, 'artistDashboard'])->name('artistDashboard');
     Route::get('/editProfile', [ArtistController::class, 'editProfile'])->name('editProfile');
