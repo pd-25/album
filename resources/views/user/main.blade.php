@@ -28,6 +28,8 @@
     <link href="{{ asset('admin-asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -141,13 +143,22 @@
 
     <script src="{{ asset('admin-asset/js/lib/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin-asset/js/scripts.js') }}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <!-- bootstrap -->
     <script src="{{ asset('admin-asset/js/lib/data-table/datatables.min.js') }}"></script>
     <script src="{{ asset('admin-asset/js/lib/data-table/datatables-init.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+     <!-- JQUERY STEP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- scripit init-->
     {{-- <script src="{{ asset('admin-asset/js/dashboard2.js') }}"></script> --}}
     @yield('script')
+    <script>
+        $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+    </script>
     <script>
         $('.show_confirm').click(function(event) {
 

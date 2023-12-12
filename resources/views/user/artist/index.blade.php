@@ -66,7 +66,7 @@
                                         <td>
                                             {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
                                                 class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('asset') }}"><i
+                                            <a href="{{ route('artists.edit', encrypt($artist->id)) }}"><i
                                                 {{-- 'artists.edit', encrypt($artist->id) --}}
                                                     class="ti-pencil btn btn-sm btn-primary"></i></a>
                                             <form method="POST"

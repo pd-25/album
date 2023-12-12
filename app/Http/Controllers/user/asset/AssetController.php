@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\user\asset;
 
+use App\core\artist\ArtistInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
+    public $artistInterface;
+    public function __construct(ArtistInterface $artistInterface)
+    {
+        $this->artistInterface = $artistInterface;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +26,8 @@ class AssetController extends Controller
      */
     public function create()
     {
-       return view('user.relese.create');
+        $data['artists'] = $this->artistInterface->getAllArtist();
+       return view('user.relese.create', $data);
     }
 
     /**
