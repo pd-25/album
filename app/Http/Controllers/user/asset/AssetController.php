@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\user\asset;
 
 use App\core\artist\ArtistInterface;
+use App\core\label\LabelInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
-    public $artistInterface;
-    public function __construct(ArtistInterface $artistInterface)
+    public $artistInterface, $labelInterface;
+    public function __construct(ArtistInterface $artistInterface, LabelInterface $labelInterface)
     {
         $this->artistInterface = $artistInterface;
+        $this->labelInterface = $labelInterface;
+        
     }
     /**
      * Display a listing of the resource.
@@ -27,6 +30,7 @@ class AssetController extends Controller
     public function create()
     {
         $data['artists'] = $this->artistInterface->getAllArtist();
+        $data['labels'] = $this->labelInterface->getAllLabel();
        return view('user.relese.create', $data);
     }
 
@@ -35,7 +39,7 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

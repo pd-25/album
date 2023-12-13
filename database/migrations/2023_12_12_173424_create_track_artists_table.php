@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('track_artists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('asset_id')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('track_id')->nullable();
+            $table->unsignedBigInteger('track_artist_id')->nullable();
             $table->boolean('has_spotify')->nullable();
             $table->boolean('has_applemusic')->nullable();
+            $table->string('role')->nullable();
+            $table->string('share')->nullable();
+            $table->string('publishing')->nullable();
             $table->timestamps();
         });
     }

@@ -6,7 +6,8 @@
         <div class="col-lg-12">
 
             <div class="">
-                <form action="">
+                <form action="{{ route('asset.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                    @csrf
                     <div id="wizard">
                         <!-- SECTION 1 -->
                         <h4></h4>
@@ -15,7 +16,7 @@
                                 <div class="col-md-6">
                                     <div class="form-row">
                                         <h6><b>Cover image</b></h6>
-                                        <input type="file" class="form-control" name="cover_image" placeholder="Name"
+                                        <input required type="file" class="form-control" name="cover_image" placeholder="Name"
                                             id="imgInp">
                                         <img id="blah" src="#" alt="your image"
                                             style="height: 110px; width: 150px;" />
@@ -86,7 +87,7 @@
 
                                     <div class="form-row">
 
-                                        <input type="text" name="release_title" class="form-control"
+                                        <input required type="text" name="release_title" class="form-control"
                                             placeholder="name of your release">
                                     </div>
                                 </div>
@@ -95,7 +96,7 @@
 
                                     <div class="form-row">
 
-                                        <input type="text" name="title_version" class="form-control"
+                                        <input required type="text" name="title_version" class="form-control"
                                             placeholder="title version">
                                     </div>
                                 </div>
@@ -111,8 +112,8 @@
                                         </div>
 
                                         <div class="ml-5">
-                                            <input type="radio" name="is_various_artist" id="">Yes
-                                            <input type="radio" class="ml-2 p-2" name="is_various_artist"
+                                            <input required type="radio" name="is_various_artist" id="">Yes
+                                            <input required type="radio" class="ml-2 p-2" name="is_various_artist"
                                                 id="">No
                                         </div>
                                     </div>
@@ -140,15 +141,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClick(this);" name="has_spotify_asset"
+                                        <input required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
                                             value="1">Yes
-                                        <input type="radio" onclick="handleClick(this);" class="ml-2 p-2"
+                                        <input required type="radio" onclick="handleClick(this);" class="ml-2 p-2"
                                             name="has_spotify_asset" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="enterSP" class="d-none">
-                                        <input type="text" class="form-control" name="spotify_id_ass"
+                                        <input required type="text" class="form-control" name="spotify_id_ass"
                                             placeholder="enter spotify ID">
                                     </div>
                                 </div>
@@ -158,15 +159,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClickA(this);" name="has_applemusic_asset"
+                                        <input required type="radio" onclick="handleClickA(this);" name="has_applemusic_asset"
                                             value="1">Yes
-                                        <input type="radio" onclick="handleClickA(this);" class="ml-2 p-2"
+                                        <input required type="radio" onclick="handleClickA(this);" class="ml-2 p-2"
                                             name="has_applemusic_asset" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="enterAP" class="d-none">
-                                        <input type="text" class="form-control" name="apple_id_ass"
+                                        <input required type="text" class="form-control" name="apple_id_ass"
                                             placeholder="enter apple ID">
                                     </div>
                                 </div>
@@ -186,19 +187,19 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="genre_one" id="" class="form-control">
+                                    <select name="genre_one" id="" class="form-control js-example-basic-single">
                                         <option value="">select genre1</option>
                                         @foreach (config('country.genres') as $k => $g_one)
-                                            <option value="{{$g_one }}">{{$g_one }}</option>
+                                            <option value="{{ $g_one }}">{{ $g_one }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="genre_two" id="" class="form-control">
+                                    <select name="genre_two" id="" class="form-control js-example-basic-single">
                                         <option value="">select genre2</option>
                                         @foreach (config('country.genres') as $k => $g_two)
-                                            <option value="{{$g_two }}">{{$g_two }}</option>
+                                            <option value="{{ $g_two }}">{{ $g_two }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -211,37 +212,44 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="p_copy" class="form-control" placeholder="2008 AMC inc">
+                                    <input required type="text" name="p_copy" class="form-control"
+                                        placeholder="2008 AMC inc">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="c_copy" class="form-control" placeholder="2008 AMC inc">
+                                    <input required type="text" name="c_copy" class="form-control"
+                                        placeholder="2008 AMC inc">
                                 </div>
 
                                 <div class="col-md-6">
                                     <h6>Previously released?</h6>
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClickRD(this);" name="has_artist"
+                                        <input required type="radio" onclick="handleClickRD(this);" name="previously_release"
                                             value="1">Yes
-                                        <input type="radio" onclick="handleClickRD(this);" class="ml-2 p-2"
-                                            name="has_artist" value="0">No
+                                        <input required type="radio" onclick="handleClickRD(this);" class="ml-2 p-2"
+                                            name="previously_release" value="0">No
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="d-none" id="prelesr">
-                                        <input type="date" name="" class="form-control" id="">
+                                        <input required type="date" name="release_date" class="form-control" id="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <h6>Label name *</h6>
-                                    <input type="text" name="" class="form-control" id="">
+                                    <select name="label_id" class="form-control js-example-basic-single" id="">
+                                        @foreach ($labels as $label)
+                                            <option value="{{ $label->id }}">{{ $label->official_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="col-md-6">
                                     <h6>Internal release ID *</h6>
-                                    <input type="text" name="" class="form-control" id="">
+                                    <input required type="text" name="internal_release_id" class="form-control"
+                                        id="">
                                 </div>
 
                                 <div class="col-md-6">
@@ -249,8 +257,8 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="number" name="" class="form-control" placeholder="xxxxxxxxx"
-                                        id="">
+                                    <input required type="number" name="upc_ean_jan" class="form-control"
+                                        placeholder="xxxxxxxxx" id="">
                                 </div>
 
 
@@ -262,7 +270,7 @@
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <h6><b>Audio file</b></h6>
-                                        <input type="file" class="form-control" name="image">
+                                        <input required type="file" class="form-control" name="audio" accept="audio/*">
 
                                     </div>
                                 </div>
@@ -270,10 +278,12 @@
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <h6><b>Language of lyrics</b></h6>
-                                        <select name="language" class="form-control" id="">
-                                            <option value="">ete</option>
-                                            <option value="">ete</option>
-                                            <option value="">ete</option>
+                                        <select name="language" id=""
+                                            class="form-control ">
+                                            <option value="">select language</option>
+                                            @foreach (config('country.languages') as $k => $lanT)
+                                                <option value="{{ $lanT }}">{{ $lanT }}</option>
+                                            @endforeach
                                         </select>
 
                                     </div>
@@ -293,23 +303,25 @@
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input type="text" name="titleTrack" class="form-control" id="">
+                                        <input required type="text" name="track_title" class="form-control" id="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input type="text" name="titleversion" class="form-control" id="">
+                                        <input required type="text" name="title_version" class="form-control" id="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <h6><b>Artist</b></h6>
-                                        <select name="language" class="form-control" id="">
-                                            <option value="">ete</option>
-                                            <option value="">ete</option>
-                                            <option value="">ete</option>
+                                        <select name="contritibutor[0]track_artist_id"
+                                            class="form-control" id="">
+                                            <option value="">select artist</option>
+                                            @foreach ($artists as $ass_artist)
+                                                <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
+                                            @endforeach
                                         </select>
 
                                     </div>
@@ -319,15 +331,16 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClickTrack(this);" name="has_artist"
-                                            value="1">Yes
-                                        <input type="radio" onclick="handleClickTrack(this);" class="ml-2 p-2"
-                                            name="has_artist" value="0">No
+                                        <input required type="radio" onclick="handleClickTrack(this);"
+                                            name="contritibutor[0]has_spotify" value="1">Yes
+                                        <input required type="radio" onclick="handleClickTrack(this);" class="ml-2 p-2"
+                                            name="contritibutor[0]has_spotify" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickTrack" class="d-none">
-                                        <input type="text" class="form-control" placeholder="enter spotify ID">
+                                        <input required type="text" class="form-control"
+                                            name="contritibutor[0]track_spotify_id" placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
@@ -336,15 +349,16 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClickATrack(this);" name="has_artist"
-                                            value="1">Yes
-                                        <input type="radio" onclick="handleClickATrack(this);" class="ml-2 p-2"
-                                            name="has_artist" value="0">No
+                                        <input required type="radio" onclick="handleClickATrack(this);"
+                                            name="contritibutor[0]has_applemusic" value="1">Yes
+                                        <input required type="radio" onclick="handleClickATrack(this);" class="ml-2 p-2"
+                                            name="contritibutor[0]has_applemusic" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickATrack" class="d-none">
-                                        <input type="text" class="form-control" placeholder="enter apple ID">
+                                        <input required type="text" class="form-control"
+                                            name="contritibutor[0]track_apple_id" placeholder="enter apple ID">
                                     </div>
                                 </div>
                                 <hr>
@@ -354,16 +368,16 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" onclick="handleClickISRC(this);" name="has_artist"
+                                        <input required type="radio" onclick="handleClickISRC(this);" name="has_isrc"
                                             value="1">Yes
-                                        <input type="radio" onclick="handleClickISRC(this);" class="ml-2 p-2"
-                                            name="has_artist" value="0">No
+                                        <input required type="radio" onclick="handleClickISRC(this);" class="ml-2 p-2"
+                                            name="has_isrc" value="0">No
                                         <span id="noIsrc" class="">(Ok, we will generate for you)</span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickISRC" class="d-none">
-                                        <input type="text" class="form-control" placeholder="ISRC">
+                                        <input required type="text" name="isrc_code" class="form-control" placeholder="ISRC">
                                     </div>
                                 </div>
 
@@ -372,22 +386,23 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="d-flex">
-                                        <input type="radio" name="has_artist" value="1">Yes
-                                        <input type="radio" class="ml-2 p-2" name="has_artist" value="0">No
+                                        <input required type="radio" name="explicit_lyrics" value="1">Yes
+                                        <input required type="radio" class="ml-2 p-2" name="explicit_lyrics" value="0">No
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>Teh track is: * </h6>
+                                    <h6>The track is: * </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="">
-                                        <input type="radio" onclick="trackIs(this);" name="has_artist"
+                                        <input required type="radio" onclick="trackIs(this);" name="original_public"
                                             value="1">An original song (publishing info will be required)
                                     </div>
                                     <div>
-                                        <input type="radio" onclick="trackIs(this);" class=" p-2" name="has_artist"
-                                            value="0">A public domain song (publishing info will be required)
+                                        <input required type="radio" onclick="trackIs(this);" class=" p-2"
+                                            name="original_public" value="0">A public domain song (publishing info
+                                        will be required)
                                     </div>
                                 </div>
 
@@ -425,20 +440,23 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
+                                    <select name="genre_one_track" id=""
+                                        class="form-control">
+                                        <option value="">select genre1</option>
+                                        @foreach (config('country.genres') as $k => $t_one)
+                                            <option value="{{ $t_one }}">{{ $t_one }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
+
+                                    <select name="genre_two_track" id=""
+                                        class="form-control">
+                                        <option value="">select genre2</option>
+                                        @foreach (config('country.genres') as $k => $t_two)
+                                            <option value="{{ $t_two }}">{{ $t_two }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -450,11 +468,13 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="2008 AMC inc">
+                                    <input required type="text" name="p_copy_t" class="form-control"
+                                        placeholder="2008 AMC inc">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="2008 AMC inc">
+                                    <input required type="text" name="c_copy_t" class="form-control"
+                                        placeholder="2008 AMC inc">
                                 </div>
 
                                 <div class="col-md-6">
@@ -466,16 +486,15 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="" id="" class="form-control">
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
-                                        <option value="">sdds</option>
+                                    <select name="track_label_id" class="form-control">
+                                        @foreach ($labels as $label_t)
+                                            <option value="{{ $label_t->id }}">{{ $label_t->official_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control">
+                                    <input required type="text" name="internal_track_id" class="form-control">
                                 </div>
 
                                 <div class="col-md-12">
@@ -486,7 +505,7 @@
                                 </div>
                             </div>
                             <div class="form-row" style="margin-bottom: 18px">
-                                <textarea name="" id="" class="form-control"
+                                <textarea name="lyrics" id="" class="form-control"
                                     placeholder="Any order note about delivery or special offer" style="height: 108px"></textarea>
                             </div>
 
@@ -499,33 +518,42 @@
 
                                 <div class="col-md-6">
                                     <h6>Contributor name *</h6>
-                                    <select name="user_id" class="form-control">
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
+                                    <select name="contritibutor[1]track_artist_id"
+                                        class="form-control" id="">
+                                        <option value="">select artist</option>
+                                        @foreach ($artists as $ass_artist)
+                                            <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col-md-4">
                                     <h6>Role *</h6>
-                                    <select name="role" class="form-control">
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
+                                    <select name="contritibutor[1]role" class="form-control">
+                                        <option value="Adaptor">Adaptor</option>
+                                        <option value="Arranger">Arranger</option>
+                                        <option value="Composer">Composer</option>
+                                        <option value="Composer&Lyricist">Composer&Lyricist</option>
+                                        <option value="Income Participant">Income Participant</option>
+                                        <option value="Lyricist">Lyricist</option>
+                                        <option value="Sub-Author">Sub-Author</option>
+                                        <option value="Translator">Translator</option>
+                                        <option value="Writer">Writer</option>
+
                                     </select>
                                 </div>
 
                                 <div class="col-md-2">
                                     <h6>Share *</h6>
-                                    <input type="text" name="role" class="form-control">
+                                    <input required type="number" name="contritibutor[1]share" class="form-control">
                                 </div>
 
                                 <div class="col-md-6">
                                     <h6>Publishing *</h6>
-                                    <select name="user_id" class="form-control">
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
-                                        <option value="">ds</option>
+                                    <select name="contritibutor[1]publishing" class="form-control">
+                                        <option value="Copyright control (self-published)">Copyright control (self-published)</option>
+                                        <option value="Public domain (no publisher)">Public domain (no publisher)</option>
+                                        <option value="Published (managed by a publisher)">Published (managed by a publisher)</option>
                                     </select>
                                 </div>
                             </div>
@@ -605,6 +633,12 @@
                 $('.checkbox-circle label').removeClass('active');
                 $(this).addClass('active');
             })
+
+             // Add event handler for the "Approve" button on the last step
+            $('.actions ul li:last-child a').on('click', function() {
+                // Submit the form when the "Approve" button is clicked
+                $("#yourFormId").submit();
+            });
         })
 
         function handleClick(result) {
