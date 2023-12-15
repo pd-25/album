@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('asset_id')->nullable();
             $table->string('audio')->nullable();
             $table->string('language_t')->nullable();
-            $table->string('track_title')->nullable();
+            $table->string('track_title_version')->nullable();
             $table->string('title_version')->nullable();
             $table->string('isrc_code')->nullable();
             $table->string('explicit_lyrics')->nullable();

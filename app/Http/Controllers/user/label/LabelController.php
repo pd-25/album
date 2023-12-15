@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers\user\label;
 
+use App\core\artist\ArtistInterface;
+use App\core\label\LabelInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
+    private $artistInterface, $labelInterface;
+
+    public function __construct(ArtistInterface $artistInterface, LabelInterface $labelInterface)
+    {
+        $this->artistInterface = $artistInterface;
+        $this->labelInterface = $labelInterface;
+        
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user.label.index');
+        $data['labels']= $this->labelInterface->userWiseLabel(auth()->id());
+        return view('user.label.index', $data);
     }
 
     /**

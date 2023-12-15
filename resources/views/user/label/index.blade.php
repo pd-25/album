@@ -22,67 +22,52 @@
                                 <tr>
                                     <th>SN.</th>
                                     <th>Label name</th>
-                                    {{-- <th>Username</th>
-                                    <th>Email</th> --}}
                                     <th> Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($labels as $label) --}}
+                                @foreach ($labels as $label)
                              
-                                    <tr>
-                                        <td>#</td>
-                                        <td>
-                                            {{ '$artist->name' }}
-                                            
-                                        {{-- </td>
-                                        <td>
-                                            {{ $artist->username }}
-                                            
-                                        </td>
-                                        <td>
-                                            {{ $artist->email }}
-                                            
-                                        </td> --}}
-                                        <td>
-                                            {{-- @if (!empty($artist->image) && File::exists(public_path('storage/ArtistImage/' . $artist->image))) --}}
-                                            {{-- <img style="height: 82px; width: 82px;" src="{{ asset('storage/ArtistImage/'.$artist->image) }}" alt=""> --}}
-                                                
-                                            {{-- @else --}}
-                                            <img style="height: 82px; width: 82px;" src="{{asset('noimg.png') }}" alt="">
-                                                
-                                            {{-- @endif --}}
-                                            
-                                            
-                                        </td>
+                                <tr>
+                                    <td>#</td>
+                                    <td>
+                                        {{ $label->official_name }}
                                         
-                                        {{-- <td><span id="status-btn{{ $artist->id }}">
-                                            <button class="btn btn-sm {{ $artist->status == 'Available' ? 'btn-success' : ($artist->status == 'Inactive' ? 'bg-danger' : 'bg-warning'); }}"  onclick="changeStatus('{{ $artist->id }}', {{ $artist->id}})" >
-                                                {{ $artist->status }}
+                                    </td>
+                                   
+                                    <td>
+                                        @if (!empty($label->image) && File::exists(public_path('storage/LabelImage/' . $label->image)))
+                                        <img style="height: 82px; width: 82px;" src="{{ asset('storage/LabelImage/'.$label->image) }}" alt="">
+                                            
+                                        @else
+                                        <img style="height: 82px; width: 82px;" src="{{asset('noimg.png') }}" alt="">
+                                            
+                                        @endif
+                                        
+                                        
+                                    </td>
+                                    
+                                    
+                                    <td>
+                                       
+                                        <a href="{{ route('labels.edit', encrypt($label->id)) }}"><i
+                                                class="ti-pencil btn btn-sm btn-primary"></i></a>
+                                        <form method="POST"
+                                            action="{{ route('labels.destroy', encrypt($label->id)) }}"
+                                            class="action-icon">
+                                            @csrf
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <button type="submit"
+                                                class="btn btn-sm btn-danger  delete-icon show_confirm"
+                                                data-toggle="tooltip" title='Delete'>
+                                                <i class="ti-trash"></i>
                                             </button>
-                                        </span>
-                                        </td> --}}
-                                        <td>
-                                            {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
-                                                class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('labels.edit', encrypt(1)) }}"><i
-                                                    class="ti-pencil btn btn-sm btn-primary"></i></a>
-                                            <form method="POST"
-                                                action="{{ route('labels.destroy', encrypt(2)) }}"
-                                                class="action-icon">
-                                                @csrf
-                                                <input name="_method" type="hidden" value="DELETE">
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-danger  delete-icon show_confirm"
-                                                    data-toggle="tooltip" title='Delete'>
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
+                                        </form>
+                                    </td>
 
-                                    </tr>
-                                {{-- @endforeach --}}
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

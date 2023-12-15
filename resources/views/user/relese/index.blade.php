@@ -1,18 +1,18 @@
 @extends('user.main')
-@section('title', env('APP_NAME').' | Artist-index'  )
+@section('title', env('APP_NAME').' | Asset-index'  )
 @section('content')
     <div class="row justify-content-center">
 
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-title pr">
-                    <h4>All Artists</h4>
+                    <h4>All Releases</h4>
                     @if (Session::has('msg'))
                         <p class="alert alert-info">{{ Session::get('msg') }}</p>
                     @endif
                 </div>
                 <div class="card-title text-right">
-                    <a href="{{ route('userArtists.create') }}" class="btn btn-sm btn-success">Add Artist</a>
+                    <a href="{{ route('asset.create') }}" class="btn btn-sm btn-success">Add Label</a>
 
                 </div>
                 <div class="card-body">
@@ -21,39 +21,30 @@
                             <thead>
                                 <tr>
                                     <th>SN.</th>
-                                    <th>Full name</th>
+                                    <th>Release Title</th>
                                     {{-- <th>Username</th>
                                     <th>Email</th> --}}
-                                    <th>Profile Image</th>
+                                    <th> Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($artists as $artist)
+                                {{-- @foreach ($labels as $label) --}}
                              
                                     <tr>
                                         <td>#</td>
                                         <td>
-                                            {{ $artist->name }}
+                                            {{ '$artist->name' }}
                                             
-                                        {{-- </td>
+                                        
                                         <td>
-                                            {{ $artist->username }}
-                                            
-                                        </td>
-                                        <td>
-                                            {{ $artist->email }}
-                                            
-                                        </td> --}}
-                                        <td>
-                                            {{-- {{ dd(asset('storage/ArtistImage/'.$artist->image)) }} --}}
-                                            @if (!empty($artist->image) && File::exists(public_path('storage/ArtistImage/' . $artist->image)))
-                                            <img style="height: 82px; width: 82px;" src="{{ asset('storage/ArtistImage/'.$artist->image) }}" alt="">
+                                            {{-- @if (!empty($artist->image) && File::exists(public_path('storage/ArtistImage/' . $artist->image))) --}}
+                                            {{-- <img style="height: 82px; width: 82px;" src="{{ asset('storage/ArtistImage/'.$artist->image) }}" alt=""> --}}
                                                 
-                                            @else
+                                            {{-- @else --}}
                                             <img style="height: 82px; width: 82px;" src="{{asset('noimg.png') }}" alt="">
                                                 
-                                            @endif
+                                            {{-- @endif --}}
                                             
                                             
                                         </td>
@@ -67,11 +58,10 @@
                                         <td>
                                             {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
                                                 class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('userArtists.edit', encrypt($artist->id)) }}"><i
-                                                {{-- 'artists.edit', encrypt($artist->id) --}}
+                                            <a href="{{ route('labels.edit', encrypt(1)) }}"><i
                                                     class="ti-pencil btn btn-sm btn-primary"></i></a>
                                             <form method="POST"
-                                                action="{{ route('userArtists.destroy', encrypt($artist->id)) }}"
+                                                action="{{ route('labels.destroy', encrypt(2)) }}"
                                                 class="action-icon">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
@@ -84,7 +74,7 @@
                                         </td>
 
                                     </tr>
-                                @endforeach
+                                {{-- @endforeach --}}
                             </tbody>
                         </table>
                     </div>

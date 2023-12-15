@@ -7,4 +7,5 @@ interface LabelInterface {
     public function getSingleLabel($id);
     public function updateLabel($labelData, $id, $genreData, $websiteData);
     public function deleteLabel($id);
+    public function userWiseLabel($id);
 }

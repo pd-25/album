@@ -278,7 +278,7 @@
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <h6><b>Language of lyrics</b></h6>
-                                        <select name="language" id=""
+                                        <select name="language_t623" id=""
                                             class="form-control ">
                                             <option value="">select language</option>
                                             @foreach (config('country.languages') as $k => $lanT)
@@ -309,14 +309,14 @@
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="title_version" class="form-control" id="">
+                                        <input required type="text" name="track_title_version" class="form-control" id="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <h6><b>Artist</b></h6>
-                                        <select name="contritibutor[0]track_artist_id"
+                                        <select name="contritibutor[0][track_artist_id]"
                                             class="form-control" id="">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
@@ -332,15 +332,15 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <input required type="radio" onclick="handleClickTrack(this);"
-                                            name="contritibutor[0]has_spotify" value="1">Yes
+                                            name="contritibutor[0][has_spotify]" value="1">Yes
                                         <input required type="radio" onclick="handleClickTrack(this);" class="ml-2 p-2"
-                                            name="contritibutor[0]has_spotify" value="0">No
+                                            name="contritibutor[0][has_spotify]" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickTrack" class="d-none">
                                         <input required type="text" class="form-control"
-                                            name="contritibutor[0]track_spotify_id" placeholder="enter spotify ID">
+                                            name="contritibutor[0][track_spotify_id]" placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
@@ -350,15 +350,15 @@
                                 <div class="col-md-6">
                                     <div class="d-flex">
                                         <input required type="radio" onclick="handleClickATrack(this);"
-                                            name="contritibutor[0]has_applemusic" value="1">Yes
+                                            name="contritibutor[0][has_applemusic]" value="1">Yes
                                         <input required type="radio" onclick="handleClickATrack(this);" class="ml-2 p-2"
-                                            name="contritibutor[0]has_applemusic" value="0">No
+                                            name="contritibutor[0][has_applemusic]" value="0">No
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickATrack" class="d-none">
                                         <input required type="text" class="form-control"
-                                            name="contritibutor[0]track_apple_id" placeholder="enter apple ID">
+                                            name="contritibutor[0][track_apple_id]" placeholder="enter apple ID">
                                     </div>
                                 </div>
                                 <hr>
@@ -518,7 +518,7 @@
 
                                 <div class="col-md-6">
                                     <h6>Contributor name *</h6>
-                                    <select name="contritibutor[1]track_artist_id"
+                                    <select name="contritibutor[1][track_artist_id]"
                                         class="form-control" id="">
                                         <option value="">select artist</option>
                                         @foreach ($artists as $ass_artist)
@@ -529,7 +529,7 @@
 
                                 <div class="col-md-4">
                                     <h6>Role *</h6>
-                                    <select name="contritibutor[1]role" class="form-control">
+                                    <select name="contritibutor[1][role]" class="form-control">
                                         <option value="Adaptor">Adaptor</option>
                                         <option value="Arranger">Arranger</option>
                                         <option value="Composer">Composer</option>
@@ -545,12 +545,12 @@
 
                                 <div class="col-md-2">
                                     <h6>Share *</h6>
-                                    <input required type="number" name="contritibutor[1]share" class="form-control">
+                                    <input required type="number" name="contritibutor[1][share]" class="form-control">
                                 </div>
 
                                 <div class="col-md-6">
                                     <h6>Publishing *</h6>
-                                    <select name="contritibutor[1]publishing" class="form-control">
+                                    <select name="contritibutor[1][publishing]" class="form-control">
                                         <option value="Copyright control (self-published)">Copyright control (self-published)</option>
                                         <option value="Public domain (no publisher)">Public domain (no publisher)</option>
                                         <option value="Published (managed by a publisher)">Published (managed by a publisher)</option>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2023 at 07:37 PM
+-- Generation Time: Dec 15, 2023 at 06:31 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -75,7 +75,9 @@ INSERT INTO `artist_name_localizations` (`id`, `artist_id`, `language`, `name`, 
 (16, 1, 'CA', 'sd', '2023-12-03 06:02:34', '2023-12-03 06:02:34'),
 (17, 1, 'US', 'TEST', '2023-12-03 06:02:34', '2023-12-03 06:02:34'),
 (18, 12, 'IS', 'ww', '2023-12-03 06:42:52', '2023-12-03 06:42:52'),
-(19, 12, 'ZM', 'ssd', '2023-12-03 06:42:52', '2023-12-03 06:42:52');
+(19, 12, 'ZM', 'ssd', '2023-12-03 06:42:52', '2023-12-03 06:42:52'),
+(21, 13, 'VG', 'THsis', '2023-12-15 11:45:10', '2023-12-15 11:45:10'),
+(22, 13, 'AU', 'HHH', '2023-12-15 11:45:10', '2023-12-15 11:45:10');
 
 -- --------------------------------------------------------
 
@@ -254,7 +256,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `image`, `biography`, `spotify_id`, 
 (3, 'Boris Byrd', 'bhuinjohn@gmail.com', '1701102677613.jpg', 'THsi', 'http://127.0.0.1:8000/', '12121', NULL, '$2y$12$2yaR.uUa2K.ELEn15kAFWe5KCTm0808s6MpkLLr7doqolTah0W93C', NULL, '2023-11-27 11:01:20', '2023-11-27 11:01:20', 'artist', NULL),
 (8, 'Raon', 'abhisekkaran2001@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$12$shcCnynoOzWTRm7YRLvNWOETrUguOrZ4n3Lexja3sFZyZZAxy7xO2', NULL, '2023-12-02 09:18:48', '2023-12-02 21:57:37', 'user', NULL),
 (9, 'Teso', 'teso@mail.com', NULL, NULL, NULL, NULL, NULL, '$2y$12$kjndGwsiJUdJwzARbXQ4r.GI1KRIc89jcIwfsR4DaDi2BnlEovc2u', NULL, '2023-12-02 21:57:23', '2023-12-02 21:57:23', 'user', NULL),
-(12, 'Honey', 'honey@mail.com', '17016055721601.PNG', 'This is the best did', 'http://127.0.0.1:8000/', '55454', NULL, '$2y$12$Fy46u46CJJhUA9Ft6gsKEukMgvAHYRLjwyhFGPOKKIJm2d2fVifnO', NULL, '2023-12-03 06:42:52', '2023-12-03 06:42:52', 'artist', 9);
+(12, 'Honey', 'honey@mail.com', '17016055721601.PNG', 'This is the best did', 'http://127.0.0.1:8000/', '55454', NULL, '$2y$12$Fy46u46CJJhUA9Ft6gsKEukMgvAHYRLjwyhFGPOKKIJm2d2fVifnO', NULL, '2023-12-03 06:42:52', '2023-12-03 06:42:52', 'artist', 9),
+(13, 'Test Viso', 'teteso@mail.com', '17026538424726.jpeg', 'Thsi is bio for the add', '121212', '12121313', NULL, '$2y$12$MFCKBBW1sDA/0wZvYeUB7.V7VuQfToECPqBlJPMWJCzI4r3WOUene', NULL, '2023-12-15 09:54:05', '2023-12-15 11:45:11', 'artist', 9);
 
 -- --------------------------------------------------------
 
@@ -288,7 +291,9 @@ INSERT INTO `websites` (`id`, `user_or_label_id`, `type`, `title`, `url`, `creat
 (46, 1, 'artist', 'sdsd', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-03 06:02:34', '2023-12-03 06:02:34'),
 (47, 1, 'artist', 'f', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-03 06:02:34', '2023-12-03 06:02:34'),
 (48, 12, 'artist', 'ABC', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-03 06:42:52', '2023-12-03 06:42:52'),
-(49, 12, 'artist', 'XXXX', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-03 06:42:52', '2023-12-03 06:42:52');
+(49, 12, 'artist', 'XXXX', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-03 06:42:52', '2023-12-03 06:42:52'),
+(52, 13, 'artist', 'Personal', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-15 11:45:10', '2023-12-15 11:45:10'),
+(53, 13, 'artist', 'Test', 'http://127.0.0.1:8000/admin/artists/create', '2023-12-15 11:45:10', '2023-12-15 11:45:10');
 
 --
 -- Indexes for dumped tables
@@ -379,7 +384,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `artist_name_localizations`
 --
 ALTER TABLE `artist_name_localizations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -415,13 +420,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `websites`
 --
 ALTER TABLE `websites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

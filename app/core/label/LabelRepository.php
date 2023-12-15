@@ -117,4 +117,9 @@ class LabelRepository implements LabelInterface
         }
         return 'not found';
     }
+
+
+    public function userWiseLabel($id) {
+        return Label::orderBy('id', 'DESC')->where('user_id', $id)->get(); 
+    }
 }

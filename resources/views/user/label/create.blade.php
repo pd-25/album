@@ -85,11 +85,12 @@
 
                             <div class="form-group">
                                 <label>Genres</label><span class="text-danger">*</span>
-                               <select name="gener_id" class="form-control">
-                                <option value="">test1</option>
-                                <option value="">test2</option>
-                                <option value="">test3</option>
-                               </select>
+                                <select name="gener_id[]" class="form-control js-example-basic-multiple" multiple="multiple">
+                                    @foreach (config('country.genres') as $k => $v)
+                                    <option value="{{ $k }}">{{ $v }}</option>
+                                        
+                                    @endforeach
+                                   </select>
 
 
                                 @error('gener_id')

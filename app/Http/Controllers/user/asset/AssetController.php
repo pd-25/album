@@ -21,7 +21,7 @@ class AssetController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.relese.index');
     }
 
     /**
@@ -39,7 +39,11 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+       $assetData = $request->only('cover_image', 'language', 'release_title', 'title_version', 'is_various_artist','asset_artist_id','has_spotify_asset','has_applemusic_asset','apple_id_ass','genre_one','genre_two','p_copy','c_copy','previously_release','release_date','label_id','internal_release_id','upc_ean_jan');
+       $assetData['user_id'] = auth()->id();
+       $trackData = $request->only('audio', 'language_t', 'track_title', 'track_title_version', 'has_isrc','isrc_code','explicit_lyrics','original_public','genre_one_track','genre_two_track','p_copy_t','c_copy_t','track_label_id','internal_track_id','lyrics');
+       $trackContributor = $request->contritibutor;
+       //to start from here
     }
 
     /**
