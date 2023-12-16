@@ -1,10 +1,10 @@
-@extends('user.main')
+@extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | release-edit')
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="">
-                <form action="{{ route('asset.update', @$allDetails->id) }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                <form action="{{ route('admin.update', @$allDetails->id) }}" method="POST" id="yourFormId" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div id="wizard" class="shadow" style="margin-right:0px; margin-left:15px">
@@ -12,6 +12,22 @@
                         <h4></h4>
                         <section>
                             <div class="row">
+                                <div class="col-md-6" style="margin-left: -14px">
+                                    <h6><b>Add User</b></h6>
+                                    <select name="userId" class="custom-select">
+                                        <option value="">select user</option>
+                                        @if (!@empty($users))
+                                        @foreach ($users as $k=> $user)
+                                            <option value="{{ $user->id }}" {{$allDetails->user_id== $user->id ? 'selected':''}}>{{ $user->name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                    <span class="text-danger">
+                                        @error('userId')
+                                        <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </span>
+                                </div>
                                 <div class="col-md-12" style="margin-left: -14px">
                                     <h6><b>Cover image</b></h6>
                                 </div>
@@ -341,7 +357,7 @@
                                         </div>
                                         <div class="col-6">
                                             {{-- <source src="{{asset('storage/audio/m4a/'.@$allDetails->track_details->audio)}}" type="audio/ogg"> --}}
-                                            <audio controls src="{{asset('storage/'.@$allDetails->track_details->audio)}}"></audio>
+                                                <audio controls src="{{asset('storage/'.@$allDetails->track_details->audio)}}"></audio>
                                             <div id="resultImage"></div>
                                         </div>
                                         {{-- <input required type="file" class="custom-file-input" name="audio" accept="audio/*" id="inputGroupFile01">

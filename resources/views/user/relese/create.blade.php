@@ -12,7 +12,7 @@
                         <h4></h4>
                         <section>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-left: -14px">
                                     <h6><b>Cover image</b></h6>
                                 </div>
                                 <div class="col-md-6">

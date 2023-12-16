@@ -1,18 +1,35 @@
-@extends('user.main')
-@section('title', env('APP_NAME') . ' | release-edit')
+@extends('admin.layout.main')
+@section('title', env('APP_NAME') . ' | release-create')
 @section('content')
+
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="">
-                <form action="{{ route('asset.update', @$allDetails->id) }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                <form action="{{ route('admin.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                    @method('POST')
                     @csrf
-                    @method('PUT')
-                    <div id="wizard" class="shadow" style="margin-right:0px; margin-left:15px">
+                    <div id="wizard" class="shadow" style="margin-right:0px; margin-left:10px">
                         <!-- SECTION 1 -->
                         <h4></h4>
                         <section>
                             <div class="row">
-                                <div class="col-md-12" style="margin-left: -14px">
+                                <div class="col-md-6" style="margin-left: -14px">
+                                    <h6><b>Add User</b></h6>
+                                    <select name="userId" class="custom-select">
+                                        <option value="">select user</option>
+                                        @if (!@empty($users))
+                                        @foreach ($users as $k=> $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                    <span class="text-danger">
+                                        @error('userId')
+                                        <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </span>
+                                </div>
+                                <div class="col-md-12" style="margin-left: -14px ">
                                     <h6><b>Cover image</b></h6>
                                 </div>
                                 <div class="col-md-6">
@@ -23,16 +40,12 @@
                                         <img id="blah" alt="your image"
                                             style="height: 110px; width: 150px;" />
                                     </div>
-                                    <div>
-                                        <img style="height: 100px; width: 100px;" src="{{asset('storage/'.@$allDetails->cover_image)}}" alt="">
-                                    </div>
                                     <span class="text-danger">
                                         @error('cover_image')
                                         <strong>{{ $message }}</strong>
                                         @enderror
                                     </span>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-row">
                                         <ul>
@@ -55,7 +68,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12">
                                     <h6><b>Language</b></h6>
                                     <div class="form-row">
@@ -65,7 +77,7 @@
                                         <select name="language" class="custom-select js-example-basic-single">
                                             <option value="">select language</option>
                                             @foreach (config('country.languages') as $k => $lan)
-                                                <option value="{{ $lan }}" {{old('language', $allDetails->language)== $lan ? 'selected':''}}>{{ $lan }}</option>
+                                                <option value="{{ $lan }}">{{ $lan }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
@@ -88,8 +100,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="release_title" class="form-control"
-                                            placeholder="name of your release" value="{{@$allDetails->release_title}}">
+                                        <input required type="text" name="release_title" value="{{old('release_title')}}" class="form-control"
+                                            placeholder="name of your release">
                                     </div>
                                     <span class="text-danger">
                                         @error('release_title')
@@ -101,7 +113,7 @@
                                 <div class="col-md-6">
                                     <div class="form-row">
                                         <input required type="text" name="title_version" class="form-control"
-                                            placeholder="title version" value="{{@$allDetails->title_version}}">
+                                            placeholder="title version" value="{{old('title_version')}}">
                                     </div>
                                     <span class="text-danger">
                                         @error('title_version')
@@ -116,11 +128,11 @@
                                         <h6>Is this a compilation of various artists? </h6>
                                         <div class="ml-5 row">
                                             <div class="col-6">
-                                                <input type="radio" class="form-check-input" name="is_various_artist"  value="1" {{ ($allDetails->is_various_artist=="1") ? "checked" : "" }} id="">Yes
+                                                <input type="radio" class="form-check-input" name="is_various_artist"  value="1" id="">Yes
                                             </div>
                                             <div class="col-6">
                                                 <input type="radio" class="form-check-input" name="is_various_artist"
-                                                    id="" value="0" {{ ($allDetails->is_various_artist=="0") ? "checked" : "" }}>No
+                                                    id="" value="0">No
                                             </div>
                                             <span class="text-danger">
                                                 @error('is_various_artist')
@@ -137,7 +149,7 @@
                                             id="">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
-                                                <option value="{{ $ass_artist->id }}" {{ (@$allDetails->asset_artisat_details->asset_artist_id== $ass_artist->id) ? "Selected" : "" }}>{{ $ass_artist->name }}</option>
+                                                <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -154,11 +166,11 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input checkValueRadio" type="radio" onclick="handleClick(this);" name="has_spotify_asset"
-                                                value="1" {{ (@$allDetails->asset_artisat_details->has_spotify_asset=="1") ? "checked" : "" }}>Yes
+                                            <input class="form-check-input"  required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
+                                                value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input class="form-check-input checkValueRadio" type="radio" onclick="handleClick(this);" name="has_spotify_asset" value="0" {{ (@$allDetails->asset_artisat_details->has_spotify_asset=="0") ? "checked" : "" }}>No
+                                            <input class="form-check-input" required type="radio" onclick="handleClick(this);" name="has_spotify_asset" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -170,7 +182,7 @@
                                 <div class="col-md-6">
                                     <div id="enterSP" class="d-none">
                                         <input required type="text" class="form-control" name="spotify_id_ass"
-                                            placeholder="enter spotify ID" value="{{@$allDetails->asset_artisat_details->spotify_id_ass}}">
+                                            placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
@@ -181,11 +193,11 @@
                                     <div class="row">
                                         <div class="col-4 ml-3">
                                             <input required type="radio" onclick="handleClickA(this);" class="form-check-input" name="has_applemusic_asset"
-                                                value="1" {{ ($allDetails->asset_artisat_details->has_applemusic_asset=="1") ? "checked" : "" }}>Yes
+                                                value="1">Yes
                                         </div>
                                         <div class="col-6">
                                             <input required type="radio" onclick="handleClickA(this);" class="form-check-input"
-                                                name="has_applemusic_asset" value="0" {{ ($allDetails->asset_artisat_details->has_applemusic_asset=="0") ? "checked" : "" }}>No
+                                                name="has_applemusic_asset" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -197,7 +209,7 @@
                                 <div class="col-md-6">
                                     <div id="enterAP" class="d-none">
                                         <input required type="text" class="form-control" name="apple_id_ass"
-                                            placeholder="enter apple ID" value="{{ $allDetails->asset_artisat_details->apple_id_ass}}">
+                                            placeholder="enter apple ID">
                                     </div>
                                 </div>
                                 <hr>
@@ -217,7 +229,7 @@
                                     <select name="genre_one" id="" class="form-control js-example-basic-single">
                                         <option value="">select genre1</option>
                                         @foreach (config('country.genres') as $k => $g_one)
-                                            <option value="{{ $g_one }}" {{ ($allDetails->genre_one==$g_one) ? "selected" : "" }}>{{ $g_one }}</option>
+                                            <option value="{{ $g_one }}">{{ $g_one }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -231,7 +243,7 @@
                                     <select name="genre_two" id="" class="form-control js-example-basic-single">
                                         <option value="">select genre2</option>
                                         @foreach (config('country.genres') as $k => $g_two)
-                                            <option value="{{ $g_two }}" {{ ($allDetails->genre_two==$g_two) ? "selected" : "" }}>{{ $g_two }}</option>
+                                            <option value="{{ $g_two }}">{{ $g_two }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -250,7 +262,7 @@
 
                                 <div class="col-md-6">
                                     <input required type="text" name="p_copy" class="form-control"
-                                        placeholder="2008 AMC inc" value="{{$allDetails->p_copy}}">
+                                        placeholder="2008 AMC inc" value="{{old('p_copy')}}">
                                     <span class="text-danger">
                                         @error('p_copy')
                                         <strong>{{ $message }}</strong>
@@ -260,7 +272,7 @@
 
                                 <div class="col-md-6">
                                     <input required type="text" name="c_copy" class="form-control"
-                                        placeholder="2008 AMC inc" value="{{$allDetails->c_copy}}">
+                                        placeholder="2008 AMC inc" value="{{old('c_copy')}}">
                                         <span class="text-danger">
                                             @error('c_copy')
                                             <strong>{{ $message }}</strong>
@@ -272,10 +284,10 @@
                                     <h6>Previously released?</h6>
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input  type="radio" onclick="handleClickRD(this);" name="previously_release" class="form-check-input" value="1" {{ ($allDetails->previously_release=="1") ? "checked" : "" }}>Yes
+                                            <input  type="radio" onclick="handleClickRD(this);" name="previously_release" class="form-check-input" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" onclick="handleClickRD(this);" class="form-check-input" name="previously_release" value="0" {{ ($allDetails->previously_release=="0") ? "checked" : "" }}>No
+                                            <input type="radio" onclick="handleClickRD(this);" class="form-check-input" name="previously_release" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -287,7 +299,7 @@
 
                                 <div class="col-md-6">
                                     <div class="d-none" id="prelesr">
-                                        <input required type="date" name="release_date" class="form-control" id="" value="{{date('Y-m-d', strtotime(@$allDetails->release_date))}}">
+                                        <input required type="date" name="release_date" class="form-control" id="">
                                     </div>
                                 </div>
 
@@ -295,7 +307,7 @@
                                     <h6>Label name *</h6>
                                     <select name="label_id" class="form-control js-example-basic-single" id="">
                                         @foreach ($labels as $label)
-                                            <option value="{{ $label->id }}" {{ ($allDetails->label_id==$label->id ) ? "selected" : "" }}>{{ $label->official_name }}</option>
+                                            <option value="{{ $label->id }}">{{ $label->official_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -303,7 +315,7 @@
                                 <div class="col-md-6">
                                     <h6>Internal release ID *</h6>
                                     <input required type="text" name="internal_release_id" class="form-control"
-                                        id="" value="{{$allDetails->internal_release_id}}">
+                                        id="" value="{{old('internal_release_id')}}">
                                         <span class="text-danger">
                                             @error('internal_release_id')
                                             <strong>{{ $message }}</strong>
@@ -317,7 +329,7 @@
 
                                 <div class="col-md-6">
                                     <input required type="number" name="upc_ean_jan" class="form-control"
-                                        placeholder="xxxxxxxxx" id="" value="{{$allDetails->upc_ean_jan}}" >
+                                        placeholder="xxxxxxxxx" id="" value="{{old('upc_ean_jan')}}">
                                 
                                         <span class="text-danger">
                                             @error('upc_ean_jan')
@@ -340,8 +352,7 @@
                                             <label class="custom-file-label" for="inputGroupFi">Choose file</label>
                                         </div>
                                         <div class="col-6">
-                                            {{-- <source src="{{asset('storage/audio/m4a/'.@$allDetails->track_details->audio)}}" type="audio/ogg"> --}}
-                                            <audio controls src="{{asset('storage/'.@$allDetails->track_details->audio)}}"></audio>
+                                            <audio controls src=""></audio>
                                             <div id="resultImage"></div>
                                         </div>
                                         {{-- <input required type="file" class="custom-file-input" name="audio" accept="audio/*" id="inputGroupFile01">
@@ -361,8 +372,7 @@
                                             class="custom-select">
                                             <option value="">select language</option>
                                             @foreach (config('country.languages') as $k => $lanT)
-                                                <option value="{{ $lanT }}" 
-                                                {{$allDetails->track_details->language_t== $lanT ? 'selected':''}}>{{ $lanT }}</option>
+                                                <option value="{{ $lanT }}">{{ $lanT }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
@@ -381,7 +391,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="track_title" class="form-control" id="" value="{{@$allDetails->track_details->track_title_version}}">
+                                        <input required type="text" name="track_title" class="form-control" value="{{old('track_title')}}" id="">
                                     </div>
                                     <span class="text-danger">
                                         @error('track_title')
@@ -392,7 +402,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="track_title_version" class="form-control" id=""  value="{{@$allDetails->track_details->title_version}}">
+                                        <input required type="text" name="track_title_version" class="form-control" id="" value="{{old('track_title_version')}}">
                                     </div>
                                     <span class="text-danger">
                                         @error('track_title_version')
@@ -408,7 +418,7 @@
                                             class="custom-select" id="">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
-                                                <option value="{{ $ass_artist->id }}" {{ $allDetails->track_artisat_details->track_artist_id == $ass_artist->id ? 'selected':''}}>{{ $ass_artist->name }}</option>
+                                                <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger">
@@ -425,11 +435,11 @@
                                     <div class="row">
                                         <div class="col-4 ml-3">
                                             <input class="form-check-input" type="radio" onclick="handleClickTrack(this);"
-                                                name="contritibutor_has_spotify" value="1" {{ ($allDetails->track_artisat_details->has_spotify=="1") ? "checked" : "" }}>Yes
+                                                name="contritibutor_has_spotify" value="1">Yes
                                         </div>
                                         <div class="col-6">
                                             <input class="form-check-input" type="radio" onclick="handleClickTrack(this);"
-                                                name="contritibutor_has_spotify" value="0" {{ ($allDetails->track_artisat_details->has_spotify=="0") ? "checked" : "" }}>No
+                                                name="contritibutor_has_spotify" value="0">No
                                         </div>
                                         <span class="text-danger">
                                             @error('contritibutor_has_spotify')
@@ -441,7 +451,7 @@
                                 <div class="col-md-6">
                                     <div id="handleClickTrack" class="d-none">
                                         <input required type="text" class="form-control"
-                                            name="contritibutor_track_spotify_id" placeholder="enter spotify ID" value="{{$allDetails->track_artisat_details->track_spotify_id}}">
+                                            name="contritibutor_track_spotify_id" placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
@@ -452,11 +462,11 @@
                                     <div class="row">
                                         <div class="col-4 ml-3">
                                             <input class="form-check-input" required type="radio" onclick="handleClickATrack(this);"
-                                                name="contritibutor_has_applemusic" value="1" {{ ($allDetails->track_artisat_details->has_applemusic=="1") ? "checked" : "" }}>Yes
+                                                name="contritibutor_has_applemusic" value="1">Yes
                                         </div>
                                         <div class="col-6">
                                             <input required type="radio" onclick="handleClickATrack(this);" class="form-check-input"
-                                                name="contritibutor_has_applemusic" value="0" {{ ($allDetails->track_artisat_details->has_applemusic=="0") ? "checked" : "" }}>No
+                                                name="contritibutor_has_applemusic" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -468,7 +478,7 @@
                                 <div class="col-md-6">
                                     <div id="handleClickATrack" class="d-none">
                                         <input required type="text" class="form-control"
-                                            name="contritibutor_track_apple_id" placeholder="enter apple ID" value="{{$allDetails->track_artisat_details->track_apple_id}}">
+                                            name="contritibutor_track_apple_id" placeholder="enter apple ID">
                                     </div>
                                 </div>
                                 <hr>
@@ -480,11 +490,11 @@
                                     <div class="row">
                                         <div class="col-4 ml-3">
                                             <input class="form-check-input" type="radio" onclick="handleClickISRC(this);" name="has_isrc"
-                                                value="1" {{ ($allDetails->track_details->has_isrc=="1") ? "checked" : "" }}>Yes
+                                                value="1">Yes
                                         </div>
                                         <div class="col-6">
                                             <input type="radio" onclick="handleClickISRC(this);" class="form-check-input"
-                                                name="has_isrc" value="0" {{ ($allDetails->track_details->has_isrc=="0") ? "checked" : "" }}>No
+                                                name="has_isrc" value="0">No
                                             <span id="noIsrc" class="">(Ok, we will generate for you)</span>
                                         </div>
                                     </div>
@@ -496,7 +506,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickISRC" class="d-none">
-                                        <input required type="text" name="isrc_code" class="form-control" placeholder="ISRC" value="{{@$allDetails->track_details->isrc_code}}">
+                                        <input required type="text" name="isrc_code" class="form-control" placeholder="ISRC">
                                     </div>
                                 </div>
 
@@ -506,10 +516,10 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" type="radio" name="explicit_lyrics" value="1" {{ ($allDetails->track_details->explicit_lyrics=="1") ? "checked" : "" }}>Yes
+                                            <input class="form-check-input" type="radio" name="explicit_lyrics" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" class="form-check-input" name="explicit_lyrics" value="0" {{ ($allDetails->track_details->explicit_lyrics=="0") ? "checked" : "" }}>No
+                                            <input type="radio" class="form-check-input" name="explicit_lyrics" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -526,10 +536,10 @@
                                     <div class="row">
                                         <div class="col-4 ml-3">
                                             <input class="form-check-input" type="radio" onclick="trackIs(this);" name="original_public"
-                                                value="1" {{ ($allDetails->track_details->original_public=="1") ? "checked" : "" }}>An original song (publishing info will be required)
+                                                value="1">An original song (publishing info will be required)
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" onclick="trackIs(this);" class="form-check-input" name="original_public" value="0"  {{ ($allDetails->track_details->original_public=="0") ? "checked" : "" }}>A public domain song (publishing info
+                                            <input type="radio" onclick="trackIs(this);" class="form-check-input" name="original_public" value="0">A public domain song (publishing info
                                             will be required)
                                         </div>
                                         <span class="text-danger">
@@ -578,7 +588,7 @@
                                         class="custom-select">
                                         <option value="">select genre1</option>
                                         @foreach (config('country.genres') as $k => $t_one)
-                                            <option value="{{ $t_one }}" {{ ($allDetails->track_details->genre_one_track==$t_one) ? "selected" : "" }}>{{ $t_one }}</option>
+                                            <option value="{{ $t_one }}">{{ $t_one }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -594,7 +604,7 @@
                                         class="custom-select">
                                         <option value="">select genre2</option>
                                         @foreach (config('country.genres') as $k => $t_two)
-                                            <option value="{{ $t_two }}" {{ ($allDetails->track_details->genre_two_track==$t_two) ? "selected" : "" }}>{{ $t_two }}</option>
+                                            <option value="{{ $t_two }}">{{ $t_two }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -613,7 +623,7 @@
 
                                 <div class="col-md-6">
                                     <input required type="text" name="p_copy_t" class="form-control"
-                                        placeholder="2008 AMC inc" value="{{$allDetails->track_details->p_copy_t}}">
+                                        placeholder="2008 AMC inc" value="{{old('p_copy_t')}}">
                                         <span class="text-danger">
                                             @error('p_copy_t')
                                             <strong>{{ $message }}</strong>
@@ -623,7 +633,7 @@
 
                                 <div class="col-md-6">
                                     <input required type="text" name="c_copy_t" class="form-control"
-                                        placeholder="2008 AMC inc" value="{{$allDetails->track_details->c_copy_t}}">
+                                        placeholder="2008 AMC inc" value="{{old('c_copy_t')}}">
                                         <span class="text-danger">
                                             @error('c_copy_t')
                                             <strong>{{ $message }}</strong>
@@ -642,7 +652,7 @@
                                 <div class="col-md-6">
                                     <select name="track_label_id" class="custom-select">
                                         @foreach ($labels as $label_t)
-                                            <option value="{{ $label_t->id }}" {{ ($allDetails->track_details->track_label_id==$label_t->id) ? "selected" : "" }}>{{ $label_t->official_name }}</option>
+                                            <option value="{{ $label_t->id }}">{{ $label_t->official_name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -653,7 +663,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input required type="text" name="internal_track_id" class="form-control" value="{{$allDetails->track_details->internal_track_id}}">
+                                    <input required type="text" name="internal_track_id" class="form-control" value="{{old('internal_track_id')}}">
                                     <span class="text-danger">
                                         @error('internal_track_id')
                                         <strong>{{ $message }}</strong>
@@ -670,7 +680,7 @@
                             </div>
                             <div class="form-row" style="margin-bottom: 18px">
                                 <textarea name="lyrics" id="" class="form-control"
-                                    placeholder="Any order note about delivery or special offer" style="height: 108px">{{$allDetails->track_details->lyrics}}</textarea>
+                                    placeholder="Any order note about delivery or special offer" style="height: 108px">{{old('lyrics')}}</textarea>
                             </div>
 
 
@@ -686,7 +696,7 @@
                                         class="custom-select" id="">
                                         <option value="">select contributor</option>
                                         @foreach ($artists as $ass_artist)
-                                            <option value="{{ $ass_artist->id }}" {{ ($allDetails->track_artisat_details->track_artist_name==$ass_artist->id) ? "selected" : "" }}>{{ $ass_artist->name }}</option>
+                                            <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
@@ -700,18 +710,15 @@
                                     <h6>Role *</h6>
                                     <select name="contritibutor_role" class="custom-select">
                                         <option value="">select role</option>
-                                        <option value="Adaptor" {{@$allDetails->track_artisat_details->role == 'Adaptor' ? 'selected':''}}>Adaptor</option>
-                                        <option value="Arranger" {{@$allDetails->track_artisat_details->role == 'Arranger' ? 'selected':''}}>Arranger</option>
-                                        <option value="Composer" {{@$allDetails->track_artisat_details->role == 'Composer' ? 'selected':''}}>Composer</option>
-                                        <option value="Composer&Lyricist" 
-                                        {{@$allDetails->track_artisat_details->role == 'Composer&Lyricist' ? 'selected':''}}>Composer&Lyricist</option>
-                                        <option value="Income Participant" 
-                                        {{@$allDetails->track_artisat_details->role == 'Income Participant' ? 'selected':''}}>Income Participant</option>
-                                        <option value="Lyricist" {{@$allDetails->track_artisat_details->role == 'Lyricist' ? 'selected':''}}>Lyricist</option>
-                                        <option value="Sub-Author" 
-                                        {{@$allDetails->track_artisat_details->role == 'Sub-Author' ? 'selected':''}}>Sub-Author</option>
-                                        <option value="Translator" {{@$allDetails->track_artisat_details->role == 'Translator' ? 'selected':''}}>Translator</option>
-                                        <option value="Writer" {{@$allDetails->track_artisat_details->role == 'Writer' ? 'selected':''}}>Writer</option>
+                                        <option value="Adaptor">Adaptor</option>
+                                        <option value="Arranger">Arranger</option>
+                                        <option value="Composer">Composer</option>
+                                        <option value="Composer&Lyricist">Composer&Lyricist</option>
+                                        <option value="Income Participant">Income Participant</option>
+                                        <option value="Lyricist">Lyricist</option>
+                                        <option value="Sub-Author">Sub-Author</option>
+                                        <option value="Translator">Translator</option>
+                                        <option value="Writer">Writer</option>
 
                                     </select>
                                     <span class="text-danger">
@@ -723,7 +730,7 @@
 
                                 <div class="col-md-2">
                                     <h6>Share *</h6>
-                                    <input required type="number" name="contritibutor_share" class="form-control" value="{{@$allDetails->track_artisat_details->share}}">
+                                    <input required type="number" name="contritibutor_share" class="form-control" value="{{old('contritibutor_share')}}">
                                     <span class="text-danger">
                                         @error('contritibutor_share')
                                         <strong>{{ $message }}</strong>
@@ -735,9 +742,9 @@
                                     <h6>Publishing *</h6>
                                     <select name="contritibutor_publishing" class="custom-select">
                                         <option value="">select publishing</option>
-                                        <option value="Copyright control (self-published)" {{@$allDetails->track_artisat_details->publishing == 'Copyright control (self-published)' ? 'selected':''}}>Copyright control (self-published)</option>
-                                        <option value="Public domain (no publisher)" {{@$allDetails->track_artisat_details->publishing == 'Public domain (no publisher)' ? 'selected':''}}>Public domain (no publisher)</option>
-                                        <option value="Published (managed by a publisher)" {{@$allDetails->track_artisat_details->publishing == 'Published (managed by a publisher)' ? 'selected':''}}>Published (managed by a publisher)</option>
+                                        <option value="Copyright control (self-published)">Copyright control (self-published)</option>
+                                        <option value="Public domain (no publisher)">Public domain (no publisher)</option>
+                                        <option value="Published (managed by a publisher)">Published (managed by a publisher)</option>
                                     </select>
                                     <span class="text-danger">
                                         @error('contritibutor_publishing')
@@ -769,41 +776,6 @@
 @section('script')
 
     <script>
-        $( document ).ready(function() {
-            var array =  {!! json_encode($allDetails) !!};
-            if(array.asset_artisat_details.has_spotify_asset == 1)
-            {
-                document.getElementById('enterSP').classList.remove('d-none');
-            }
-            if(array.asset_artisat_details.has_applemusic_asset == 1)
-            {
-                document.getElementById('enterAP').classList.remove('d-none');
-            }
-            if(array.previously_release == 1)
-            {
-                document.getElementById('prelesr').classList.remove('d-none');
-            }
-            if(array.track_artisat_details.has_spotify == 1)
-            {
-                document.getElementById('handleClickTrack').classList.remove('d-none');
-            }
-            if(array.track_artisat_details.has_applemusic == 1)
-            {
-                document.getElementById('handleClickATrack').classList.remove('d-none');
-            }
-            if(array.track_details.has_isrc == 1)
-            {
-                document.getElementById('handleClickISRC').classList.remove('d-none');
-            }
-            if(array.track_details.original_public == 1)
-            {
-                document.getElementById('trackIsfirst').classList.remove('d-none');
-                document.getElementById('trackIssecond').classList.add('d-none');
-            } else {
-                document.getElementById('trackIsfirst').classList.add('d-none');
-                document.getElementById('trackIssecond').classList.remove('d-none');
-            }
-        });
         $(function() {
             $("#wizard").steps({
                 headerTag: "h4",
@@ -892,8 +864,8 @@
             }
         }
 
-        function handleClickATrack(result, data) {
-            if (result.value == 1 || data==1) {
+        function handleClickATrack(result) {
+            if (result.value == 1) {
                 // alert(result.value);
                 document.getElementById('handleClickATrack').classList.remove('d-none');
                 // document.getElementById('noIsrc').classList.add('d-none');

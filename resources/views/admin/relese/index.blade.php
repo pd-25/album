@@ -1,4 +1,4 @@
-@extends('user.main')
+@extends('admin.layout.main')
 @section('title', env('APP_NAME').' | Asset-index'  )
 @section('content')
     <div class="row justify-content-center">
@@ -12,7 +12,7 @@
                     @endif
                 </div>
                 <div class="card-title text-right">
-                    <a href="{{ route('asset.create') }}" class="btn btn-sm btn-success">Add Release</a>
+                    <a href="{{ route('admin.create') }}" class="btn btn-sm btn-success">Add Release</a>
 
                 </div>
                 <div class="card-body">
@@ -54,10 +54,10 @@
                                         <td>
                                             {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
                                                 class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('asset.edit', @$item->id) }}"><i
+                                            <a href="{{ route('admin.edit', @$item->id) }}"><i
                                                     class="ti-pencil btn btn-sm btn-primary"></i></a>
                                             <form method="POST"
-                                                action="{{ route('asset.destroy', encrypt(2)) }}"
+                                                action="{{ route('admin.destroy', encrypt(2)) }}"
                                                 class="action-icon">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">

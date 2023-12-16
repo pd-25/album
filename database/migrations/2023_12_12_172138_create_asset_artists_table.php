@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('asset_artist_id')->nullable();
             $table->boolean('has_spotify_asset')->nullable();
             $table->boolean('has_applemusic_asset')->nullable();
+            $table->string('spotify_id_ass', 100)->nullable();
+            $table->string('apple_id_ass', 100)->nullable();
             $table->timestamps();
         });
     }

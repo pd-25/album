@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\dashboard\DashboardController;
 use App\Http\Controllers\admin\label\LabelController;
 use App\Http\Controllers\admin\user\UserController;
+use App\Http\Controllers\admin\asset\AssetsController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name("admin.dashboard");
     Route::resource('users', UserController::class);
     Route::resource('artists', ArtistController::class);
-    Route::resource('label', LabelController::class);
-    
+    Route::resource('label', LabelController::class);    
     Route::get('log-out', [AuthController::class, 'adminLogout'])->name('admin.logout');
-
+    
+    Route::get('/asset', [AssetsController::class, 'index'])->name("admin.index");
+    Route::get('/asset/create', [AssetsController::class, 'create'])->name("admin.create");
+    Route::post('/asset/store', [AssetsController::class, 'store'])->name("admin.store");
+    Route::get('/asset/{asset}/edit', [AssetsController::class, 'edit'])->name("admin.edit");
+    Route::put('/asset/{asset}', [AssetsController::class, 'update'])->name("admin.update");
+    Route::delete('/asset/{asset}', [AssetsController::class, 'destroy'])->name("admin.destroy");
 });
 
 
