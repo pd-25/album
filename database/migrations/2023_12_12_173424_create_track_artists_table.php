@@ -18,7 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('track_artist_id')->nullable();
             $table->boolean('has_spotify')->nullable();
             $table->boolean('has_applemusic')->nullable();
+            $table->string('track_spotify_id')->nullable();
+            $table->string('track_apple_id')->nullable();
             $table->string('role')->nullable();
+            
             $table->string('share')->nullable();
             $table->string('publishing')->nullable();
             $table->timestamps();

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('track_label_id')->nullable();
             $table->string('internal_track_id')->nullable();
             $table->longText('lyrics')->nullable();
+            $table->string('has_isrc')->nullable();
             $table->timestamps();
         });
     }
