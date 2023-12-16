@@ -165,7 +165,7 @@ class AssetController extends Controller
                 $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
                 $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id;
                 $trackArtist->track_apple_id = $request->contritibutor_track_apple_id;
-                // $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
+                $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
                 $trackArtist->publishing = $request->contritibutor_publishing;
@@ -262,7 +262,7 @@ class AssetController extends Controller
                 $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
                 $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id;
                 $trackArtist->track_apple_id = $request->contritibutor_track_apple_id;
-                // $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
+                $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
                 $trackArtist->publishing = $request->contritibutor_publishing;
