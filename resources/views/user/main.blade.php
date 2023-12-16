@@ -41,9 +41,7 @@
                     <div class="logo"><a href="#">
                             <span>{{ env('APP_NAME') }}</span>
                         </a></div>
-                    <li><a href="{{ route('asset.index') }}"><i class="ti-calendar"></i> Assets </a></li>
-
-
+                    <li><a href="{{ route('asset.index') }}"><i class="ti-calendar"></i> Release </a></li>
 
                     <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Rights Holders <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
@@ -129,6 +127,19 @@
 
     <div class="content-wrap">
         <div class="main">
+            <div class="row mt-2">
+                <div class="col-12">
+                    @if(session()->has('errorMessage'))
+                    <div class="text-danger text-center fw-bolder">
+                        {{Session::get('errorMessage')}}
+                    </div>
+                    @elseif(session()->has('success'))
+                    <div class="text-success text-center fw-bolder" >
+                        {{Session::get('success')}}
+                    </div>
+                    @endif
+                </div>
+            </div>
             @yield('content')
         </div>
     </div>

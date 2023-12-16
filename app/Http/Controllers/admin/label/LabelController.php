@@ -32,7 +32,6 @@ class LabelController extends Controller
     public function create()
     {
         $data['users'] = $this->artistInterface->getAllUser();
-
         return view('admin.label.create', $data);
     }
 

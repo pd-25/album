@@ -29,24 +29,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($labels as $label) --}}
-                             
+                                @if (!@empty($Getartist))
+                                @foreach ($Getartist as $index=>$item)
                                     <tr>
-                                        <td>#</td>
+                                        <td>{{$index+1}}</td>
                                         <td>
-                                            {{ '$artist->name' }}
-                                            
-                                        
+                                            {{ @$item->release_title}}
                                         <td>
                                             {{-- @if (!empty($artist->image) && File::exists(public_path('storage/ArtistImage/' . $artist->image))) --}}
                                             {{-- <img style="height: 82px; width: 82px;" src="{{ asset('storage/ArtistImage/'.$artist->image) }}" alt=""> --}}
                                                 
                                             {{-- @else --}}
-                                            <img style="height: 82px; width: 82px;" src="{{asset('noimg.png') }}" alt="">
+                                            <img style="height: 82px; width: 82px;" src="{{asset('storage/'.@$item->cover_image)}}" alt="">
                                                 
                                             {{-- @endif --}}
-                                            
-                                            
                                         </td>
                                         
                                         {{-- <td><span id="status-btn{{ $artist->id }}">
@@ -58,13 +54,14 @@
                                         <td>
                                             {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
                                                 class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('labels.edit', encrypt(1)) }}"><i
+                                            <a href="{{ route('asset.edit', @$item->id) }}"><i
                                                     class="ti-pencil btn btn-sm btn-primary"></i></a>
                                             <form method="POST"
-                                                action="{{ route('labels.destroy', encrypt(2)) }}"
+                                                action="{{ route('asset.destroy', encrypt(2)) }}"
                                                 class="action-icon">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
+                                                <input name="DeleteId" type="hidden" value="{{@$item->id}}">
                                                 <button type="submit"
                                                     class="btn btn-sm btn-danger  delete-icon show_confirm"
                                                     data-toggle="tooltip" title='Delete'>
@@ -74,7 +71,8 @@
                                         </td>
 
                                     </tr>
-                                {{-- @endforeach --}}
+                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>
