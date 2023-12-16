@@ -686,7 +686,7 @@
                                         class="custom-select" id="">
                                         <option value="">select contributor</option>
                                         @foreach ($artists as $ass_artist)
-                                            <option value="{{ $ass_artist->id }}" {{ ($allDetails->track_artisat_details->track_artist_name==$ass_artist->id) ? "selected" : "" }}>{{ $ass_artist->name }}</option>
+                                            <option {{ @$allDetails->track_artisat_details->track_artist_id == $ass_artist->id ? 'selected' : '' }} value="{{ $ass_artist->id }}" {{ ($allDetails->track_artisat_details->track_artist_name==$ass_artist->id) ? "selected" : "" }}>{{ $ass_artist->name }}</option>
                                         @endforeach
                                     </select>
                                     <span class="text-danger">
