@@ -1,18 +1,35 @@
-@extends('user.main')
+@extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | release-create')
 @section('content')
 
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="">
-                <form action="{{ route('asset.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                <form action="{{ route('admin.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                    @method('POST')
                     @csrf
-                    <div id="wizard" class="shadow" style="margin-right:0px; margin-left:15px">
+                    <div id="wizard" class="shadow" style="margin-right:0px; margin-left:10px">
                         <!-- SECTION 1 -->
                         <h4></h4>
                         <section>
                             <div class="row">
-                                <div class="col-md-12" style="margin-left: -14px">
+                                <div class="col-md-6" style="margin-left: -14px">
+                                    <h6><b>Add User</b></h6>
+                                    <select name="userId" class="custom-select">
+                                        <option value="">select user</option>
+                                        @if (!@empty($users))
+                                        @foreach ($users as $k=> $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                    <span class="text-danger">
+                                        @error('userId')
+                                        <strong>{{ $message }}</strong>
+                                        @enderror
+                                    </span>
+                                </div>
+                                <div class="col-md-12" style="margin-left: -14px ">
                                     <h6><b>Cover image</b></h6>
                                 </div>
                                 <div class="col-md-6">
@@ -29,7 +46,6 @@
                                         @enderror
                                     </span>
                                 </div>
-
                                 <div class="col-md-6">
                                     <div class="form-row">
                                         <ul>
@@ -52,7 +68,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12">
                                     <h6><b>Language</b></h6>
                                     <div class="form-row">

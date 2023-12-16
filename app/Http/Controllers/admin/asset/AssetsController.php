@@ -1,20 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\user\asset;
+namespace App\Http\Controllers\admin\asset;
 
-use App\core\artist\ArtistInterface;
-use App\core\label\LabelInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\core\artist\ArtistInterface;
+use App\core\label\LabelInterface;
 use App\Models\Asset;
 use App\Models\AssetArtist;
 use App\Models\Track;
+use App\Models\User;
 use App\Models\TrackArtist;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Carbon;
-
-
-class AssetController extends Controller
+class AssetsController extends Controller
 {
     public $artistInterface, $labelInterface;
     public function __construct(ArtistInterface $artistInterface, LabelInterface $labelInterface)
@@ -23,14 +21,12 @@ class AssetController extends Controller
         $this->labelInterface = $labelInterface;
         
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $userId = auth()->user()->id;
-        $Getartist = Asset::where('user_id', $userId)->orderBy('id','DESC')->get();
-        return view('user.relese.index', compact('Getartist'));
+        $userId = auth()->guard('admin')->user()->id;
+        $Getartist = Asset::orderBy('id', 'DESC')->get();
+        return view('admin.relese.index', compact('Getartist'));
     }
 
     /**
@@ -40,7 +36,8 @@ class AssetController extends Controller
     {
         $data['artists'] = $this->artistInterface->getAllArtist();
         $data['labels'] = $this->labelInterface->getAllLabel();
-       return view('user.relese.create', $data);
+        $data['users'] = User::all();
+       return view('admin.relese.create', $data);
     }
 
     /**
@@ -48,15 +45,11 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->audio);
-    //    $assetData = $request->only('cover_image', 'language', 'release_title', 'title_version', 'is_various_artist','asset_artist_id','has_spotify_asset','has_applemusic_asset','apple_id_ass','genre_one','genre_two','p_copy','c_copy','previously_release','release_date','label_id','internal_release_id','upc_ean_jan');
-    //    $assetData['user_id'] = auth()->id();
-    //    $trackData = $request->only('audio', 'language_t', 'track_title', 'track_title_version', 'has_isrc','isrc_code','explicit_lyrics','original_public','genre_one_track','genre_two_track','p_copy_t','c_copy_t','track_label_id','internal_track_id','lyrics');
-    //    $trackContributor = $request->contritibutor;
 
        //to start from here
        $request->validate([
         // section - 1
+            'userId'=>'required',
             'cover_image' => 'required',
             'language' => 'required',
             'release_title' => 'required',
@@ -110,7 +103,7 @@ class AssetController extends Controller
                 $request->file('cover_image')->storeAs($image_path,['disk' => 'public']);
                 $asset->cover_image = $image_path;
             }
-            $asset->user_id = auth()->user()->id;
+            $asset->user_id = $request->userId;
             $asset->language = $request->language;
             $asset->release_title = $request->release_title;
             $asset->title_version = $request->title_version;
@@ -136,14 +129,6 @@ class AssetController extends Controller
             }
             $track = new Track;
             $track->asset_id = $asset->id;
-            // if ($request->hasFile('audio')) {
-            //     $music_file = $request->file('audio');
-            //     $filename = $music_file->getClientOriginalExtension();
-            //     $location = public_path('audio/' . $filename);
-            //     $music_file->move($location,$filename);
-            //     $track->audio = $filename;
-            // }
-
             if ($request->hasFile('audio')) {
                 $AUDIO = date('Y-m-d-H_i_s').'_' .$request->file('audio')->getClientOriginalName();
                 $request->file('audio')->storeAs($AUDIO,['disk' => 'public']);
@@ -182,8 +167,8 @@ class AssetController extends Controller
             return back()->with('success', 'Successfully Saved');
         }catch (\Throwable $e) {
             DB::rollback();
-            throw $e;
             dd($e);
+            throw $e;
             return back()->with('errorMessage', 'Something went wrong');
         }
         
@@ -203,8 +188,9 @@ class AssetController extends Controller
     {
         $data['artists'] = $this->artistInterface->getAllArtist();
         $data['labels']= $this->labelInterface->getAllLabel();
+        $data['users'] = User::all();
         $data['allDetails'] = Asset::with('asset_artisat_details', 'track_details', 'track_artisat_details')->find($id);
-        return view('user.relese.edit', $data);
+        return view('admin.relese.edit', $data);
     }
 
     /**
@@ -218,7 +204,7 @@ class AssetController extends Controller
                 $request->file('cover_image')->storeAs($image_path,['disk' => 'public']);
                 $asset->cover_image = $image_path;
             }
-            $asset->user_id = auth()->user()->id;
+            $asset->user_id = $request->userId;
             $asset->language = $request->language;
             $asset->release_title = $request->release_title;
             $asset->title_version = $request->title_version;

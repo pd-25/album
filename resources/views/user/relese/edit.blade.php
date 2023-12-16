@@ -12,7 +12,7 @@
                         <h4></h4>
                         <section>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12" style="margin-left: -14px">
                                     <h6><b>Cover image</b></h6>
                                 </div>
                                 <div class="col-md-6">
@@ -287,7 +287,7 @@
 
                                 <div class="col-md-6">
                                     <div class="d-none" id="prelesr">
-                                        <input required type="date" name="release_date" class="form-control" id="" value="{{$allDetails->release_date}}">
+                                        <input required type="date" name="release_date" class="form-control" id="" value="{{date('Y-m-d', strtotime(@$allDetails->release_date))}}">
                                     </div>
                                 </div>
 
@@ -340,9 +340,8 @@
                                             <label class="custom-file-label" for="inputGroupFi">Choose file</label>
                                         </div>
                                         <div class="col-6">
-                                            {{asset('storage/audio/m4a/'.@$allDetails->track_details->audio)}}
                                             {{-- <source src="{{asset('storage/audio/m4a/'.@$allDetails->track_details->audio)}}" type="audio/ogg"> --}}
-                                            <audio controls src="{{asset('storage/audio/m4a/'.@$allDetails->track_details->audio)}}"></audio>
+                                            <audio controls src="{{asset('storage/'.@$allDetails->track_details->audio)}}"></audio>
                                             <div id="resultImage"></div>
                                         </div>
                                         {{-- <input required type="file" class="custom-file-input" name="audio" accept="audio/*" id="inputGroupFile01">
@@ -770,9 +769,41 @@
 @section('script')
 
     <script>
-        // $( document ).ready(function() {
-        //     function handleClick();
-        // });
+        $( document ).ready(function() {
+            var array =  {!! json_encode($allDetails) !!};
+            if(array.asset_artisat_details.has_spotify_asset == 1)
+            {
+                document.getElementById('enterSP').classList.remove('d-none');
+            }
+            if(array.asset_artisat_details.has_applemusic_asset == 1)
+            {
+                document.getElementById('enterAP').classList.remove('d-none');
+            }
+            if(array.previously_release == 1)
+            {
+                document.getElementById('prelesr').classList.remove('d-none');
+            }
+            if(array.track_artisat_details.has_spotify == 1)
+            {
+                document.getElementById('handleClickTrack').classList.remove('d-none');
+            }
+            if(array.track_artisat_details.has_applemusic == 1)
+            {
+                document.getElementById('handleClickATrack').classList.remove('d-none');
+            }
+            if(array.track_details.has_isrc == 1)
+            {
+                document.getElementById('handleClickISRC').classList.remove('d-none');
+            }
+            if(array.track_details.original_public == 1)
+            {
+                document.getElementById('trackIsfirst').classList.remove('d-none');
+                document.getElementById('trackIssecond').classList.add('d-none');
+            } else {
+                document.getElementById('trackIsfirst').classList.add('d-none');
+                document.getElementById('trackIssecond').classList.remove('d-none');
+            }
+        });
         $(function() {
             $("#wizard").steps({
                 headerTag: "h4",
@@ -832,7 +863,6 @@
         })
 
         function handleClick(result) {
-            alert("called");
             if (result.value == 1) {
                 // alert(result.value);
                 document.getElementById('enterSP').classList.remove('d-none');
