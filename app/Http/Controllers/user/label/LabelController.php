@@ -40,7 +40,27 @@ class LabelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            // 'location' => 'required|string',
+            'official_name' => 'required|string',
+            'email' => 'required|email|unique:labels',
+            'description' => 'required|max:1000',
+            'number' => 'required|numeric',
+            'image' => 'nullable|max:2048',
+
+        ]);
+
+
+        $labelData = $request->only('official_name','email','description','number','location','image');
+        $labelData['user_id'] = auth()->id();
+        $genreData = $request->only('gener_id');
+        $websiteData = $request->only('webSiteName', 'url');
+        $store = $this->labelInterface->storeLabel($labelData, $genreData, $websiteData);
+        if ($store) {
+            return redirect()->route('labels.index')->with('msg', 'New Labe added successfully.');
+        } else {
+            return back()->with('msg', 'Some error occur.');
+        }
     }
 
     /**
