@@ -21,7 +21,7 @@
                                     <div class="col-md-6">
                                         <label>Official Name</label><span class="text-danger">*</span>
                                         <input type="text" class="form-control" placeholder="label name" name="official_name"
-                                            value="{{ old('name') }}" required>
+                                            value="{{ old('official_name') }}" required>
 
 
                                         @error('official_name')
