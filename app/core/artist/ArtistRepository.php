@@ -5,6 +5,8 @@ namespace App\core\artist;
 use App\Models\ArtistNameLocalization;
 use App\Models\TimeTable;
 use App\Models\User;
+use App\Models\Label;
+use App\Models\Asset;
 use App\Models\Website;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -154,4 +156,13 @@ class ArtistRepository implements ArtistInterface
         }
         return 'not found';
     }
+
+    public function Dashboard()
+    {
+        $dashboard['reelase'] = Asset::count();
+        $dashboard['artist'] = User::where('type', 'artist')->count();
+        $dashboard['label'] = Label::count();
+        return $dashboard;
+    }
+
 }
