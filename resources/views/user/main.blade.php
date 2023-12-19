@@ -41,6 +41,8 @@
                     <div class="logo"><a href="#">
                             <span>{{ env('APP_NAME') }}</span>
                         </a></div>
+                    <li><a href="{{ route('artistDashboard') }}"><i class="ti-dashboard"></i> Dashboard </a></li>
+
                     <li><a href="{{ route('asset.index') }}"><i class="ti-calendar"></i> Release </a></li>
 
                     <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Rights Holders <span
@@ -61,7 +63,7 @@
                     <li><a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"><i
-                                class="ti-close"></i> Logout</a></li>
+                                class="ti-power-off"></i> Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -91,7 +93,13 @@
                                 <div class="dropdown-menu dropdown-content-body">
                                     <div class="">
                                         <ul>
-
+                                            <li>
+                                                <a href="{{ route('editProfile') }}">
+                                                    <i class="ti-user"></i>
+                                                    <span>Profile</span>
+                                                </a>
+                                                
+                                            </li>
                                             <li>
                                                 <a href="{{ route('logout') }}"
                                                     onclick="event.preventDefault();
@@ -105,13 +113,6 @@
                                                 </form>
                                             </li>
 
-                                            <li>
-                                                <a href="{{ route('editProfile') }}">
-                                                    <i class="ti-power-off"></i>
-                                                    <span>Profile</span>
-                                                </a>
-                                                
-                                            </li>
                                             
                                         </ul>
                                     </div>

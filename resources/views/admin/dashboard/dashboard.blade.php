@@ -26,7 +26,7 @@
     </div>
     <!-- /# row -->
     <section id="main-content">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-lg-3">
                 <div class="card">
                     <div class="stat-widget-one">
@@ -63,17 +63,45 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-lg-3">
-                <div class="card">
+        </div> --}}
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #6571FF;">
                     <div class="stat-widget-one">
-                        <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
+                        <div class="stat-icon dib"><i class="ti-ticket text-white"></i>
+                        </div>
                         <div class="stat-content dib">
-                            <div class="stat-text">Referral</div>
-                            <div class="stat-digit">2,781</div>
+                            <div class="text-white fs-larger" style="font-size: large">Total Labels</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['label']}}</div>
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #0AC074">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib"><i class="ti-layout-cta-right text-white"></i>
+                        </div>
+                        <div class="stat-content dib">
+                            <div class="text-white fs-larger" style="font-size: large">Total Reelase</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['reelase']}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #6F42C1">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib"><i class="ti-user text-white"></i>
+                        </div>
+                        <div class="stat-content dib">
+                            <div class="text-white fs-larger" style="font-size: large">Total Artist</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['artist']}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
       
         {{-- <div class="row">

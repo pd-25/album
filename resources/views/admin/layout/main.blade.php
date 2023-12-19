@@ -42,8 +42,9 @@
                             <span>{{ env('APP_NAME') }}</span>
                         </a></div>
                     {{-- <li><a href="#"><i class="ti-calendar"></i> Site Info </a></li> --}}
+                    <li><a href="{{ route('admin.dashboard') }}"><i class="ti-dashboard"></i> Dashboard </a></li>
 
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> User Management <span
+                    <li><a class="sidebar-sub-toggle"><i class="ti-user"></i> User Management <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="{{ route('users.create') }}">Add User</a></li>
@@ -55,7 +56,7 @@
                         </ul>
                     </li>
 
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Artist Management <span
+                    <li><a class="sidebar-sub-toggle"><i class="ti-user"></i> Artist Management <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="{{ route('artists.create') }}">Add Artist</a></li>
@@ -66,7 +67,7 @@
 
                         </ul>
                     </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Label Management <span
+                    <li><a class="sidebar-sub-toggle"><i class="ti-ticket"></i> Label Management <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="{{ route('label.create') }}">Add Label</a></li>
@@ -77,7 +78,7 @@
 
                         </ul>
                     </li>
-                    <li><a class="sidebar-sub-toggle"><i class="ti-settings"></i> Release Management <span
+                    <li><a class="sidebar-sub-toggle"><i class="ti-calendar"></i> Release Management <span
                         class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li><a href="{{ route('admin.create') }}">Add Release</a></li>
@@ -117,7 +118,7 @@
                     <li><a href="{{ route('admin.logout') }}"
                             onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();"><i
-                                class="ti-close"></i> Logout</a></li>
+                                class="ti-power-off"></i> Logout</a></li>
                 </ul>
             </div>
         </div>

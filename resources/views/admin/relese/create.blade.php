@@ -1,11 +1,15 @@
 @extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | release-create')
 @section('content')
-
+<style>
+    .error{
+        color: red;
+    }
+</style>
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="">
-                <form action="{{ route('admin.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
+                <form class="myform" action="{{ route('admin.store') }}" method="POST" id="yourFormId" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
                     <div id="wizard" class="shadow" style="margin-right:0px; margin-left:10px">
@@ -15,7 +19,7 @@
                             <div class="row">
                                 <div class="col-md-6" style="margin-left: -14px">
                                     <h6><b>Add User</b></h6>
-                                    <select name="userId" class="custom-select">
+                                    <select required name="userId" class="custom-select">
                                         <option value="">select user</option>
                                         @if (!@empty($users))
                                         @foreach ($users as $k=> $user)
@@ -29,8 +33,8 @@
                                         @enderror
                                     </span>
                                 </div>
-                                <div class="col-md-12" style="margin-left: -14px ">
-                                    <h6><b>Cover image</b></h6>
+                                <div class="col-md-12" style="margin-left:-14px ">
+                                    <h6><b>Cover image <span class="text-danger">*</span></b></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
@@ -38,7 +42,7 @@
                                         onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" id="inputGroupFile02">
                                         <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                                         <img id="blah" alt="your image"
-                                            style="height: 110px; width: 150px;" />
+                                            style="height: 300px;" />
                                     </div>
                                     <span class="text-danger">
                                         @error('cover_image')
@@ -72,9 +76,9 @@
                                     <h6><b>Language</b></h6>
                                     <div class="form-row">
                                         <h6>In what language will you be writing your titles, artist name(s) and release
-                                            description? * </h6>
+                                            description? <span class="text-danger">*</span> </h6>
 
-                                        <select name="language" class="custom-select js-example-basic-single">
+                                        <select required name="language" class="custom-select js-example-basic-single">
                                             <option value="">select language</option>
                                             @foreach (config('country.languages') as $k => $lan)
                                                 <option value="{{ $lan }}">{{ $lan }}</option>
@@ -93,10 +97,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6 class="mb-0">Release title * </h6>
+                                    <h6 class="mb-0">Release title <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="mb-0"> Title version * </h6>
+                                    <h6 class="mb-0"> Title version <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
@@ -125,13 +129,13 @@
                                 <div class="col-md-12">
                                     <h6><b>Artist</b></h6>
                                     <div class="form-row">
-                                        <h6>Is this a compilation of various artists? </h6>
+                                        <h6>Is this a compilation of various artists? <span class="text-danger">*</span> </h6>
                                         <div class="ml-5 row">
                                             <div class="col-6">
-                                                <input type="radio" class="form-check-input" name="is_various_artist"  value="1" id="">Yes
+                                                <input required type="radio" class="form-check-input" name="is_various_artist"  value="1" id="">Yes
                                             </div>
                                             <div class="col-6">
-                                                <input type="radio" class="form-check-input" name="is_various_artist"
+                                                <input required type="radio" class="form-check-input" name="is_various_artist"
                                                     id="" value="0">No
                                             </div>
                                             <span class="text-danger">
@@ -143,9 +147,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <h6><b>Artist(s) – indicate ONLY ONE per field * </b></h6>
+                                    <h6><b>Artist(s) – indicate ONLY ONE per field <span class="text-danger">*</span></b></h6>
                                     <div class="form-row">
-                                        <select name="asset_artist_id" class="form-control js-example-basic-single"
+                                        <select required name="asset_artist_id" class="form-control js-example-basic-single"
                                             id="">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
@@ -161,16 +165,16 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>Artist already on Spotify? * </h6>
+                                    <h6>Artist already on Spotify? <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input"  required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
+                                            <input required class="form-check-input"  required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
                                                 value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input class="form-check-input" required type="radio" onclick="handleClick(this);" name="has_spotify_asset" value="0">No
+                                            <input required class="form-check-input" required type="radio" onclick="handleClick(this);" name="has_spotify_asset" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -181,13 +185,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="enterSP" class="d-none">
-                                        <input required type="text" class="form-control" name="spotify_id_ass"
+                                        <input type="text" class="form-control" name="spotify_id_ass"
                                             placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>Artist already on Apple Music? * </h6>
+                                    <h6>Artist already on Apple Music? <span class="text-danger">*</span> </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
@@ -208,7 +212,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="enterAP" class="d-none">
-                                        <input required type="text" class="form-control" name="apple_id_ass"
+                                        <input type="text" class="form-control" name="apple_id_ass"
                                             placeholder="enter apple ID">
                                     </div>
                                 </div>
@@ -218,15 +222,15 @@
                                     <hr>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6>Genre 1 *</h6>
+                                    <h6>Genre 1 <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Genre 2 *</h6>
+                                    <h6>Genre 2 </h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="genre_one" id="" class="form-control js-example-basic-single">
+                                    <select required name="genre_one" id="" class="form-control js-example-basic-single">
                                         <option value="">select genre1</option>
                                         @foreach (config('country.genres') as $k => $g_one)
                                             <option value="{{ $g_one }}">{{ $g_one }}</option>
@@ -254,10 +258,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>(P) Copyright *</h6>
+                                    <h6>(P) Copyright <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6>(C) Copyright *</h6>
+                                    <h6>(C) Copyright <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
@@ -281,13 +285,13 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Previously released?</h6>
+                                    <h6>Previously released? <span class="text-danger">*</span></h6>
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input  type="radio" onclick="handleClickRD(this);" name="previously_release" class="form-check-input" value="1">Yes
+                                            <input required type="radio" onclick="handleClickRD(this);" name="previously_release" class="form-check-input" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" onclick="handleClickRD(this);" class="form-check-input" name="previously_release" value="0">No
+                                            <input required type="radio" onclick="handleClickRD(this);" class="form-check-input" name="previously_release" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -299,13 +303,13 @@
 
                                 <div class="col-md-6">
                                     <div class="d-none" id="prelesr">
-                                        <input required type="date" name="release_date" class="form-control" id="">
+                                        <input type="date" name="release_date" class="form-control" id="">
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Label name *</h6>
-                                    <select name="label_id" class="form-control js-example-basic-single" id="">
+                                    <h6>Label name <span class="text-danger">*</span></h6>
+                                    <select required name="label_id" class="form-control js-example-basic-single" id="">
                                         @foreach ($labels as $label)
                                             <option value="{{ $label->id }}">{{ $label->official_name }}</option>
                                         @endforeach
@@ -313,9 +317,9 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Internal release ID *</h6>
-                                    <input required type="text" name="internal_release_id" class="form-control"
-                                        id="" value="{{old('internal_release_id')}}">
+                                    <h6>Internal release ID <span class="text-danger">*</span></h6>
+                                    <input readonly required type="text" id="internal_release_id" name="internal_release_id" class="form-control"
+                                        id="" value="">
                                         <span class="text-danger">
                                             @error('internal_release_id')
                                             <strong>{{ $message }}</strong>
@@ -328,7 +332,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input required type="number" name="upc_ean_jan" class="form-control"
+                                    <input type="number" name="upc_ean_jan" class="form-control"
                                         placeholder="xxxxxxxxx" id="" value="{{old('upc_ean_jan')}}">
                                 
                                         <span class="text-danger">
@@ -343,12 +347,12 @@
                         <section>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h6><b>Audio file</b></h6>
+                                    <h6><b>Audio file <span class="text-danger">*</span></b></h6>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-6">
-                                            <input type="file" onchange="previewFile()" accept="audio/*" class="custom-file-label" name="audio" id="inputGroupFi">
+                                            <input required type="file" onchange="previewFile()" accept="audio/*" class="custom-file-label" name="audio" id="inputGroupFi">
                                             <label class="custom-file-label" for="inputGroupFi">Choose file</label>
                                         </div>
                                         <div class="col-6">
@@ -367,8 +371,8 @@
 
                                 <div class="col-md-12">
                                     <div class="form-row">
-                                        <h6><b>Language of lyrics</b></h6>
-                                        <select name="language_t623" id=""
+                                        <h6><b>Language of lyrics <span class="text-danger">*</span></b></h6>
+                                        <select required name="language_t623" id=""
                                             class="custom-select">
                                             <option value="">select language</option>
                                             @foreach (config('country.languages') as $k => $lanT)
@@ -384,10 +388,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6><b>Track title</b></h6>
+                                    <h6><b>Track title <span class="text-danger">*</span></b></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6><b>Title version</b></h6>
+                                    <h6><b>Title version <span class="text-danger">*</span></b></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
@@ -413,8 +417,8 @@
 
                                 <div class="col-md-12">
                                     <div class="form-row">
-                                        <h6><b>Artist</b></h6>
-                                        <select name="contritibutor_track_artist_id"
+                                        <h6><b>Artist <span class="text-danger">*</span></b></h6>
+                                        <select required name="contritibutor_track_artist_id"
                                             class="custom-select" id="">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
@@ -429,16 +433,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <h6>Artist already on Spotify? * </h6>
+                                    <h6>Artist already on Spotify? <span class="text-danger">*</span> </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" type="radio" onclick="handleClickTrack(this);"
+                                            <input required class="form-check-input" type="radio" onclick="handleClickTrack(this);"
                                                 name="contritibutor_has_spotify" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input class="form-check-input" type="radio" onclick="handleClickTrack(this);"
+                                            <input required class="form-check-input" type="radio" onclick="handleClickTrack(this);"
                                                 name="contritibutor_has_spotify" value="0">No
                                         </div>
                                         <span class="text-danger">
@@ -450,22 +454,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickTrack" class="d-none">
-                                        <input required type="text" class="form-control"
+                                        <input type="text" class="form-control"
                                             name="contritibutor_track_spotify_id" placeholder="enter spotify ID">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>Artist already on Apple Music? * </h6>
+                                    <h6>Artist already on Apple Music? <span class="text-danger">*</span> </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" required type="radio" onclick="handleClickATrack(this);"
+                                            <input required class="form-check-input" required type="radio" onclick="handleClickATrack(this);"
                                                 name="contritibutor_has_applemusic" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input required type="radio" onclick="handleClickATrack(this);" class="form-check-input"
+                                            <input required required type="radio" onclick="handleClickATrack(this);" class="form-check-input"
                                                 name="contritibutor_has_applemusic" value="0">No
                                         </div>
                                     </div>
@@ -477,23 +481,23 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickATrack" class="d-none">
-                                        <input required type="text" class="form-control"
+                                        <input type="text" class="form-control"
                                             name="contritibutor_track_apple_id" placeholder="enter apple ID">
                                     </div>
                                 </div>
                                 <hr>
 
                                 <div class="col-md-12">
-                                    <h6>Do you have ISRC code? * </h6>
+                                    <h6>Do you have ISRC code? <span class="text-danger">*</span> </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" type="radio" onclick="handleClickISRC(this);" name="has_isrc"
+                                            <input required class="form-check-input" type="radio" onclick="handleClickISRC(this);" name="has_isrc"
                                                 value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" onclick="handleClickISRC(this);" class="form-check-input"
+                                            <input required type="radio" onclick="handleClickISRC(this);" class="form-check-input"
                                                 name="has_isrc" value="0">No
                                             <span id="noIsrc" class="">(Ok, we will generate for you)</span>
                                         </div>
@@ -506,20 +510,20 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div id="handleClickISRC" class="d-none">
-                                        <input required type="text" name="isrc_code" class="form-control" placeholder="ISRC">
+                                        <input type="text" name="isrc_code" class="form-control" placeholder="ISRC">
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>Explicit lyrics? * </h6>
+                                    <h6>Explicit lyrics? <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" type="radio" name="explicit_lyrics" value="1">Yes
+                                            <input required class="form-check-input" type="radio" name="explicit_lyrics" value="1">Yes
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" class="form-check-input" name="explicit_lyrics" value="0">No
+                                            <input required type="radio" class="form-check-input" name="explicit_lyrics" value="0">No
                                         </div>
                                     </div>
                                     <span class="text-danger">
@@ -530,16 +534,16 @@
                                 </div>
 
                                 <div class="col-md-12">
-                                    <h6>The track is: * </h6>
+                                    <h6>The track is: <span class="text-danger">*</span> </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input class="form-check-input" type="radio" onclick="trackIs(this);" name="original_public"
+                                            <input required class="form-check-input" type="radio" onclick="trackIs(this);" name="original_public"
                                                 value="1">An original song (publishing info will be required)
                                         </div>
                                         <div class="col-6">
-                                            <input type="radio" onclick="trackIs(this);" class="form-check-input" name="original_public" value="0">A public domain song (publishing info
+                                            <input required type="radio" onclick="trackIs(this);" class="form-check-input" name="original_public" value="0">A public domain song (publishing info
                                             will be required)
                                         </div>
                                         <span class="text-danger">
@@ -576,15 +580,15 @@
                                     <hr>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6>Genre 1 *</h6>
+                                    <h6>Genre 1 <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Genre 2 *</h6>
+                                    <h6>Genre 2 </h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="genre_one_track" id=""
+                                    <select required name="genre_one_track" id=""
                                         class="custom-select">
                                         <option value="">select genre1</option>
                                         @foreach (config('country.genres') as $k => $t_one)
@@ -599,7 +603,6 @@
                                 </div>
 
                                 <div class="col-md-6">
-
                                     <select name="genre_two_track" id=""
                                         class="custom-select">
                                         <option value="">select genre2</option>
@@ -615,10 +618,10 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>(P) Copyright *</h6>
+                                    <h6>(P) Copyright <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6>(C) Copyright *</h6>
+                                    <h6>(C) Copyright <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
@@ -642,15 +645,15 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Label name *</h6>
+                                    <h6>Label name <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Internal track ID*</h6>
+                                    <h6>Internal track ID <span class="text-danger">*</span></h6>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <select name="track_label_id" class="custom-select">
+                                    <select required name="track_label_id" class="custom-select">
                                         @foreach ($labels as $label_t)
                                             <option value="{{ $label_t->id }}">{{ $label_t->official_name }}</option>
                                         @endforeach
@@ -663,7 +666,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <input required type="text" name="internal_track_id" class="form-control" value="{{old('internal_track_id')}}">
+                                    <input required readonly type="text" id="internal_track_id" name="internal_track_id" class="form-control" value="">
                                     <span class="text-danger">
                                         @error('internal_track_id')
                                         <strong>{{ $message }}</strong>
@@ -687,12 +690,12 @@
                         </section> <!-- SECTION 3 -->
                         <h4></h4>
                         <section>
-                            <h6>Add more contributor *</h6>
+                            <h6>Add more contributor</h6>
                             <div class="row">
 
                                 <div class="col-md-6">
-                                    <h6>Contributor name *</h6>
-                                    <select name="contritibutor_track_artist_name"
+                                    <h6>Contributor name <span class="text-danger">*</span></h6>
+                                    <select required name="contritibutor_track_artist_name"
                                         class="custom-select" id="">
                                         <option value="">select contributor</option>
                                         @foreach ($artists as $ass_artist)
@@ -707,8 +710,8 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <h6>Role *</h6>
-                                    <select name="contritibutor_role" class="custom-select">
+                                    <h6>Role <span class="text-danger">*</span></h6>
+                                    <select required name="contritibutor_role" class="custom-select">
                                         <option value="">select role</option>
                                         <option value="Adaptor">Adaptor</option>
                                         <option value="Arranger">Arranger</option>
@@ -729,7 +732,7 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <h6>Share *</h6>
+                                    <h6>Share <span class="text-danger">*</span></h6>
                                     <input required type="number" name="contritibutor_share" class="form-control" value="{{old('contritibutor_share')}}">
                                     <span class="text-danger">
                                         @error('contritibutor_share')
@@ -739,8 +742,8 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <h6>Publishing *</h6>
-                                    <select name="contritibutor_publishing" class="custom-select">
+                                    <h6>Publishing <span class="text-danger">*</span></h6>
+                                    <select required name="contritibutor_publishing" class="custom-select">
                                         <option value="">select publishing</option>
                                         <option value="Copyright control (self-published)">Copyright control (self-published)</option>
                                         <option value="Public domain (no publisher)">Public domain (no publisher)</option>
@@ -774,8 +777,33 @@
 @endsection
 
 @section('script')
-
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
+        $(window).load(function() {
+            var data = Math.floor(Math.random()*1000000)+1;
+            $('#internal_release_id').val(data);
+            $('#internal_track_id').val(data);
+        });
+        function validation () {
+            var form = $(".myform");
+            form.validate({
+                rules: {
+                    release_title: {required: true},
+                    language: "required",
+                    title_version:"required"
+                },
+                messages: {
+                    release_title: {required: "This is required."},
+                    language:{required: "This is required."},
+                    title_version:{required: "This is required."}
+                }
+            });
+            if (form.valid() === true) {
+                $(".slide.one").removeClass("active");
+                $(".slide.two").addClass("active");
+            }
+            return form.valid()
+        };
         $(function() {
             $("#wizard").steps({
                 headerTag: "h4",
@@ -802,7 +830,9 @@
                         $('.steps ul').removeClass('step-4');
                         $('.actions ul').removeClass('step-last');
                     }
-                    return true;
+                    if(validation() == true){
+                        return true;
+                    }
                 },
                 labels: {
                     finish: "Approve",

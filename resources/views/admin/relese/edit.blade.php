@@ -37,10 +37,7 @@
                                         onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" id="inputGroupFile02">
                                         <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
                                         <img id="blah" alt="your image"
-                                            style="height: 110px; width: 150px;" />
-                                    </div>
-                                    <div>
-                                        <img style="height: 100px; width: 100px;" src="{{asset('storage/'.@$allDetails->cover_image)}}" alt="">
+                                            style="height: 300px;" src="{{asset('storage/'.@$allDetails->cover_image)}}" />
                                     </div>
                                     <span class="text-danger">
                                         @error('cover_image')

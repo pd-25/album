@@ -10,6 +10,5 @@ interface ArtistInterface {
     public function updateArtist($data,$id,$websiteData, $localizationData);
     public function deleteArtist($id);
     public function userWiseArtist($id);
-    
-    
+    public function Dashboard();
 }

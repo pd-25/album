@@ -7,7 +7,7 @@
         <div class="col-lg-8 p-r-0 title-margin-right">
             <div class="page-header">
                 <div class="page-title">
-                    <h1>Hello, <span>Welcome Here</span></h1>
+                    <h1>Hello {{Auth::user()->name}}, <span>Welcome Here.</span></h1>
                 </div>
             </div>
         </div>
@@ -27,25 +27,43 @@
     <!-- /# row -->
     <section id="main-content">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="card">
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #6571FF;">
                     <div class="stat-widget-one">
-                        <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
+                        <div class="stat-icon dib"><i class="ti-ticket text-white"></i>
                         </div>
                         <div class="stat-content dib">
-                            <div class="stat-text">Total Labels</div>
-                            <div class="stat-digit">1,012</div>
+                            <div class="text-white fs-larger" style="font-size: large">Total Labels</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['label']}}</div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #0AC074">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib"><i class="ti-layout-cta-right text-white"></i>
+                        </div>
+                        <div class="stat-content dib">
+                            <div class="text-white fs-larger" style="font-size: large">Total Reelase</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['reelase']}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3 rounded shadow w-100 h-100 p-3" style="background-color: #6F42C1">
+                    <div class="stat-widget-one">
+                        <div class="stat-icon dib"><i class="ti-user text-white"></i>
+                        </div>
+                        <div class="stat-content dib">
+                            <div class="text-white fs-larger" style="font-size: large">Total Artist</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['artist']}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      
-       
-
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer">

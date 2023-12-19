@@ -12,6 +12,8 @@ use App\Models\Track;
 use App\Models\User;
 use App\Models\TrackArtist;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+
 class AssetsController extends Controller
 {
     public $artistInterface, $labelInterface;
@@ -24,7 +26,6 @@ class AssetsController extends Controller
 
     public function index()
     {
-        $userId = auth()->guard('admin')->user()->id;
         $Getartist = Asset::orderBy('id', 'DESC')->get();
         return view('admin.relese.index', compact('Getartist'));
     }
@@ -50,7 +51,7 @@ class AssetsController extends Controller
        $request->validate([
         // section - 1
             'userId'=>'required',
-            'cover_image' => 'required',
+            'cover_image' => ['required', 'mimes:jpg,png,jpeg,gif', 'dimensions:min_width=1400,min_height=1400,max_width=3000,max_height=3000','min:50','max:10000'],
             'language' => 'required',
             'release_title' => 'required',
             'title_version' => 'required',
@@ -61,16 +62,14 @@ class AssetsController extends Controller
             'has_applemusic_asset' => 'required',
 
             'genre_one' => 'required',
-            'genre_two' => 'required',
             'p_copy' => 'required',
             'c_copy' => 'required',
             'previously_release' => 'required',
             'label_id' => 'required',
-            'internal_release_id' => 'required',
-            'upc_ean_jan' => 'required',
+            'internal_release_id' => 'required|unique:assets,internal_release_id',
             // end section - 1
 
-            'audio' => 'required',
+            'audio' => 'required|mimes:wav',
             'language_t623' => 'required',
             'track_title' => 'required',
             'track_title_version' => 'required',
@@ -83,7 +82,6 @@ class AssetsController extends Controller
             'explicit_lyrics' => 'required',
             'original_public' => 'required',
             'genre_one_track' => 'required',
-            'genre_two_track' => 'required',
             'p_copy_t' => 'required',
             'c_copy_t' => 'required',
             'track_label_id' => 'required',
@@ -123,8 +121,8 @@ class AssetsController extends Controller
                 $assetArtist->asset_artist_id = $request->asset_artist_id;
                 $assetArtist->has_spotify_asset = $request->has_spotify_asset;
                 $assetArtist->has_applemusic_asset = $request->has_applemusic_asset;
-                $assetArtist->spotify_id_ass = $request->spotify_id_ass;
-                $assetArtist->apple_id_ass = $request->apple_id_ass;
+                $assetArtist->spotify_id_ass = $request->spotify_id_ass != null ? $request->spotify_id_ass : null;
+                $assetArtist->apple_id_ass = $request->apple_id_ass != null ? $request->apple_id_ass : null;
                 $assetArtist->save();
             }
             $track = new Track;
@@ -138,7 +136,7 @@ class AssetsController extends Controller
             $track->track_title_version = $request->track_title;
             $track->title_version = $request->track_title_version;
             $track->has_isrc = $request->has_isrc;
-            $track->isrc_code = $request->isrc_code;
+            $track->isrc_code = $request->isrc_code != null? $request->isrc_code : null;
             $track->explicit_lyrics = $request->explicit_lyrics;
             $track->original_public = $request->original_public;
             $track->genre_one_track = $request->genre_one_track;
@@ -155,8 +153,8 @@ class AssetsController extends Controller
                 $trackArtist->track_artist_id = $request->contritibutor_track_artist_id;
                 $trackArtist->has_spotify = $request->contritibutor_has_spotify;
                 $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
-                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id;
-                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id;
+                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id != null ?  $request->contritibutor_track_spotify_id : null;
+                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id != null ? $request->contritibutor_track_apple_id : null;
                 $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
@@ -167,7 +165,6 @@ class AssetsController extends Controller
             return back()->with('success', 'Successfully Saved');
         }catch (\Throwable $e) {
             DB::rollback();
-            dd($e);
             throw $e;
             return back()->with('errorMessage', 'Something went wrong');
         }
@@ -223,8 +220,8 @@ class AssetsController extends Controller
                 $assetArtist->asset_artist_id = $request->asset_artist_id;
                 $assetArtist->has_spotify_asset = $request->has_spotify_asset;
                 $assetArtist->has_applemusic_asset = $request->has_applemusic_asset;
-                $assetArtist->spotify_id_ass = $request->spotify_id_ass;
-                $assetArtist->apple_id_ass = $request->apple_id_ass;
+                $assetArtist->spotify_id_ass = $request->spotify_id_ass != null ? $request->spotify_id_ass : null;
+                $assetArtist->apple_id_ass = $request->apple_id_ass != null ? $request->apple_id_ass : null;
                 $assetArtist->save();
             }
             $track = Track::where('asset_id',$id)->first();
@@ -237,7 +234,7 @@ class AssetsController extends Controller
             $track->track_title_version = $request->track_title;
             $track->title_version = $request->track_title_version;
             $track->has_isrc = $request->has_isrc;
-            $track->isrc_code = $request->isrc_code;
+            $track->isrc_code =  $request->isrc_code != null? $request->isrc_code : null;
             $track->explicit_lyrics = $request->explicit_lyrics;
             $track->original_public = $request->original_public;
             $track->genre_one_track = $request->genre_one_track;
@@ -253,8 +250,8 @@ class AssetsController extends Controller
                 $trackArtist->track_artist_id = $request->contritibutor_track_artist_id;
                 $trackArtist->has_spotify = $request->contritibutor_has_spotify;
                 $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
-                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id;
-                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id;
+                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id != null ?  $request->contritibutor_track_spotify_id : null;
+                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id != null ? $request->contritibutor_track_apple_id : null;
                 $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
