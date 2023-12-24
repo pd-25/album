@@ -6,6 +6,8 @@ use App\Http\Controllers\admin\dashboard\DashboardController;
 use App\Http\Controllers\admin\label\LabelController;
 use App\Http\Controllers\admin\user\UserController;
 use App\Http\Controllers\admin\asset\AssetsController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\StorePermissionController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +38,8 @@ Route::get('/run', function () {
     return "Command executed. Output: $output";
 });
 
+Auth::routes();
+
 Route::get('admin/login', [AuthController::class, 'showLogin'])->name('admin.showlogin');
 Route::post('admin/login', [AuthController::class, 'login'])->name('admin.login');
 
@@ -46,6 +50,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name("admin.dashboard");
     Route::resource('users', UserController::class);
     Route::resource('artists', ArtistController::class);
+    Route::get('artists-list/{userid}', [ArtistController::class,'GetArtistDetails']);
+
     Route::resource('label', LabelController::class);    
     Route::get('log-out', [AuthController::class, 'adminLogout'])->name('admin.logout');
     
@@ -55,6 +61,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/asset/{asset}/edit', [AssetsController::class, 'edit'])->name("admin.edit");
     Route::put('/asset/{asset}', [AssetsController::class, 'update'])->name("admin.update");
     Route::delete('/asset/{asset}', [AssetsController::class, 'destroy'])->name("admin.destroy");
+
+    Route::get('/store', [StoreController::class, 'index'])->name("store.index");
+    Route::get('/store/create', [StoreController::class, 'create'])->name("store.create");
+    Route::post('/store/store', [StoreController::class, 'store'])->name("store.store");
+    Route::get('/store/{store}/edit', [StoreController::class, 'edit'])->name("store.edit");
+    Route::delete('/store/{store}', [StoreController::class, 'destroy'])->name("store.destroy");
+
+    Route::get('/store-permission', [StorePermissionController::class, 'index'])->name("storePermission.index");
+    Route::POST('/storepermission-store', [StorePermissionController::class, 'store'])->name("StorePermissionController.store");
+    Route::get('/storepermission/create', [StorePermissionController::class, 'create'])->name("storePermission.create");
 });
 
 

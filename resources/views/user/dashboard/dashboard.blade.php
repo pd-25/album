@@ -46,7 +46,7 @@
                         </div>
                         <div class="stat-content dib">
                             <div class="text-white fs-larger" style="font-size: large">Total Reelase</div>
-                            <div class="text-white" style="font-size: larger">{{@$dashboard['reelase']}}</div>
+                            <div class="text-white" style="font-size: larger">{{@$dashboard['userreelase']}}</div>
                         </div>
                     </div>
                 </div>

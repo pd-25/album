@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -30,6 +31,9 @@
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-aio-1.5.0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -89,7 +93,13 @@
 
                         </ul>
                     </li>
-
+                    <li><a class="sidebar-sub-toggle"><i class="ti-harddrives"></i> Store Management <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="{{ route('store.index') }}">Stores</a></li>
+                            <li><a href="{{ route('storePermission.index') }}">Store Permission</a></li>
+                        </ul>
+                    </li>
                     {{-- <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Banner Management <span
                                 class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
@@ -112,8 +122,6 @@
 
                         </ul>
                     </li> --}}
-
-
 
                     <li><a href="{{ route('admin.logout') }}"
                             onclick="event.preventDefault();

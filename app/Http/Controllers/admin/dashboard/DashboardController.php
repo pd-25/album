@@ -15,7 +15,7 @@ class DashboardController extends Controller
     }
     public function dashboard() {
         // $data["total_artist"] = $this->artist->getAllArtists()->count();
-        $dashboard = $this->artistInterface->Dashboard();
+        $dashboard = $this->artistInterface->Dashboard(null);
         return view("admin.dashboard.dashboard", compact('dashboard'));
  }
 }

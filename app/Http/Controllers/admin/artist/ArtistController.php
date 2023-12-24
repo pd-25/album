@@ -6,6 +6,7 @@ use App\core\artist\ArtistInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class ArtistController extends Controller
 {
@@ -130,5 +131,12 @@ class ArtistController extends Controller
         } elseif ($delete == 'No data') {
             return back()->with('msg', 'No artwork found.');
         }
+    }
+
+    
+    public function GetArtistDetails($userid)
+    {
+        $user = User::find($userid);
+        return response()->json($user);
     }
 }

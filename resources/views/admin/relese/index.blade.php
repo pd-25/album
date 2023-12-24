@@ -76,6 +76,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div>
+                        {{$Getartist->appends(request()->input())->links()}}
+                    </div>
                 </div>
             </div>
         </div>

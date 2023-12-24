@@ -157,10 +157,13 @@ class ArtistRepository implements ArtistInterface
         return 'not found';
     }
 
-    public function Dashboard()
+    public function Dashboard($userid)
     {
         $dashboard['reelase'] = Asset::count();
         $dashboard['artist'] = User::where('type', 'artist')->count();
+        if($userid){
+            $dashboard['userreelase'] = Asset::where('user_id', $userid)->count();
+        }
         $dashboard['label'] = Label::count();
         return $dashboard;
     }
