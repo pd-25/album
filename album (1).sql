@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2023 at 06:35 PM
+-- Generation Time: Dec 24, 2023 at 04:38 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -111,12 +111,13 @@ CREATE TABLE `assets` (
 --
 
 INSERT INTO `assets` (`id`, `user_id`, `cover_image`, `language`, `release_title`, `title_version`, `is_various_artist`, `genre_one`, `genre_two`, `p_copy`, `c_copy`, `previously_release`, `release_date`, `label_id`, `internal_release_id`, `upc_ean_jan`, `created_at`, `updated_at`) VALUES
-(2, 9, '2023-12-16-09_22_59_2023-03-04-07_47_05_Emon2.jpeg', 'Abkhazian', 'asdajsd   asdhajsd', 'hajsdas', 1, 'Acoustic Blues', 'Acoustic Blues', 'jhgsA', 'asvAS', 0, NULL, '1', 'KhsjB', '86213123', '2023-12-16 03:52:59', '2023-12-16 07:30:29'),
-(5, 9, '2023-12-16-15_51_39_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Abkhazian', 'asdba', 'basndbnas', 1, 'Acoustic Blues', 'Acoustic Blues', 'asdbav', 'basndv', 1, '2023-12-14 00:00:00', '6', 'asmdbasn', '2312312', '2023-12-16 10:21:39', '2023-12-16 11:07:20'),
-(7, 1, '2023-12-16-16_48_24_Semester.jpg', 'Albanian', 'ASDAS', 'JJASDB', 1, 'Acoustic Blues', 'Acoustic Blues', 'ASDAS', 'MNADBMA', 1, '2023-11-30 00:00:00', '6', 'ASDAS', '2313', '2023-12-16 11:18:24', '2023-12-16 11:18:24'),
-(8, 9, '2023-12-16-16_51_11_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Abkhazian', 'ASNDVBAS', 'BNSDVA', 1, 'Adult Alternative', 'Adult Alternative', 'ASKDHBVAS', 'ASDNBASASDMNAB', 0, NULL, '6', 'ASKDH', '293712', '2023-12-16 11:21:11', '2023-12-16 11:21:11'),
-(12, 9, '2023-12-16-17_07_48_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Akan', 'asjdba', 'asdn', 0, '(Jazz) Latin Jazz', '(Jazz) Latin Jazz', 'asdasnmb', 'asdnas', 0, NULL, '6', 'asdmnas', '13213', '2023-12-16 11:37:48', '2023-12-16 11:37:48'),
-(13, 12, '2023-12-16-17_32_55_2023-03-04-07_47_05_Emon2.jpeg', 'Akan', 'asdkh', 'asbdna', 1, 'Adult Alternative', 'Adult Alternative', 'asdn', 'basnmdb', 1, '2023-12-16 00:00:00', '1', 'asdbm', '2312312', '2023-12-16 12:02:55', '2023-12-16 12:02:55');
+(2, 9, '2023-12-16-09_22_59_2023-03-04-07_47_05_Emon2.jpeg', 'Abkhazian', 'asdajsd   asdhajsd', 'hajsdas', 1, 'Acoustic Blues', 'Acoustic Blues', 'jhgsA', 'asvAS', 0, '1970-01-01 00:00:00', '1', '1', '86213123', '2023-12-16 03:52:59', '2023-12-23 01:26:08'),
+(5, 9, '2023-12-16-15_51_39_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Abkhazian', 'asdba', 'basndbnas', 1, 'Acoustic Blues', 'Acoustic Blues', 'asdbav', 'basndv', 1, '2023-12-14 00:00:00', '6', '2', '2312312', '2023-12-16 10:21:39', '2023-12-16 11:07:20'),
+(7, 1, '2023-12-16-16_48_24_Semester.jpg', 'Albanian', 'ASDAS', 'JJASDB', 1, 'Acoustic Blues', 'Acoustic Blues', 'ASDAS', 'MNADBMA', 1, '2023-11-30 00:00:00', '6', '3', '2313', '2023-12-16 11:18:24', '2023-12-16 11:18:24'),
+(8, 9, '2023-12-16-16_51_11_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Abkhazian', 'ASNDVBAS', 'BNSDVA', 1, 'Adult Alternative', 'Adult Alternative', 'ASKDHBVAS', 'ASDNBASASDMNAB', 0, NULL, '6', '4', '293712', '2023-12-16 11:21:11', '2023-12-16 11:21:11'),
+(12, 9, '2023-12-16-17_07_48_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 'Akan', 'asjdba', 'asdn', 0, '(Jazz) Latin Jazz', '(Jazz) Latin Jazz', 'asdasnmb', 'asdnas', 0, NULL, '6', '5', '13213', '2023-12-16 11:37:48', '2023-12-16 11:37:48'),
+(13, 12, '2023-12-16-17_32_55_2023-03-04-07_47_05_Emon2.jpeg', 'Akan', 'asdkh', 'asbdna', 1, 'Adult Alternative', 'Adult Alternative', 'asdn', 'basnmdb', 1, '2023-12-16 00:00:00', '1', '6', '2312312', '2023-12-16 12:02:55', '2023-12-16 12:02:55'),
+(14, 9, '2023-12-18-10_38_53_Screenshot 2023-12-18 132728.jpg', 'Abkhazian', 'wqwe', 'wqeqw', 0, 'Adult Alternative', 'Adult Alternative', 'qwewq', 'qweqw', 0, '1970-01-01 00:00:00', '6', '7', '12312312', '2023-12-18 05:08:53', '2023-12-20 01:49:27');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,8 @@ INSERT INTO `asset_artists` (`id`, `asset_id`, `asset_artist_id`, `has_spotify_a
 (7, 7, 1, 1, 0, 'ASDAS', NULL, '2023-12-16 11:18:24', '2023-12-16 11:18:24'),
 (8, 8, 1, 0, 0, NULL, NULL, '2023-12-16 11:21:11', '2023-12-16 11:21:11'),
 (12, 12, 13, 0, 0, NULL, NULL, '2023-12-16 11:37:48', '2023-12-16 11:37:48'),
-(13, 13, 2, 1, 1, 'asdas', 'asda', '2023-12-16 12:02:55', '2023-12-16 12:02:55');
+(13, 13, 2, 1, 1, 'asdas', 'asda', '2023-12-16 12:02:55', '2023-12-16 12:02:55'),
+(14, 14, 13, 0, 0, NULL, NULL, '2023-12-18 05:08:53', '2023-12-18 05:08:53');
 
 -- --------------------------------------------------------
 
@@ -266,7 +268,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (27, '2023_12_12_171804_create_tracks_table', 6),
 (28, '2023_12_12_172138_create_asset_artists_table', 6),
 (29, '2023_12_12_172603_create_asset_genres_table', 6),
-(30, '2023_12_12_173424_create_track_artists_table', 6);
+(30, '2023_12_12_173424_create_track_artists_table', 6),
+(31, '2023_12_23_075408_create_stores_table', 7),
+(32, '2023_12_23_143601_create_store_permissions_table', 8);
 
 -- --------------------------------------------------------
 
@@ -314,6 +318,53 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stores`
+--
+
+CREATE TABLE `stores` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `label_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cover_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL COMMENT '0=>active, 1=>deactive',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `stores`
+--
+
+INSERT INTO `stores` (`id`, `label_name`, `cover_image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'sdasd', '2023-12-23-11_22_38_Screenshot 2023-12-18 132728 (1).jpg', 1, '2023-12-23 05:52:38', '2023-12-23 05:52:38'),
+(2, 'ABCD', '2023-12-23-13_01_51_Screenshot 2023-12-18 132728.jpg', 0, '2023-12-23 07:31:51', '2023-12-23 08:47:46'),
+(4, 'jasdha', '2023-12-23-13_02_13_screencapture-humblehydrogen-admin-setting-1-edit-2023-12-02-14_08_40.png', 1, '2023-12-23 07:32:14', '2023-12-23 07:32:14'),
+(5, 'emon', '2023-12-23-13_14_23_logo.png', 1, '2023-12-23 07:44:23', '2023-12-23 07:44:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store_permissions`
+--
+
+CREATE TABLE `store_permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `store_permissions`
+--
+
+INSERT INTO `store_permissions` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 2, '2023-12-23 12:20:42', '2023-12-23 12:20:42'),
+(3, 12, '2023-12-23 12:23:39', '2023-12-23 12:23:39'),
+(5, 13, '2023-12-23 12:29:33', '2023-12-23 12:29:33');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tracks`
 --
 
@@ -349,7 +400,8 @@ INSERT INTO `tracks` (`id`, `asset_id`, `audio`, `language_t`, `track_title_vers
 (6, 7, 'm4a', 'Basque', 'ASDBAVSND', 'JSNDBAS', 0, NULL, 0, 0, 'Afrobeats', 'Afro-fusion', 'ASDBAS', 'MSBDA', '6', 'ASDMNABS', 'ASMDNBAS', '2023-12-16 11:18:24', '2023-12-16 11:18:24'),
 (7, 8, 'D:\\Xampp\\htdocs\\album\\public\\audio/20231216_657dd57fe46cd.m4a', 'Samoan', 'ASKDHBAVS', 'JGAJSDNVA', 0, NULL, 0, 0, 'Afro-fusion', 'Alternative & Rock in Spanish', 'KSHDASJD', 'ASDMNASBD', '1', 'ASDBASN', 'ASMBDASN', '2023-12-16 11:21:11', '2023-12-16 11:21:11'),
 (8, 12, '2023-12-16-17_07_48_Recording.m4a', 'Arabic', 'asdamsd', 'asdasbmd', 0, NULL, 0, 0, 'Afro-Pop', 'Afro-Beat', 'askdabsd', 'msbadnas', '6', 'asdnmabs', 'asdmbasnd', '2023-12-16 11:37:48', '2023-12-16 11:37:48'),
-(9, 13, '2023-12-16-17_32_55_Recording.m4a', 'Bashkir', 'asmdb', 'nbnsabd a', 1, 'asndb', 0, 0, 'Alte', 'Afro-fusion', 'asmdb', 'bmsab da', '6', 'asmdbnvas', 'sasmdbasn', '2023-12-16 12:02:55', '2023-12-16 12:02:55');
+(9, 13, '2023-12-16-17_32_55_Recording.m4a', 'Bashkir', 'asmdb', 'nbnsabd a', 1, 'asndb', 0, 0, 'Alte', 'Afro-fusion', 'asmdb', 'bmsab da', '6', 'asmdbnvas', 'sasmdbasn', '2023-12-16 12:02:55', '2023-12-16 12:02:55'),
+(10, 14, '2023-12-18-10_38_53_Recording.m4a', 'Afrikaans', 'asdbasd', 'asdbasd', 0, NULL, 0, 0, 'Afrobeats', 'Alte', 'asd', 'asdas', '6', 'dasd', 'asdasd', '2023-12-18 05:08:53', '2023-12-18 05:08:53');
 
 -- --------------------------------------------------------
 
@@ -384,7 +436,8 @@ INSERT INTO `track_artists` (`id`, `asset_id`, `track_id`, `track_artist_id`, `h
 (6, 7, 6, 13, 1, 0, 'ASD', NULL, 12, 'Composer&Lyricist', '121', 'Public domain (no publisher)', '2023-12-16 11:18:24', '2023-12-16 11:18:24'),
 (7, 8, 7, 12, 0, 0, NULL, NULL, 13, 'Adaptor', '121', 'Copyright control (self-published)', '2023-12-16 11:21:11', '2023-12-16 11:21:11'),
 (8, 12, 8, 3, 0, 0, NULL, NULL, 3, 'Composer&Lyricist', '12311', 'Public domain (no publisher)', '2023-12-16 11:37:49', '2023-12-16 11:37:49'),
-(9, 13, 9, 13, 1, 1, 'asdmbas', 'asmdnbas', 3, 'Arranger', '2312', 'Public domain (no publisher)', '2023-12-16 12:02:55', '2023-12-16 12:02:55');
+(9, 13, 9, 13, 1, 1, 'asdmbas', 'asmdnbas', 3, 'Arranger', '2312', 'Public domain (no publisher)', '2023-12-16 12:02:55', '2023-12-16 12:02:55'),
+(10, 14, 10, 12, 0, 0, NULL, NULL, 13, 'Arranger', '1321', 'Copyright control (self-published)', '2023-12-18 05:08:53', '2023-12-18 05:08:53');
 
 -- --------------------------------------------------------
 
@@ -416,7 +469,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `image`, `biography`, `spotify_id`, `apple_id`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `type`, `user_id`) VALUES
 (1, 'Russell Blackwell', 'bhuinjohrrn@gmail.com', '17016031537880.PNG', 'This is bio', 'http://127.0.0.1:8000/', '454545', NULL, '$2y$12$R7CE27gCQ7nApsFiEVNZNe8MMubkiR8R8mb6ZZAlcyHev3QULhgha', NULL, '2023-11-26 08:04:23', '2023-12-03 06:02:35', 'artist', NULL),
 (2, 'Protine shek next gen', 'test@mail.com', '17010058976541.jpg', 'RRRRRRR RRRRRRRRRRRRRRRR RRRRRRRRRRR\r\ndff', 'http://127.0.0.1:8000/', '1212', NULL, '$2y$12$rgMxP8Irj.mQSw3RuJKdQ.m9Rm6qJEy3fYEwsHcuMbubRWo2IbSrq', NULL, '2023-11-26 08:08:18', '2023-11-26 08:08:18', 'artist', NULL),
-(3, 'Boris Byrd', 'bhuinjohn@gmail.com', '1701102677613.jpg', 'THsi', 'http://127.0.0.1:8000/', '12121', NULL, '$2y$12$2yaR.uUa2K.ELEn15kAFWe5KCTm0808s6MpkLLr7doqolTah0W93C', NULL, '2023-11-27 11:01:20', '2023-11-27 11:01:20', 'artist', NULL),
+(3, 'Boris Byrd', 'bhuinjohn@gmail.com', '1701102677613.jpg', 'THsi', '', '', NULL, '$2y$12$2yaR.uUa2K.ELEn15kAFWe5KCTm0808s6MpkLLr7doqolTah0W93C', NULL, '2023-11-27 11:01:20', '2023-11-27 11:01:20', 'artist', NULL),
 (8, 'Raon', 'abhisekkaran2001@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$12$shcCnynoOzWTRm7YRLvNWOETrUguOrZ4n3Lexja3sFZyZZAxy7xO2', NULL, '2023-12-02 09:18:48', '2023-12-02 21:57:37', 'user', NULL),
 (9, 'Teso', 'teso@mail.com', NULL, NULL, NULL, NULL, NULL, '$2y$12$kjndGwsiJUdJwzARbXQ4r.GI1KRIc89jcIwfsR4DaDi2BnlEovc2u', NULL, '2023-12-02 21:57:23', '2023-12-02 21:57:23', 'user', NULL),
 (12, 'Honey', 'honey@mail.com', '17016055721601.PNG', 'This is the best did', 'http://127.0.0.1:8000/', '55454', NULL, '$2y$12$Fy46u46CJJhUA9Ft6gsKEukMgvAHYRLjwyhFGPOKKIJm2d2fVifnO', NULL, '2023-12-03 06:42:52', '2023-12-03 06:42:52', 'artist', 9),
@@ -539,6 +592,18 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `stores`
+--
+ALTER TABLE `stores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `store_permissions`
+--
+ALTER TABLE `store_permissions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tracks`
 --
 ALTER TABLE `tracks`
@@ -583,13 +648,13 @@ ALTER TABLE `artist_name_localizations`
 -- AUTO_INCREMENT for table `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `asset_artists`
 --
 ALTER TABLE `asset_artists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `asset_genres`
@@ -619,7 +684,7 @@ ALTER TABLE `labels`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -628,16 +693,28 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `stores`
+--
+ALTER TABLE `stores`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `store_permissions`
+--
+ALTER TABLE `store_permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `track_artists`
 --
 ALTER TABLE `track_artists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`

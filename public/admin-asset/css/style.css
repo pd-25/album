@@ -6267,3 +6267,12 @@ only screen and (min-resolution: 2dppx) {
     display: inline-block !important;
   }
 }
+
+ /* Important part */
+ .modal-dialog{
+  overflow-y: initial !important
+}
+.modal-body{
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}

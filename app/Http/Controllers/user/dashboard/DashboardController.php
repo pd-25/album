@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $this->artistInterface = $artistInterface;        
     }
     public function artistDashboard() {
-        $dashboard = $this->artistInterface->Dashboard();
+        $dashboard = $this->artistInterface->Dashboard(auth()->user()->id);
         return view('user.dashboard.dashboard', compact('dashboard'));
     }
 

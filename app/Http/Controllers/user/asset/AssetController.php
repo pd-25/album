@@ -29,7 +29,7 @@ class AssetController extends Controller
     public function index()
     {
         $userId = auth()->user()->id;
-        $Getartist = Asset::where('user_id', $userId)->orderBy('id','DESC')->get();
+        $Getartist = Asset::where('user_id', $userId)->orderBy('id','DESC')->paginate(20);
         return view('user.relese.index', compact('Getartist'));
     }
 
@@ -54,7 +54,6 @@ class AssetController extends Controller
             'cover_image' => ['required', 'mimes:jpg,png,jpeg,gif', 'dimensions:min_width=1400,min_height=1400,max_width=3000,max_height=3000','min:50','max:10000'],
             'language' => 'required',
             'release_title' => 'required',
-            'title_version' => 'required',
             'is_various_artist' => 'required',
 
             'asset_artist_id' => 'required',
@@ -72,7 +71,6 @@ class AssetController extends Controller
             'audio' => 'required|mimes:wav',
             'language_t623' => 'required',
             'track_title' => 'required',
-            'track_title_version' => 'required',
 
             'contritibutor_track_artist_id' => 'required',
             'contritibutor_has_spotify' => 'required',

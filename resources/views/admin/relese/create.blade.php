@@ -18,7 +18,7 @@
                         <section>
                             <div class="row">
                                 <div class="col-md-6" style="margin-left: -14px">
-                                    <h6><b>Add User</b></h6>
+                                    <h6><b>Add User <span class="text-danger">*</span></b></h6>
                                     <select required name="userId" class="custom-select">
                                         <option value="">select user</option>
                                         @if (!@empty($users))
@@ -100,7 +100,7 @@
                                     <h6 class="mb-0">Release title <span class="text-danger">*</span></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="mb-0"> Title version <span class="text-danger">*</span></h6>
+                                    <h6 class="mb-0"> Title version </h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
@@ -116,7 +116,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="title_version" class="form-control"
+                                        <input type="text" name="title_version" class="form-control"
                                             placeholder="title version" value="{{old('title_version')}}">
                                     </div>
                                     <span class="text-danger">
@@ -126,17 +126,17 @@
                                     </span>
                                 </div>
                                 <hr>
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <h6><b>Artist</b></h6>
                                     <div class="form-row">
                                         <h6>Is this a compilation of various artists? <span class="text-danger">*</span> </h6>
                                         <div class="ml-5 row">
                                             <div class="col-6">
-                                                <input required type="radio" class="form-check-input" name="is_various_artist"  value="1" id="">Yes
+                                                <input required type="radio" class="form-check-input" name="is_various_artist"  value="1" id="" onclick="Addartistbutton(Val=1)">Yes
                                             </div>
                                             <div class="col-6">
                                                 <input required type="radio" class="form-check-input" name="is_various_artist"
-                                                    id="" value="0">No
+                                                onclick="Addartistbutton(Val=0)" id="" value="0">No
                                             </div>
                                             <span class="text-danger">
                                                 @error('is_various_artist')
@@ -146,11 +146,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4" id="AddArtistBtn">
+                                    <h6></h6>
+                                    <a href="{{route('userArtists.create')}}" target="_blank" class="btn btn-primary">Add Artist</a>
+                                </div>
                                 <div class="col-md-12">
                                     <h6><b>Artist(s) – indicate ONLY ONE per field <span class="text-danger">*</span></b></h6>
                                     <div class="form-row">
-                                        <select required name="asset_artist_id" class="form-control js-example-basic-single"
-                                            id="">
+                                        <select disabled id="" required name="asset_artist_id" class="form-control js-example-basic-single ArtistDisableEnable"
+                                            id="" onchange="GetArtistDetails(value)">
                                             <option value="">select artist</option>
                                             @foreach ($artists as $ass_artist)
                                                 <option value="{{ $ass_artist->id }}">{{ $ass_artist->name }}</option>
@@ -170,7 +174,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input required class="form-check-input"  required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
+                                            <input required class="form-check-input has_spotify_asset"  required type="radio" onclick="handleClick(this);" name="has_spotify_asset"
                                                 value="1">Yes
                                         </div>
                                         <div class="col-6">
@@ -186,7 +190,7 @@
                                 <div class="col-md-6">
                                     <div id="enterSP" class="d-none">
                                         <input type="text" class="form-control" name="spotify_id_ass"
-                                            placeholder="enter spotify ID">
+                                            placeholder="enter spotify ID" id="spotify_id_ass">
                                     </div>
                                 </div>
 
@@ -196,7 +200,7 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-4 ml-3">
-                                            <input required type="radio" onclick="handleClickA(this);" class="form-check-input" name="has_applemusic_asset"
+                                            <input required type="radio" onclick="handleClickA(this);" class="form-check-input has_applemusic_asset" name="has_applemusic_asset"
                                                 value="1">Yes
                                         </div>
                                         <div class="col-6">
@@ -213,7 +217,7 @@
                                 <div class="col-md-6">
                                     <div id="enterAP" class="d-none">
                                         <input type="text" class="form-control" name="apple_id_ass"
-                                            placeholder="enter apple ID">
+                                            placeholder="enter apple ID" id="apple_id_ass">
                                     </div>
                                 </div>
                                 <hr>
@@ -391,7 +395,7 @@
                                     <h6><b>Track title <span class="text-danger">*</span></b></h6>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6><b>Title version <span class="text-danger">*</span></b></h6>
+                                    <h6><b>Title version </b></h6>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-row">
@@ -406,7 +410,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-row">
-                                        <input required type="text" name="track_title_version" class="form-control" id="" value="{{old('track_title_version')}}">
+                                        <input type="text" name="track_title_version" class="form-control" id="" value="{{old('track_title_version')}}">
                                     </div>
                                     <span class="text-danger">
                                         @error('track_title_version')
@@ -779,11 +783,59 @@
 @section('script')
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
+        $(document).ready(function(){
+            $('#AddArtistBtn').hide();
+        });
         $(window).load(function() {
             var data = Math.floor(Math.random()*1000000)+1;
             $('#internal_release_id').val(data);
             $('#internal_track_id').val(data);
         });
+
+        function GetArtistDetails(data){
+            $.ajax({
+                url : "/admin/artists-list/"+data,
+                data : {"_token": "{{ csrf_token() }}",},
+                type : 'GET',
+                dataType : 'json',
+                success : function(result){
+                    console.log(result)
+
+                    if(result.spotify_id){
+                        $(".has_spotify_asset").attr('checked', 'checked');
+                        document.getElementById('enterSP').classList.remove('d-none');
+                        $('#spotify_id_ass').val(result.spotify_id);
+                    }else{
+                        $(".has_spotify_asset").removeAttr('checked');
+                        document.getElementById('enterSP').classList.add('d-none');
+                        $('#spotify_id_ass').val();
+                    }
+
+                    if(result.apple_id){
+                        $(".has_applemusic_asset").attr('checked', 'checked');
+                        document.getElementById('enterAP').classList.remove('d-none');
+                        $('#apple_id_ass').val(result.apple_id);
+                    }else{
+                        $(".has_applemusic_asset").removeAttr('checked');
+                        document.getElementById('enterAP').classList.add('d-none');
+                        $('#apple_id_ass').val();
+                    }
+                }
+            });
+        }
+
+
+        function Addartistbutton(data){
+            if(data == 1){
+                $('#AddArtistBtn').show();
+                $('.ArtistDisableEnable').removeAttr("disabled");
+            }else if(data == 0){
+                $('#AddArtistBtn').hide();
+                $('.ArtistDisableEnable').attr("disabled", 'disabled');
+            }
+        }
+
+
         function validation () {
             var form = $(".myform");
             form.validate({
