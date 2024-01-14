@@ -2,18 +2,37 @@
 @section('title', env('APP_NAME').' | Asset-index'  )
 @section('content')
     <div class="row justify-content-center">
-
-        <div class="col-lg-10">
-            <div class="card">
-                <div class="card-title pr">
-                    <h4>All Releases</h4>
+        <div class="col-lg-12">
+            <div class="card shadow rounded">
+                <div class="card-title justify-content-between d-flex">
+                    <div>
+                        <h4 class="mb-0"><b>All Releases</b></h4>
+                    </div>
+                    <div class="col-4 text-right">
+                        <a href="{{ route('admin.create') }}" class="btn btn-sm btn-success btn-sm">Add Release</a>
+                    </div>
                     @if (Session::has('msg'))
                         <p class="alert alert-info">{{ Session::get('msg') }}</p>
                     @endif
                 </div>
                 <div class="card-title text-right">
-                    <a href="{{ route('admin.create') }}" class="btn btn-sm btn-success">Add Release</a>
-
+                    <form action="" method="get">
+                        @csrf
+                        <div class="row">
+                            <div class="col-4">
+                                <input type="text" class="form-control" name="search" id="myInput" placeholder="Search Release Title" autocomplete="nope">
+                            </div>
+                            {{-- <div class="col-3">
+                                <input type="date" class="form-control form-control-sm" name="formdate">
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control form-control-sm" name="todate">
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-info btn-sm px-3" type="submit">Search</button>
+                            </div> --}}
+                        </div>
+                    </form>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -22,13 +41,12 @@
                                 <tr>
                                     <th>SN.</th>
                                     <th>Release Title</th>
-                                    {{-- <th>Username</th>
-                                    <th>Email</th> --}}
-                                    <th> Image</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="myTable">
                                 @if (!@empty($Getartist))
                                 @foreach ($Getartist as $index=>$item)
                                     <tr>
@@ -44,7 +62,13 @@
                                                 
                                             {{-- @endif --}}
                                         </td>
-                                        
+                                        <td style="width: 150px;">
+                                            <select name="status" class="custom-select" onchange="StatusUpdate(@json($item->id), value)">
+                                                <option value="0"  {{($item->status)== 0 ? 'selected':''}}>Review</option>
+                                                <option value="1" {{($item->status)== 1 ? 'selected':''}}>Approved</option>
+                                                <option value="2" {{($item->status)== 2 ? 'selected':''}}>Track down</option>
+                                            </select>
+                                        </td>
                                         {{-- <td><span id="status-btn{{ $artist->id }}">
                                             <button class="btn btn-sm {{ $artist->status == 'Available' ? 'btn-success' : ($artist->status == 'Inactive' ? 'bg-danger' : 'bg-warning'); }}"  onclick="changeStatus('{{ $artist->id }}', {{ $artist->id}})" >
                                                 {{ $artist->status }}
@@ -88,6 +112,28 @@
 
 @section('script')
     <script>
+        Notiflix.Notify.Init({});
+        function StatusUpdate(id, value){
+            $.ajax({
+                type: "POST",
+                url: "/admin/asset/status",
+                data: {
+                    'id': id,
+                    'status': value,
+                    '_token': '{{ csrf_token() }}'
+                },
+                dataType: "JSON",
+                success: function(response) {
+                    console.log(response)
+                    if (response == 'success') {
+                        Notiflix.Notify.Success('Status changed successfully');
+                    }else {
+                        Notiflix.Notify.Failure("Something went wrong");
+                    }
+                }
+            });
+        }
+
         function changeStatus(slug, id) {
             $.ajax({
                 type: "POST",

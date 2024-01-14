@@ -50,7 +50,7 @@
                                         </select>
                                     </div>
                                     <div class="col-12 mb-4 text-center">
-                                        <button type="submit" class="btn btn-info">Update</button>
+                                        <button type="submit" class="btn btn-info mr-2">Update</button>
                                         <a href="{{route('store.index')}}" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </div>

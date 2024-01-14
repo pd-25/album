@@ -50,7 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name("admin.dashboard");
     Route::resource('users', UserController::class);
     Route::resource('artists', ArtistController::class);
+    
     Route::get('artists-list/{userid}', [ArtistController::class,'GetArtistDetails']);
+    Route::get('artists-list', [ArtistController::class,'Artistindex']);
+
 
     Route::resource('label', LabelController::class);    
     Route::get('log-out', [AuthController::class, 'adminLogout'])->name('admin.logout');
@@ -59,8 +62,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/asset/create', [AssetsController::class, 'create'])->name("admin.create");
     Route::post('/asset/store', [AssetsController::class, 'store'])->name("admin.store");
     Route::get('/asset/{asset}/edit', [AssetsController::class, 'edit'])->name("admin.edit");
-    Route::put('/asset/{asset}', [AssetsController::class, 'update'])->name("admin.update");
+    Route::post('/asset/update', [AssetsController::class, 'update'])->name("admin.update");
     Route::delete('/asset/{asset}', [AssetsController::class, 'destroy'])->name("admin.destroy");
+    Route::post('/asset/status', [AssetsController::class, 'status'])->name("admin.status");
 
     Route::get('/store', [StoreController::class, 'index'])->name("store.index");
     Route::get('/store/create', [StoreController::class, 'create'])->name("store.create");

@@ -28,15 +28,56 @@
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-primary">
-
+<body style="background: #e3e6ea">
     <div class="unix-login">
         <div class="container-fluid">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="login-content">
+                <div class="col-md-6">
+                    <div class="card rounded" style="margin-top: 10%">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 text-center">
+                                    <img src="{{asset('admin-asset/images/AlbumLogo.svg')}}" alt="Logo">
+                                </div>
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <h5 class="mb-0 text-danger">Administratior Login</h5>
+                                    </div>
+                                    @if (Session::has('msg'))
+                                        <p class="text-danger mb-0">{{ Session::get('msg') }}</p>
+                                    @endif
+                                    <form method="POST" action="{{ route('admin.login') }}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label class="form-label">Email address</label>
+                                            <input type="email" name="email" value="{{ old('email') }}" required
+                                                autocomplete="email" autofocus class="form-control" placeholder="Email">
+                                            @error('email')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control" placeholder="Password">
+                                            @error('password')
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Sign in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="login-content">
                         <div class="login-logo">
-                            <a href="javascript:void(0)"><span>{{ env('APP_NAME') }}</span></a>
+                            <img src="{{asset('admin-asset/images/AlbumLogo.svg')}}" alt="Logo">
                         </div>
                         <div class="login-form">
                             <h4>Administratior Login</h4>
@@ -70,7 +111,7 @@
 
                             </form>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

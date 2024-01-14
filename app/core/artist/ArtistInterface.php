@@ -11,4 +11,5 @@ interface ArtistInterface {
     public function deleteArtist($id);
     public function userWiseArtist($id);
     public function Dashboard($userid);
+    public function getAllStore();
 }

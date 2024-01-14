@@ -71,6 +71,9 @@
 /*    Brand color
 ----------------------*/
 /*----------------font-------------------*/
+body{
+  padding: 0px !important;
+}
 .icon-name {
   color: #000;
 }
@@ -5537,24 +5540,24 @@ img {
 }
 
 .steps ul:before {
-  content: "Main info";
+  content: "MAIN INFO";
   font-size: 22px;
   font-family: "Poppins-SemiBold";
   color: #333;
   top: -38px;
-  position: absolute
+  position: absolute;
 }
 
 .steps ul.step-2:before {
-  content: "Track"
+  content: "TRACK"
 }
 
 .steps ul.step-3:before {
-  content: "Publishing"
+  content: "PUBLISHING"
 }
 
 .steps ul.step-4:before {
-  content: "Review"
+  content: "REVIEW"
 }
 
 h3 {

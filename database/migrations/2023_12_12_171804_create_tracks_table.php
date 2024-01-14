@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('language_t')->nullable();
             $table->string('track_title_version')->nullable();
             $table->string('title_version')->nullable();
+            $table->text('track_artist_id')->nullable();
             $table->boolean('has_isrc')->nullable();
             $table->string('isrc_code')->nullable();
             $table->string('explicit_lyrics')->nullable();

@@ -86,7 +86,7 @@
     padding: 10px;
     line-height: 30px;
     border-bottom: none;
-    background: #343957;
+    /* background: #343957; */
     text-decoration: none;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
