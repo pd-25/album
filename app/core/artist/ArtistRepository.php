@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Label;
 use App\Models\Asset;
 use App\Models\Website;
+use App\Models\Store;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -168,4 +169,8 @@ class ArtistRepository implements ArtistInterface
         return $dashboard;
     }
 
+    public function getAllStore()
+    {
+        return Store::where('status', 1)->orderBy('label_name', 'ASC')->get();
+    }
 }

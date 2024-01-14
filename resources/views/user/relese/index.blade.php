@@ -2,9 +2,8 @@
 @section('title', env('APP_NAME').' | Asset-index'  )
 @section('content')
     <div class="row justify-content-center">
-
-        <div class="col-lg-10">
-            <div class="card">
+        <div class="col-lg-12">
+            <div class="card rounded shadow">
                 <div class="card-title pr">
                     <h4>All Releases</h4>
                     @if (Session::has('msg'))
@@ -22,9 +21,8 @@
                                 <tr>
                                     <th>SN.</th>
                                     <th>Release Title</th>
-                                    {{-- <th>Username</th>
-                                    <th>Email</th> --}}
-                                    <th> Image</th>
+                                    <th>Image</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,7 +42,15 @@
                                                 
                                             {{-- @endif --}}
                                         </td>
-                                        
+                                        <td>
+                                            @if (@$item->status == 0)
+                                                <span class="text-info">Review</span>
+                                            @elseif(@$item->status == 1)
+                                                <span class="text-success">Approved</span>
+                                            @elseif(@$item->status == 2)
+                                                <span class="text-danger">Track down</span>
+                                            @endif
+                                        </td>
                                         {{-- <td><span id="status-btn{{ $artist->id }}">
                                             <button class="btn btn-sm {{ $artist->status == 'Available' ? 'btn-success' : ($artist->status == 'Inactive' ? 'bg-danger' : 'bg-warning'); }}"  onclick="changeStatus('{{ $artist->id }}', {{ $artist->id}})" >
                                                 {{ $artist->status }}
@@ -52,22 +58,29 @@
                                         </span>
                                         </td> --}}
                                         <td>
+                                            @if (@$item->status == 0)
+                                                <a href="{{ route('asset.edit', @$item->id) }}"><i
+                                                        class="ti-pencil btn btn-sm btn-primary"></i></a>
+                                                <form method="POST"
+                                                    action="{{ route('asset.destroy', encrypt(2)) }}"
+                                                    class="action-icon">
+                                                    @csrf
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                    <input name="DeleteId" type="hidden" value="{{@$item->id}}">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-danger  delete-icon show_confirm"
+                                                        data-toggle="tooltip" title='Delete'>
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @elseif(@$item->status == 1)
+                                                <a href="{{ route('asset.edit', @$item->id) }}"><i
+                                                class="ti-pencil btn btn-sm btn-primary"></i></a>
+                                            @elseif(@$item->status == 2)
+                                                <span class="text-danger">Not Allowed</span>
+                                            @endif
                                             {{-- <a href="{{ route('artists.show', encrypt($artist->id)) }}"><i
                                                 class="ti-eye btn btn-sm btn-success"></i></a> --}}
-                                            <a href="{{ route('asset.edit', @$item->id) }}"><i
-                                                    class="ti-pencil btn btn-sm btn-primary"></i></a>
-                                            <form method="POST"
-                                                action="{{ route('asset.destroy', encrypt(2)) }}"
-                                                class="action-icon">
-                                                @csrf
-                                                <input name="_method" type="hidden" value="DELETE">
-                                                <input name="DeleteId" type="hidden" value="{{@$item->id}}">
-                                                <button type="submit"
-                                                    class="btn btn-sm btn-danger  delete-icon show_confirm"
-                                                    data-toggle="tooltip" title='Delete'>
-                                                    <i class="ti-trash"></i>
-                                                </button>
-                                            </form>
                                         </td>
 
                                     </tr>

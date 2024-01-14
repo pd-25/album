@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('label_id')->nullable();
             $table->string('internal_release_id')->nullable();
             $table->string('upc_ean_jan')->nullable();
-
+            $table->boolean('status')->default(0)->comment("0=Review, 1=Approved, 2=Track down");
             $table->timestamps();
         });
     }

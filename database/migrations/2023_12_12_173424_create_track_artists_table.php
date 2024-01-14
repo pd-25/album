@@ -15,15 +15,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('asset_id')->nullable();
             $table->unsignedBigInteger('track_id')->nullable();
-            $table->unsignedBigInteger('track_artist_id')->nullable();
-            $table->boolean('has_spotify')->nullable();
-            $table->boolean('has_applemusic')->nullable();
-            $table->string('track_spotify_id', 100)->nullable();
-            $table->string('track_apple_id', 100)->nullable();
+            // $table->unsignedBigInteger('track_artist_id')->nullable();
+            // $table->boolean('has_spotify')->nullable();
+            // $table->boolean('has_applemusic')->nullable();
+            // $table->string('track_spotify_id', 100)->nullable();
+            // $table->string('track_apple_id', 100)->nullable();
             $table->unsignedBigInteger('track_artist_name')->nullable();
             $table->string('role')->nullable();
             $table->string('share')->nullable();
             $table->string('publishing')->nullable();
+            $table->text('store')->nullable();
             $table->timestamps();
         });
     }

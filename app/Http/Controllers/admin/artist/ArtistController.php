@@ -97,16 +97,10 @@ class ArtistController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
-            'biography' => 'required|string|max:500',
-            'spotify_id' => [
-                'required',
-                // Rule::custom(function ($value) {
-                //     // Check if the Spotify ID matches the specified format
-                //     return preg_match('/^[0-7][0-9a-zA-Z]{21}$/', $value);
-                // }, 'Invalid Spotify ID. It must start with a number from 0 to 7, followed by 21 characters, which must be either a number or letter from the Latin alphabet.')
-            ],
-            'apple_id' => 'required|numeric',
-            'image' => 'nullable|max:2048',
+            // 'biography' => 'required|string|max:500',
+            'spotify_id' => ['required'],
+            // 'apple_id' => 'required|numeric',
+            // 'image' => 'nullable|max:2048',
         ]);
         $data = $request->only('name', 'biography', 'spotify_id', 'apple_id', 'image','email');
         $websiteData = $request->only('webSiteName', 'url');
@@ -138,5 +132,13 @@ class ArtistController extends Controller
     {
         $user = User::find($userid);
         return response()->json($user);
+    }
+
+
+
+    public function Artistindex()
+    {
+        $data = $this->artistInterface->getAllArtist();
+        return $data;
     }
 }

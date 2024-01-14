@@ -36,8 +36,9 @@ class AssetsController extends Controller
     public function create()
     {
         $data['artists'] = $this->artistInterface->getAllArtist();
-        $data['labels'] = $this->labelInterface->getAllLabel();
-        $data['users'] = User::all();
+        $data['labels'] = $this->labelInterface->getAllLabel(); 
+        $data['stores'] = $this->artistInterface->getAllStore(); 
+        $data['users'] = User::where('type', 'user')->orderBy('name', 'DESC')->get();
        return view('admin.relese.create', $data);
     }
 
@@ -46,8 +47,13 @@ class AssetsController extends Controller
      */
     public function store(Request $request)
     {
-
-       //to start from here
+        //dd($request->file('audio'));
+        // if ($request->hasFile('audio')) {
+        //     $AUDIO = date('Y-m-d-H_i_s').'_' .$request->file('audio')->getClientOriginalName();
+        //     $request->file('audio')->storeAs($AUDIO,['disk' => 'public']);
+        //     $track->audio = $AUDIO;
+        // }
+        //to start from here
        $request->validate([
         // section - 1
             'userId'=>'required',
@@ -55,35 +61,13 @@ class AssetsController extends Controller
             'language' => 'required',
             'release_title' => 'required',
             'is_various_artist' => 'required',
-
-            'asset_artist_id' => 'required',
-            'has_spotify_asset' => 'required',
-            'has_applemusic_asset' => 'required',
-
             'genre_one' => 'required',
             'p_copy' => 'required',
             'c_copy' => 'required',
             'previously_release' => 'required',
             'label_id' => 'required',
             'internal_release_id' => 'required|unique:assets,internal_release_id',
-            // end section - 1
 
-            'audio' => 'required|mimes:wav',
-            'language_t623' => 'required',
-            'track_title' => 'required',
-
-            'contritibutor_track_artist_id' => 'required',
-            'contritibutor_has_spotify' => 'required',
-            'contritibutor_has_applemusic' => 'required',
-
-            'has_isrc' => 'required',
-            'explicit_lyrics' => 'required',
-            'original_public' => 'required',
-            'genre_one_track' => 'required',
-            'p_copy_t' => 'required',
-            'c_copy_t' => 'required',
-            'track_label_id' => 'required',
-            'internal_track_id' => 'required',
             // // end section 2
             'contritibutor_track_artist_name' => 'required',
             'contritibutor_role' => 'required',
@@ -91,6 +75,7 @@ class AssetsController extends Controller
             'contritibutor_publishing' => 'required'
 
         ]);
+        
         DB::beginTransaction();
         try {
             $asset = new Asset;
@@ -109,10 +94,11 @@ class AssetsController extends Controller
             $asset->p_copy = $request->p_copy;
             $asset->c_copy = $request->c_copy;
             $asset->previously_release = $request->previously_release;
-            $asset->release_date = $request->release_date;
+            $asset->release_date = $request->release_date != null ? $request->release_date: NULL;
             $asset->label_id = $request->label_id;
             $asset->internal_release_id = $request->internal_release_id;
             $asset->upc_ean_jan = $request->upc_ean_jan;
+            $asset->status = 0;
             if($asset->save()){
                 $assetArtist = new AssetArtist;
                 $assetArtist->asset_id = $asset->id;
@@ -123,44 +109,44 @@ class AssetsController extends Controller
                 $assetArtist->apple_id_ass = $request->apple_id_ass != null ? $request->apple_id_ass : null;
                 $assetArtist->save();
             }
-            $track = new Track;
-            $track->asset_id = $asset->id;
-            if ($request->hasFile('audio')) {
-                $AUDIO = date('Y-m-d-H_i_s').'_' .$request->file('audio')->getClientOriginalName();
-                $request->file('audio')->storeAs($AUDIO,['disk' => 'public']);
-                $track->audio = $AUDIO;
+
+            $allFiles = $request->file('audio');
+            $tracks = json_decode($request->tracks);
+            foreach($tracks as $index=>$tra){
+                $track = new Track;
+                if ($request->hasFile('audio')) {
+                    $AUDIO = date('Y-m-d-H_i_s').'_' .$allFiles[$index]->getClientOriginalName();
+                    $allFiles[$index]->storeAs($AUDIO,['disk' => 'public']);
+                    $track->audio = $AUDIO;
+                }
+                $track->asset_id = $asset->id;
+                $track->language_t = $tra->language_t;
+                $track->track_title_version = $tra->track_title_version;
+                $track->title_version = $tra->title_version;
+                $track->track_artist_id = json_encode($tra->track_artist_id);
+                $track->has_isrc = $tra->has_isrc;
+                $track->isrc_code = $tra->isrc_code;
+                $track->explicit_lyrics = $tra->explicit_lyrics;
+                $track->original_public = $tra->original_public;
+                $track->genre_one_track = $tra->genre_one_track;
+                $track->genre_two_track = $tra->genre_two_track;
+                $track->p_copy_t = $tra->p_copy_t;
+                $track->c_copy_t = $tra->c_copy_t;
+                $track->track_label_id = $tra->track_label_id;
+                $track->internal_track_id = $tra->internal_track_id;
+                $track->lyrics = $tra->lyrics;
+                $track->save();
             }
-            $track->language_t = $request->language_t623;
-            $track->track_title_version = $request->track_title;
-            $track->title_version = $request->track_title_version;
-            $track->has_isrc = $request->has_isrc;
-            $track->isrc_code = $request->isrc_code != null? $request->isrc_code : null;
-            $track->explicit_lyrics = $request->explicit_lyrics;
-            $track->original_public = $request->original_public;
-            $track->genre_one_track = $request->genre_one_track;
-            $track->genre_two_track = $request->genre_two_track;
-            $track->p_copy_t = $request->p_copy_t;
-            $track->c_copy_t = $request->c_copy_t;
-            $track->track_label_id = $request->track_label_id;
-            $track->internal_track_id = $request->internal_track_id;
-            $track->lyrics = $request->lyrics;
-            if($track->save()){
                 $trackArtist = new TrackArtist;
                 $trackArtist->asset_id = $asset->id;
-                $trackArtist->track_id = $track->id;
-                $trackArtist->track_artist_id = $request->contritibutor_track_artist_id;
-                $trackArtist->has_spotify = $request->contritibutor_has_spotify;
-                $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
-                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id != null ?  $request->contritibutor_track_spotify_id : null;
-                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id != null ? $request->contritibutor_track_apple_id : null;
                 $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
                 $trackArtist->publishing = $request->contritibutor_publishing;
+                $trackArtist->store = $request->CheckStore;
                 $trackArtist->save();
-            }
             DB::commit();
-            return back()->with('success', 'Successfully Saved');
+            return $asset->id;
         }catch (\Throwable $e) {
             DB::rollback();
             throw $e;
@@ -183,7 +169,8 @@ class AssetsController extends Controller
     {
         $data['artists'] = $this->artistInterface->getAllArtist();
         $data['labels']= $this->labelInterface->getAllLabel();
-        $data['users'] = User::all();
+        $data['users'] = User::where('type', 'user')->orderBy('name', 'DESC')->get();
+        $data['stores'] = $this->artistInterface->getAllStore(); 
         $data['allDetails'] = Asset::with('asset_artisat_details', 'track_details', 'track_artisat_details')->find($id);
         return view('admin.relese.edit', $data);
     }
@@ -191,9 +178,9 @@ class AssetsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-            $asset = Asset::find($id);
+        $asset = Asset::find($request->HiddenAssetId);
             if ($request->hasFile('cover_image')) {
                 $image_path = date('Y-m-d-H_i_s').'_' .$request->file('cover_image')->getClientOriginalName();
                 $request->file('cover_image')->storeAs($image_path,['disk' => 'public']);
@@ -209,12 +196,14 @@ class AssetsController extends Controller
             $asset->p_copy = $request->p_copy;
             $asset->c_copy = $request->c_copy;
             $asset->previously_release = $request->previously_release;
-            $asset->release_date = $request->release_date;
+            $asset->release_date = $request->release_date != null ? $request->release_date: NULL;
             $asset->label_id = $request->label_id;
-            $asset->internal_release_id = $request->internal_release_id;
+            // $asset->internal_release_id = $request->internal_release_id;
             $asset->upc_ean_jan = $request->upc_ean_jan;
+            // $asset->status = 0;
             if($asset->save()){
-                $assetArtist = AssetArtist::where('asset_id',$id)->first();
+                $assetArtist = AssetArtist::find($request->HiddenAssetDetailsId);
+                // $assetArtist->asset_id = $asset->id;
                 $assetArtist->asset_artist_id = $request->asset_artist_id;
                 $assetArtist->has_spotify_asset = $request->has_spotify_asset;
                 $assetArtist->has_applemusic_asset = $request->has_applemusic_asset;
@@ -222,42 +211,41 @@ class AssetsController extends Controller
                 $assetArtist->apple_id_ass = $request->apple_id_ass != null ? $request->apple_id_ass : null;
                 $assetArtist->save();
             }
-            $track = Track::where('asset_id',$id)->first();
-            if ($request->hasFile('audio')) {
-                $AUDIO = date('Y-m-d-H_i_s').'_' .$request->file('audio')->getClientOriginalName();
-                $request->file('audio')->storeAs($AUDIO,['disk' => 'public']);
-                $track->audio = $AUDIO;
+            $allFiles = $request->file('audio');
+            $tracks = json_decode($request->tracks);
+            foreach($tracks as $index=>$tra){
+                $track = Track::find(json_decode($request->HiddenTrackId)[$index]);
+                if ($request->hasFile('audio')) {
+                    $AUDIO = date('Y-m-d-H_i_s').'_' .$allFiles[$index]->getClientOriginalName();
+                    $allFiles[$index]->storeAs($AUDIO,['disk' => 'public']);
+                    $track->audio = $AUDIO;
+                }
+                // $track->asset_id = $asset->id;
+                $track->language_t = $tra->language_t;
+                $track->track_title_version = $tra->track_title_version;
+                $track->title_version = $tra->title_version;
+                $track->track_artist_id = json_encode($tra->track_artist_id);
+                $track->has_isrc = $tra->has_isrc;
+                $track->isrc_code = $tra->isrc_code;
+                $track->explicit_lyrics = $tra->explicit_lyrics;
+                $track->original_public = $tra->original_public;
+                $track->genre_one_track = $tra->genre_one_track;
+                $track->genre_two_track = $tra->genre_two_track;
+                $track->p_copy_t = $tra->p_copy_t;
+                $track->c_copy_t = $tra->c_copy_t;
+                $track->track_label_id = $tra->track_label_id;
+                // $track->internal_track_id = $tra->internal_track_id;
+                $track->lyrics = $tra->lyrics;
+                $track->save();
             }
-            $track->language_t = $request->language_t623;
-            $track->track_title_version = $request->track_title;
-            $track->title_version = $request->track_title_version;
-            $track->has_isrc = $request->has_isrc;
-            $track->isrc_code =  $request->isrc_code != null? $request->isrc_code : null;
-            $track->explicit_lyrics = $request->explicit_lyrics;
-            $track->original_public = $request->original_public;
-            $track->genre_one_track = $request->genre_one_track;
-            $track->genre_two_track = $request->genre_two_track;
-            $track->p_copy_t = $request->p_copy_t;
-            $track->c_copy_t = $request->c_copy_t;
-            $track->track_label_id = $request->track_label_id;
-            $track->internal_track_id = $request->internal_track_id;
-            $track->lyrics = $request->lyrics;
-            if($track->save()){
-                $trackArtist = TrackArtist::where('asset_id',$id)->first();
-                $trackArtist->track_id = $track->id;
-                $trackArtist->track_artist_id = $request->contritibutor_track_artist_id;
-                $trackArtist->has_spotify = $request->contritibutor_has_spotify;
-                $trackArtist->has_applemusic = $request->contritibutor_has_applemusic;
-                $trackArtist->track_spotify_id = $request->contritibutor_track_spotify_id != null ?  $request->contritibutor_track_spotify_id : null;
-                $trackArtist->track_apple_id = $request->contritibutor_track_apple_id != null ? $request->contritibutor_track_apple_id : null;
+                $trackArtist = TrackArtist::find($request->HiddenTrackDetailsId);
+                // $trackArtist->asset_id = $asset->id;
                 $trackArtist->track_artist_name = $request->contritibutor_track_artist_name;
                 $trackArtist->role = $request->contritibutor_role;
                 $trackArtist->share = $request->contritibutor_share;
                 $trackArtist->publishing = $request->contritibutor_publishing;
+                $trackArtist->store = $request->CheckStore;
                 $trackArtist->save();
-            }
-        return back()->with('success', 'Successfully Updated');
-        
     }
 
     /**
@@ -270,11 +258,11 @@ class AssetsController extends Controller
             $assetId = $request->DeleteId;
             $asset = Asset::find($assetId);
             $assetArtist = AssetArtist::where('asset_id',$assetId)->first();
-            $track = Track::where('asset_id',$assetId)->first();
+            $track = Track::where('asset_id',$assetId)->get();
             $trackArtist = TrackArtist::where('asset_id',$assetId)->first();
             $asset->delete();
             $assetArtist->delete();
-            $track->delete();
+            $track->each->delete();
             $trackArtist->delete();
             DB::commit();
             return back()->with('success', 'Successfully Deleted');
@@ -283,6 +271,16 @@ class AssetsController extends Controller
             return back()->with('errorMessage', 'Something went wrong');
             throw $e;
         }
+    }
 
+    public function status(Request $request)
+    {
+        $asset = Asset::find($request->id);
+        $asset->status = $request->status;
+        if($asset->save()){
+            return response()->json('success');
+        }else{
+            return  response()->json('error');
+        }
     }
 }

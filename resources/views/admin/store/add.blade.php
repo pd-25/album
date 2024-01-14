@@ -43,7 +43,7 @@
                                         </span>
                                     </div>
                                     <div class="col-12 mb-4 text-center">
-                                        <button type="submit" class="btn btn-success">Save</button>
+                                        <button type="submit" class="btn btn-success mr-2">Save</button>
                                         <a href="{{route('store.create')}}" class="btn btn-danger">Cancel</a>
                                     </div>
                                 </div>
@@ -55,7 +55,6 @@
         </div>
     </div>
 @endsection
-
 @section('script')
     <script>
 

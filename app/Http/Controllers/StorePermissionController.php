@@ -13,7 +13,7 @@ class StorePermissionController extends Controller
      */
     public function index()
     {
-        $user = User::get();
+        $user = User::where('type', 'user')->orderBy('name', 'ASC')->get();
         return view('admin.storepermission.list', compact('user'));
     }
 
