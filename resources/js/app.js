@@ -6,13 +6,13 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
+// import CKEditor from '@ckeditor/ckeditor5-vue2';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
-
 const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
@@ -44,5 +44,5 @@ app.component('userreleseedit-component', UserReleseEdit);
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
-
+// Vue.use( CKEditor );
 app.mount('#app');

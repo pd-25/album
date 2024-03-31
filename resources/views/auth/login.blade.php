@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Admin: {{ env('APP_NAME') }}</title>
+    <title>Partner: Log In</title>
 
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
@@ -28,50 +28,12 @@
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
 </head>
 
-<body style="background: #e3e6ea">
+<body style="background: #E1E1E1">
     <div class="unix-login">
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
-                    {{-- <div class="login-content">
-                        <div class="login-logo">
-                            <a href="javascript:void(0)"><span>{{ env('APP_NAME') }}</span></a>
-                        </div>
-                        <div class="login-form">
-                            <h4>{{ 'User dashboard' }}</h4>
-                            @if (Session::has('msg'))
-                                <p class="alert alert-danger">{{ Session::get('msg') }}</p>
-                            @endif
-                            <form  method="POST" action="{{ route('login') }}">
-                                @csrf
-                                <div class="form-group">
-                                    <label>Email address</label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                </div>
-
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
-
-
-                            </form>
-                        </div>
-                    </div> --}}
-                    <div class="card rounded" style="margin-top: 10%">
+                    <div class="card" style="margin-top: 10%">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 text-center">
@@ -79,11 +41,11 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-center">
-                                        <h5 class="mb-0 text-secondary">User Login</h5>
+                                        <h5 class="mb-0 text-secondary"> <b>Partner Records - Welcome back!</b></h5>
+                                        @if (Session::has('msg'))
+                                            <p class="alert alert-danger">{{ Session::get('msg') }}</p>
+                                        @endif
                                     </div>
-                                    @if (Session::has('msg'))
-                                        <p class="alert alert-danger">{{ Session::get('msg') }}</p>
-                                    @endif
                                     <form  method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
@@ -107,7 +69,7 @@
                                         @enderror
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary">Sign in</button>
+                                            <button type="submit" class="btn btn-primary px-3">Log In</button>
                                         </div>
                                     </form>
                                 </div>

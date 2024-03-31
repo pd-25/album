@@ -1,6 +1,16 @@
 @extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | Label-create')
 @section('content')
+<div class="row">
+    <div class="col-md-12 mb-3 bg-white">
+        <div class="ml-4">
+            <h3 style="font-size: 400">Edit Label </h3>
+            @if (Session::has('msg'))
+                <p class="alert alert-info">{{ Session::get('msg') }}</p>
+            @endif
+        </div>
+    </div>
+</div>
     <div class="row justify-content-center">
         <div class="col-lg-11">
             <form action="{{ route('label.update', encrypt($label->id)) }}" method="POST" enctype="multipart/form-data">

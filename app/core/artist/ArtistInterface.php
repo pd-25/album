@@ -12,4 +12,7 @@ interface ArtistInterface {
     public function userWiseArtist($id);
     public function Dashboard($userid);
     public function getAllStore();
+    public function getuserwiseOtherkeyartist($id);
+    public function getAllOtherkeyartist();
+    
 }

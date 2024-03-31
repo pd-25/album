@@ -73,6 +73,7 @@
 /*----------------font-------------------*/
 body{
   padding: 0px !important;
+  margin: 0px !important;
 }
 .icon-name {
   color: #000;
@@ -826,12 +827,14 @@ a.dt-button.active:not(.disabled) {
   background: #ffffff;
   z-index: 990;
   margin-left: 250px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); */
   transition: margin-left 300ms ease-in-out 0s;
+  height: 50px;
 }
 
 .logo {
-  background: #343957;
+  /* background: #343957; */
+  background: #1C1C1C;
   display: inline-block;
   padding: 15px 0;
   text-align: center;
@@ -2979,9 +2982,13 @@ ul.inbox-pagination li {
 }
 
 ul {
-  list-style-type: none;
+  /* list-style-type: none; */
   padding: 0px;
   margin: 0px;
+}
+
+ul li.line {
+  list-style-type: square !important;
 }
 
 .inbox-small-cells {
@@ -4440,6 +4447,7 @@ body {
   background: rgba(88, 115, 254, 0.04);
   color: #868e96;
   font-size: 14px;
+  background: #EEEEEE;
 }
 
 a,
@@ -4467,7 +4475,7 @@ ul {
 }
 
 li {
-  list-style: none;
+  /* list-style: none; */
 }
 
 p {
@@ -4791,10 +4799,10 @@ h6.h1 {
   }
 }
 
-.row {
+/* .row {
   margin-left: -7.5px;
   margin-right: -7.5px;
-}
+} */
 
 .col-lg-1,
 .col-lg-10,
@@ -6067,7 +6075,7 @@ textarea.form-control {
 .card {
   border: 0;
   border-radius: 0px;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   -webkit-transition: .5s;
@@ -6170,7 +6178,7 @@ h5.card-title {
 }
 
 svg {
-  width: 100px;
+  /* width: 100px; */
   display: block;
   margin: 40px auto 0
 }
@@ -6199,8 +6207,8 @@ svg {
 
 p {
   text-align: center;
-  margin: 20px 0 60px;
-  font-size: 1.25em;
+  /* margin: 20px 0 60px; */
+  font-size: 1em;
 
   &.success {
     color: #73AF55
@@ -6278,4 +6286,182 @@ only screen and (min-resolution: 2dppx) {
 .modal-body{
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+}
+
+
+
+.message-count {
+  color: #fff;
+  font-size: 10px;
+  font-family: Arial, san-serif;
+  font-weight: bold;
+}
+
+.badge {
+  position: absolute;
+  right: 0px;
+  top: -5px;
+  z-index: 10;
+}
+.messages img {
+  width: 15px;
+  height: auto;
+}
+
+.messages {
+  width: 31px;
+  height: 19px;
+  background-image: url(https://i.imgur.com/aoXZqPc.gif);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  vertical-align: top;
+  margin: 4% 0 0 0;
+  position: relative;
+}
+
+.badge {
+  background: radial-gradient( 5px -9px, circle, white 8%, #ed2324 26px );
+  background: -moz-radial-gradient( 5px -9px, circle, white 8%, #ed2324 26px );
+  background: -ms-radial-gradient( 5px -9px, circle, white 8%, #ed2324 26px );
+  background: -o-radial-gradient( 5px -9px, circle, white 8%, #ed2324 26px );
+  background: -webkit-radial-gradient( 5px -9px, circle, white 8%, #ed2324 26px );
+  background-color: #ed2324;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  padding: 5% 5%;
+  position: relative;
+  right: -5.8px;
+  top: -9px;
+  float: right;
+  display: block;
+}
+
+.message-count {
+  position: relative;
+  display: block;
+  font: bold 14px/13px Helvetica, Verdana, Tahoma;
+  text-align: center;
+  margin: 0;
+  top: 2px;
+}
+
+
+.card .text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card .text img{
+    height: 170px;
+    border-radius: 50%;
+    margin-bottom:10px;
+}
+
+.card .text h3{
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.card .text p:nth-of-type(1){
+    color: rgb(35, 182, 219);
+    font-size: 15px;
+    margin-top: -5px;
+}
+
+.card .text p:nth-of-type(2){
+    margin: 10px;
+    width: 90%;
+    text-align: center;
+}
+
+label {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.control-label {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+.control-form{
+  background: #F6F6F6;
+  border-radius: 0px;
+  height: 45px;
+}
+
+.control-form-textarea{
+  background: #F6F6F6;
+  border-radius: 0px;
+  height: 55px;
+}
+
+
+.select2-container--default .select2-selection--multiple {
+  height: 45px !important;
+  background: #F6F6F6 !important;
+  border-radius: 0px !important;
+  border: 1px solid #ebebeb !important;
+}
+
+title{
+  background: #000;
+  color: white ;
+  padding: 10px;
+}
+
+select.form-control:not([size]):not([multiple]) {
+  height: 45px !important;
+  background: #F6F6F6 !important;
+  border-radius: 0px !important;
+  border: 1px solid #ebebeb !important;
+}
+
+.select2-container--default .select2-selection--single {
+  height: 45px !important;
+  background: #F6F6F6 !important;
+  border-radius: 0px !important;
+  border: 1px solid #ebebeb !important;
+}
+
+/* .form-check-input{
+  margin: inherit !important;
+} */
+
+.ss-main{
+  height: 45px !important;
+  background: #F6F6F6 !important;
+  border-radius: 0px !important;
+  border: 1px solid #ebebeb !important;
+}
+
+#msform input, #msform textarea{
+  border: 0px;
+  margin-bottom: 5px;
+}
+
+.ss-main .ss-values .ss-value .ss-value-delete{
+  align-items:end !important;
+}
+
+#progressbar li{
+  width: 25%;
+}
+
+.headingsongs{
+  margin-bottom:8px;
+  font-weight:500;
+  font-size:22px !important;
+}
+
+.buttonStyle{
+    padding: 11px 20px;
+    border: 0px;
+    border-radius: 0px;
+    font-size: 14px;
 }

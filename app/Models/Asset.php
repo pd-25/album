@@ -15,6 +15,14 @@ class Asset extends Model
         return $this->hasMany('App\Models\Track','asset_id','id');
     }
     public function track_artisat_details(){
-        return $this->belongsTo('App\Models\TrackArtist','id','asset_id');
+        return $this->hasMany('App\Models\TrackArtist','asset_id','id');
+    }
+
+    public function label_name(){
+        return $this->belongsTo('App\Models\Label','label_id','id');
+    }
+
+    public function artist_name(){
+        return $this->belongsTo('App\Models\User','artist_id','id');
     }
 }

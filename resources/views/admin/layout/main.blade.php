@@ -14,20 +14,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.21.0/slimselect.js"></script>
 
     <!-- Standard -->
-    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <link rel="shortcut icon" href="{{asset('admin-asset/images/AlbumLogo.svg')}}">
     <!-- Retina iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{asset('admin-asset/images/AlbumLogo.svg')}}">
     <!-- Retina iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{asset('admin-asset/images/AlbumLogo.svg')}}">
     <!-- Standard iPad Touch Icon-->
-    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{asset('admin-asset/images/AlbumLogo.svg')}}">
     <!-- Standard iPhone Touch Icon-->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{asset('admin-asset/images/AlbumLogo.svg')}}">
     <!-- Styles -->
-
     @vite(['resources/js/app.js']);
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
     <link href="{{ asset('admin-asset/css/lib/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin-asset/css/lib/themify-icons.css') }}" rel="stylesheet">
 
@@ -35,17 +33,26 @@
     <link href="{{ asset('admin-asset/css/lib/bootstrap.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('admin-asset/css/style.css') }}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {{-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notiflix/dist/notiflix-aio-1.5.0.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    
+    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script> --}}
+    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
 </head>
 
 <body>
@@ -103,7 +110,6 @@
                             <li><a href="{{ route('admin.index') }}">All Release</a>
                             </li>
 
-
                         </ul>
                     </li>
                     <li><a class="sidebar-sub-toggle"><i class="ti-harddrives"></i> Store Management <span
@@ -111,6 +117,28 @@
                         <ul>
                             <li><a href="{{ route('store.index') }}">Stores</a></li>
                             {{-- <li><a href="{{ route('storePermission.index') }}">Store Permission</a></li> --}}
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-wallet"></i> User Wallet<span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="{{ route('wallet.index') }}">Add Wallet Balance</a></li>
+                            <li><a href="{{ route('wallet.withdrawalRequest') }}">Withdrawal Request</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-headphone"></i> Support ticket <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="{{ route('category.index') }}">Create category</a></li>
+                            <li><a href="{{ route('support.create') }}">Support ticket</a></li>
+                            <li><a href="{{ route('support.tickethistory') }}">Ticket History</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="sidebar-sub-toggle"><i class="ti-settings"></i> Settings <span
+                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                        <ul>
+                            <li><a href="{{ route('news.index') }}">News</a></li>
+                            <li><a href="{{ route('roles.index') }}">Other key roles</a></li>
                         </ul>
                     </li>
                     {{-- <li><a class="sidebar-sub-toggle"><i class="ti-bar-chart-alt"></i> Banner Management <span
@@ -137,11 +165,17 @@
                     </li> --}}
 
                     <li>
-                        <a href="{{ route('admin.logout') }}"
+                         <a href="{{ route('admin.logout') }}"
                             onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"><i
-                                class="ti-power-off"></i> Logout</a>
-                            </li>
+                            document.getElementById('logout-form').submit();">
+                            <i class="ti-power-off"></i>
+                            <span>Logout</span>
+                        </a>
+                        <form id="logout-form" action="{{ route('admin.logout') }}"
+                            method="get" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -158,21 +192,21 @@
                             <span class="line"></span>
                         </div>
                     </div>
-                    <div class="float-right">
+                    {{-- <div class="float-right">
                         <div class="dropdown dib">
 
                             <div class="header-icon dropdown">
 
                                 <span class="user-avatar" data-toggle="dropdown"
                                     aria-expanded="false"><img style="height: 30px;margin-right:5px" src="{{asset('/admin-asset/images/man.png')}}" alt="No image"> {{ auth()->guard('admin')->user()->name }}
-                                    <i class="ti-angle-down f-s-10"></i>
+                                    <i class="ti-angle-down" style="font-size:10px"></i>
                                 </span>
-                                <div class="dropdown-menu dropdown-content-body">
+                                <div class="dropdown-menu mt-3">
                                     <ul>
                                         <li>
                                             <a href="{{ route('admin.logout') }}"
                                                 onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
+                                                document.getElementById('logout-form').submit();">
                                                 <i class="ti-power-off"></i>
                                                 <span>Logout</span>
                                             </a>
@@ -185,7 +219,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -194,22 +228,16 @@
 
     <div class="content-wrap">
         <div class="main container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    @if(session()->has('errorMessage'))
-                    <div class="text-danger text-center fw-bolder">
-                        {{Session::get('errorMessage')}}
-                    </div>
-                    @elseif(session()->has('success'))
-                    <div class="text-success text-center fw-bolder" >
-                        {{Session::get('success')}}
-                    </div>
-                    @endif
-                </div>
+            @if(session()->has('errorMessage'))
+            <div class="alert alert-danger text-white mb-0" role="alert">
+                {{Session::get('errorMessage')}}
             </div>
-            <div id="app">
+            @elseif(session()->has('success'))
+            <div class="alert alert-success text-white mb-0" role="alert">
+                {{Session::get('success')}}
+            </div>
+            @endif
                 @yield('content')
-            </div>
         </div>
     </div>
 
@@ -231,14 +259,15 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- JQUERY STEP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
-    
-    <!-- scripit init-->
     {{-- <script src="{{ asset('admin-asset/js/dashboard2.js') }}"></script> --}}
     @yield('script')
     <script>
+        new SlimSelect({
+            select: '#multipleSelect'
+        })
+    </script>
+    <script>
         $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
-            $('.js-example-basic-single').select2();
 
             $("#myInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -247,47 +276,39 @@
                 });
             });
 
+            $("#myInputNews").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTableNews tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
             $('.show_confirm').click(function(event) {
-    
                 var form = $(this).closest("form");
-    
                 var name = $(this).data("name");
-    
                 //  alert(form);
-    
                 event.preventDefault();
-    
                 swal({
-    
                         title: `Are you sure you want to delete this data?`,
-    
                         text: "If you delete this, it will be gone forever.",
-    
                         icon: "warning",
-    
                         buttons: true,
                         dangerMode: true,
-    
                     })
-    
                     .then((willDelete) => {
-    
                         if (willDelete) {
-    
                             form.submit();
-    
                         } else {
-    
                             swal("Your data file is safe!");
-    
                         }
-    
                     });
     
             });
-
         });
 
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
 
         // imgInp.onchange = evt => {
         //     const [file] = imgInp.files
