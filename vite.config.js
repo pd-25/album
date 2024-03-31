@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+// const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 
 export default defineConfig({
     plugins: [

@@ -1,25 +1,43 @@
 @extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | Artist-create')
 @section('content')
+<div class="row">
+    <div class="col-md-12 mb-3 bg-white">
+        <div class="ml-4">
+            <h3 style="font-size: 400">Create artist </h3>
+            @if (Session::has('msg'))
+                <p class="alert alert-info">{{ Session::get('msg') }}</p>
+            @endif
+        </div>
+    </div>
+</div>
     <div class="row justify-content-center">
         <div class="col-lg-11">
             <form action="{{ route('artists.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
-                    <div class="card-title">
-                        <h4>Create Artist</h4>
-                        @if (Session::has('msg'))
-                            <p class="alert alert-info">{{ Session::get('msg') }}</p>
-                        @endif
-                    </div>
                     <div class="card-body">
                         <div class="basic-form">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <label>User Name</label><span class="text-danger">*</span>
+                                        <select name="user_id" class="form-control" id="">
+                                            @foreach ($users as $item)
+                                                <option value="{{@$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                        @error('name')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ 'User name field is required' }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
                                         <label>Artist Name</label><span class="text-danger">*</span>
                                         <input type="text" class="form-control" placeholder="full name" name="name"
-                                            value="{{ old('name') }}" required>
+                                            value="{{ old('name') }}" >
                                         @error('name')
                                             <span class="text-danger" role="alert">
                                                 <strong>{{ 'Artist name field is required' }}</strong>
@@ -27,9 +45,9 @@
                                         @enderror
                                     </div>
                                     <div class="col-md-6">
-                                        <label>Email</label><span class="text-danger">*</span>
+                                        <label>Email</label>
                                         <input type="email" class="form-control" placeholder="abc@mail.com" name="email"
-                                            value="{{ old('email') }}" required>
+                                            value="{{ old('email') }}">
 
 
                                         @error('email')
@@ -45,7 +63,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Attach the banner image here</label><span class="text-danger">*</span>
+                                        <label>Attach the banner image here</label>
                                         <input type="file" class="form-control" name="image"
                                             value="{{ old('banner_image') }}" id="imgInp">
                                         <span>File format: JPG or PNG</span><br>
@@ -78,7 +96,7 @@
                     <div class="card-body">
                         <div class="basic-form">
                             <div class="form-group">
-                                <label>Biography</label><span class="text-danger">*</span>
+                                <label>Biography</label>
                                 <textarea name="biography" class="form-control" cols="40" rows="10">{{ old('biography') }}</textarea>
 
 
@@ -100,7 +118,7 @@
                         <div class="basic-form">
                             <div class="form-group">
                                 <label>Indicate this artist's IDs if they already have a profile page on these music
-                                    services.</label><span class="text-danger">*</span>
+                                    services.</label>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <label class="inline vertical-center img-list" data-bind="tooltip: ''"
@@ -113,7 +131,7 @@
                                             placeholder="Enter Spotify artist ID" name="spotify_id"
                                             data-bind="value: spotifyId.editable, attr: { maxlength: 22 }"
                                             title="Invalid Spotify Id, it must start with a number from 0 to 7, followed by 21 characters, which must be either a number or letter from Latin alphabet."
-                                            maxlength="22" required>
+                                            maxlength="22" >
                                     </div>
                                 </div>
 
@@ -128,7 +146,7 @@
                                         <input class="form-control ui-input" type="number"
                                             placeholder="Enter Apple Music artist ID" name="apple_id"
                                             data-bind="value: appleId.editable, attr: { maxlength: 10 }" maxlength="10"
-                                            title="" required>
+                                            title="" >
                                     </div>
                                 </div>
 

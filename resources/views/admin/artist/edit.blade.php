@@ -1,6 +1,16 @@
 @extends('admin.layout.main')
 @section('title', env('APP_NAME') . ' | Artist-Edit')
 @section('content')
+<div class="row">
+    <div class="col-md-12 mb-3 bg-white">
+        <div class="ml-4">
+            <h3 style="font-size: 400">Edit artist </h3>
+            @if (Session::has('msg'))
+                <p class="alert alert-info">{{ Session::get('msg') }}</p>
+            @endif
+        </div>
+    </div>
+</div>
     <div class="row justify-content-center">
         <div class="col-lg-11">
             <form action="{{ route('artists.update', encrypt($artist->id)) }}" method="POST" enctype="multipart/form-data">
@@ -19,6 +29,20 @@
 
                             <div class="form-group">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <label>User Name</label><span class="text-danger">*</span>
+                                        <select name="user_id" class="form-control" id="">
+                                            @foreach ($users as $item)
+                                                <option value="{{@$item->id}}" {{$item->user_id == $artist->user_id ? 'selected': ''}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        
+                                        @error('name')
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ 'User name field is required' }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                     <div class="col-md-6">
                                         <label>Artist Name</label><span class="text-danger">*</span>
                                         <input type="text" class="form-control" placeholder="full name" name="name"

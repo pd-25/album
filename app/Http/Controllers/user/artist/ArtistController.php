@@ -34,7 +34,7 @@ class ArtistController extends Controller
     public function store(Request $request) {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            // 'email' => 'required|email|unique:users',
             // 'biography' => 'required|string|max:500',
             // 'spotify_id' => [
             //     'required',
@@ -72,7 +72,6 @@ class ArtistController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email',
             // 'biography' => 'required|string|max:500',
             // 'spotify_id' => [
             //     'required',
@@ -112,11 +111,24 @@ class ArtistController extends Controller
         return response()->json($user);
     }
 
-
-
     public function Artistindex()
     {
-        $data = $this->artistInterface->getAllArtist();
+        $data = $this->artistInterface->userWiseArtist(auth()->id());
         return $data;
+    }
+
+    public function userstore(Request $request) {
+        $request->validate([
+            'name' => 'required|string',
+        ]);
+
+        $user = new User;
+        $user->user_id = auth()->id();
+        $user->type =  'artist';
+        $user->name =  $request->name;
+        $user->password =  '12345678';
+        $user->save();
+        $lastUser = User::find($user->id);
+        return response()->json($lastUser);
     }
 }

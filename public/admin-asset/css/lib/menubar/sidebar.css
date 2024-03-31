@@ -13,7 +13,8 @@
     left: 0;
     bottom: 0;
     width: 250px;
-    background: #343957;
+    /* background: #343957; */
+    background: #1C1C1C;
     /* font-size: 14px; */
     z-index: 100;
     overflow: auto;
@@ -21,7 +22,7 @@
     transform: translateZ(0);
     -webkit-transition: width 300ms ease-in-out;
     transition: width 300ms ease-in-out;
-     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.50);
+     /* box-shadow: 0 5px 20px rgba(0, 0, 0, 0.50); */
 }
 
 .sidebar.sidebar-static {
@@ -72,7 +73,7 @@
 
 .sidebar .nano-content>ul li>ul {
     display: none;
-    background: rgba(52,57,87,0.2)!important;
+    /* background: rgba(52,57,87,0.2)!important; */
 }
 
 .sidebar .nano-content>ul li.open>ul {
@@ -82,8 +83,8 @@
 .sidebar .nano-content>ul li>a {
     display: block;
     cursor: pointer;
-    color: #BDBDC7;
-    padding: 10px;
+    color: #707070;
+    padding: 5px;
     line-height: 30px;
     border-bottom: none;
     /* background: #343957; */
@@ -91,6 +92,7 @@
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     position: relative;
+    font-size: 14px;
 }
 
 .sidebar .nano-content>ul li>a:hover {
@@ -146,7 +148,8 @@ html.rtl .sidebar .nano-content>ul>li.label, html.rtl .sidebar .nano-content>ul>
 }
 
 .sidebar .nano-content>ul>li.active>a, .sidebar .nano-content>ul>li.open>a, .sidebar .nano-content>ul>li>ul {
-    background: linear-gradient(to right, #5772FE , #6D85FB);
+    /* background: linear-gradient(to right, #02CF8B , #02CF8B); */
+    color: white;
 }
 
 .sidebar .nano-content>ul>li>ul>li.label, .sidebar .nano-content>ul>li>ul>li.content, .sidebar .nano-content>ul>li>ul>li>a {
@@ -160,7 +163,9 @@ html.rtl .sidebar .nano-content>ul>li>ul>li.label, html.rtl .sidebar .nano-conte
 }
 
 .sidebar .nano-content>ul>li>ul>li.active>a, .sidebar .nano-content>ul>li>ul>li.open>a, .sidebar .nano-content>ul>li>ul>li>ul {
-    background: #242634;
+    /* background: #242634; */
+    /* background: #00B594; */
+    color: white;
 }
 
 .sidebar .nano-content>ul>li>ul>li>ul>li.label, .sidebar .nano-content>ul>li>ul>li>ul>li.content, .sidebar .nano-content>ul>li>ul>li>ul>li>a {
@@ -564,16 +569,16 @@ html.rtl .sidebar-hide .sidebar.sidebar-shrink.sidebar-hide-to-small~.content-wr
     top: 10px;
     -webkit-transition: all 0.3s ease-in-out 0s;
     transition: all 0.3s ease-in-out 0s;
-    width: 37px;
+    /* width: 37px; */
     z-index: 999;
 }
 
 .hamburger .line {
     background-color: #252525;
     display: block;
-    height: 3px;
-    margin: 4px auto;
-    width: 22px;
+    height: 2px;
+    margin: 3px auto;
+    width: 18px;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }

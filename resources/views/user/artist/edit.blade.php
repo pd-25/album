@@ -1,58 +1,41 @@
 @extends('user.main')
 @section('title', env('APP_NAME') . ' | Artist-Edit')
 @section('content')
+<div class="row">
+    <div class="col-md-12 mb-3 d-flex bg-white">
+        <div class="d-flex align-items-center">
+            <a href="{{route('userArtists.index')}}"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        <div class="ml-4 ">
+            <h3 style="font-size: 400">Edit Artist</h3>
+            @if (Session::has('msg'))
+                <p class="alert alert-info">{{ Session::get('msg') }}</p>
+            @endif
+        </div>
+    </div>
+</div>
     <div class="row justify-content-center">
         <div class="col-lg-11">
             <form action="{{ route('userArtists.update', encrypt($artist->id)) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="card">
-                    <div class="card-title">
-                        <h4>Edit Artist</h4>
-                        @if (Session::has('msg'))
-                            <p class="alert alert-info">{{ Session::get('msg') }}</p>
-                        @endif
-                    </div>
                     <div class="card-body">
                         <div class="basic-form">
-
-
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Artist Name</label><span class="text-danger">*</span>
-                                        <input type="text" class="form-control" placeholder="full name" name="name"
-                                            value="{{ $artist->name }}" required>
-
-
-                                        @error('name')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ 'Artist name field is required' }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Email</label><span class="text-danger">*</span>
-                                        <input type="email" class="form-control" placeholder="abc@mail.com" name="email"
-                                            value="{{$artist->email }}" required>
-
-
-                                        @error('email')
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    
                                 </div>
-                            </div>
-
-
+                            </div> --}}
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <label>Attach the banner image here</label><span class="text-danger">*</span>
-                                        <input type="file" class="form-control" name="image"
-                                             id="imgInp">
+                                        <label>Attach the banner image here</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="form-control custom-file-input" name="image"
+                                                id="imgInp">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
                                         <span>File format: JPG or PNG</span><br>
                                         <span>Recommended minimum width or height: 1400 pixels</span>
                                         @error('image')
@@ -67,12 +50,7 @@
                                             
                                     </div>
                                 </div>
-
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -83,23 +61,35 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-
-
-                            <div class="form-group">
-                                <label>Biography</label><span class="text-danger">*</span>
-                                <textarea name="biography" class="form-control" cols="40" rows="10">{{ $artist->biography }}</textarea>
-
-
+                            <div class="col-md-12">
+                                <label class="control-label">Official artist/band name </label><span class="text-danger"> *</span>
+                                <input type="text" class="form-control control-form" placeholder="Written exactly as you want it to appear everywhere (stores, web, etc.). And written in the SAME LANGUAGE that you will use to write your release information when distributing to stores/services." name="name"
+                                    value="{{ $artist->name }}" required>
+                                @error('name')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ 'Artist name field is required' }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-12">
+                                <label class="control-label">Email</label>
+                                <input type="email" class="form-control control-form" placeholder="abc@mail.com" name="email"
+                                    value="{{$artist->email }}" required>
+                                @error('email')
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-12">
+                                <label class="control-label">Biography</label>
+                                <textarea name="biography" class="form-control h-auto control-form-textarea"  rows="4">{{ $artist->biography }}</textarea>
                                 @error('biography')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -114,7 +104,7 @@
 
                             <div class="form-group">
                                 <label>Indicate this artist's IDs if they already have a profile page on these music
-                                    services.</label><span class="text-danger">*</span>
+                                    services.</label>
                                 <div class="row">
                                     <div class="col-md-1">
                                         <label class="inline vertical-center img-list" data-bind="tooltip: ''"
@@ -123,11 +113,11 @@
                                             data-original-title="Spotify artist ID"></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input class="form-control ui-input has-error" type="text" value="{{ $artist->spotify_id }}"
+                                        <input class="form-control ui-input has-error control-form" type="text" value="{{ $artist->spotify_id }}"
                                             placeholder="Enter Spotify artist ID" name="spotify_id"
                                             data-bind="value: spotifyId.editable, attr: { maxlength: 22 }"
                                             title="Invalid Spotify Id, it must start with a number from 0 to 7, followed by 21 characters, which must be either a number or letter from Latin alphabet."
-                                            maxlength="22" required>
+                                            maxlength="22">
                                     </div>
                                 </div>
 
@@ -139,26 +129,18 @@
                                             data-original-title="Apple Music artist ID"></label>
                                     </div>
                                     <div class="col-md-11">
-                                        <input class="form-control ui-input" type="number"
+                                        <input class="form-control ui-input control-form" type="number"
                                             placeholder="Enter Apple Music artist ID" name="apple_id" value="{{ $artist->apple_id }}"
                                             data-bind="value: appleId.editable, attr: { maxlength: 10 }" maxlength="10"
-                                            title="" required>
+                                            title="" >
                                     </div>
                                 </div>
-
-
-
-
                                 @error('user_id')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ 'Artist name field is required' }}</strong>
                                     </span>
                                 @enderror
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -169,16 +151,14 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-
-
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>Description</label>
+                                        <label class="control-label">Description</label>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label>Website address (url)</label>
+                                        <label class="control-label">Website address (url)</label>
                                     </div>
                                 </div>
 
@@ -198,17 +178,11 @@
                                     </div>
                                     @endforeach
                                 </div>
-
                                 <div onclick="addWeb()">
                                     <span class="text-blue bold large vertical-sub link-cursor"> + </span>
                                     <span class="btn btn-link blue no-padding-horizontal">Add website</span>
                                 </div>
-
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -219,19 +193,15 @@
                     </div>
                     <div class="card-body">
                         <div class="basic-form">
-
-
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <label>Description</label>
+                                        <label class="control-label">Description</label>
                                     </div>
-
                                     <div class="col-md-6">
-                                        <label>Name</label>
+                                        <label class="control-label">Name</label>
                                     </div>
                                 </div>
-
                                 <div id="localization-area">
                                     @foreach ($artist->artistLocal as $artistLoca)
                                         <div class="row" id="localization-id-1">
@@ -241,8 +211,6 @@
                                                     <option {{ $artistLoca->language == $key ? 'selected' : '' }}
                                                         value="{{ $key }}">{{ $value }}</option>
                                                     @endforeach
-                                                    
-                                                   
                                                 </select>
                                             </div>
                                             <div class="col-md-6">
@@ -251,27 +219,17 @@
                                                     placeholder="Artist name written in the chosen language"
                                                     class="form-control" required="">
                                             </div>
-                                           
                                         </div>
                                     @endforeach
                                 </div>
-
                                 <div onclick="addLocalization()">
                                     <span class="text-blue bold large vertical-sub link-cursor"> + </span>
                                     <span class="btn btn-link blue no-padding-horizontal">Add Localization</span>
                                 </div>
-
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
-
-               
-
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
@@ -293,7 +251,7 @@
                 inputText.type = 'text';
                 inputText.name = 'webSiteName[]';
                 inputText.placeholder = 'Example: Official Website';
-                inputText.className = 'form-control';
+                inputText.className = 'form-control control-form';
                 inputText.required = true;
                 col1.appendChild(inputText);
 
@@ -303,7 +261,7 @@
                 inputUrl.type = 'url';
                 inputUrl.name = 'url[]';
                 inputUrl.placeholder = 'http://www.therollingstones.com';
-                inputUrl.className = 'form-control';
+                inputUrl.className = 'form-control control-form';
                 inputUrl.required = true;
                 col2.appendChild(inputUrl);
 
@@ -365,7 +323,7 @@
                 inputUrl.type = 'text';
                 inputUrl.name = 'artist_name[]';
                 inputUrl.placeholder = 'Artist name written in the chosen language';
-                inputUrl.className = 'form-control';
+                inputUrl.className = 'form-control control-form';
                 inputUrl.required = true;
 
                 col2.appendChild(inputUrl);

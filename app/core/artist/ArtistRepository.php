@@ -9,6 +9,8 @@ use App\Models\Label;
 use App\Models\Asset;
 use App\Models\Website;
 use App\Models\Store;
+use App\Models\OtherKeyArtist;
+use App\Models\News;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -172,5 +174,15 @@ class ArtistRepository implements ArtistInterface
     public function getAllStore()
     {
         return Store::where('status', 1)->orderBy('label_name', 'ASC')->get();
+    }
+
+    public function getuserwiseOtherkeyartist($id)
+    {
+        return OtherKeyArtist::where('user_id', $id)->orderBy('other_key_artist_name', 'ASC')->get();
+    }
+
+    public function getAllOtherkeyartist()
+    {
+        return OtherKeyArtist::orderBy('other_key_artist_name', 'ASC')->get();
     }
 }

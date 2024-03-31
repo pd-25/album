@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('label_name')->nullable();
             $table->string('cover_image')->nullable();
-            $table->boolean('status')->nullable()->comment('0=>active, 1=>deactive');
+            $table->boolean('status')->nullable()->comment('1=>active, 0=>deactive');
             $table->timestamps();
         });
     }

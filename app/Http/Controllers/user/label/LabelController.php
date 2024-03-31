@@ -6,6 +6,7 @@ use App\core\artist\ArtistInterface;
 use App\core\label\LabelInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Label;
 
 class LabelController extends Controller
 {
@@ -43,14 +44,11 @@ class LabelController extends Controller
         $request->validate([
             // 'location' => 'required|string',
             'official_name' => 'required|string',
-            'email' => 'required|email|unique:labels',
-            'description' => 'required|max:1000',
-            'number' => 'required|numeric',
-            'image' => 'nullable|max:2048',
+            'email' => 'nullable|email|unique:labels',
+            'number' => 'nullable|numeric',
+            'image' => 'nullable|max:1400|mimes:jpeg,jpg,png',
 
         ]);
-
-
         $labelData = $request->only('official_name','email','description','number','location','image');
         $labelData['user_id'] = auth()->id();
         $genreData = $request->only('gener_id');
@@ -76,7 +74,8 @@ class LabelController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $label = Label::find(decrypt($id));
+        return view('user.label.edit', compact('label'));
     }
 
     /**
@@ -92,6 +91,11 @@ class LabelController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $delete = $this->labelInterface->deleteLabel(decrypt($id));
+        if ($delete) {
+            return back()->with('msg', 'Label has been deleted successfully.');
+        } elseif ($delete == 'No data') {
+            return back()->with('msg', 'No artwork found.');
+        }
     }
 }
